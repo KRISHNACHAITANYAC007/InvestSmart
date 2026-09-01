@@ -1,0 +1,62 @@
+package com.example.investsmart.dto;
+
+import com.example.investsmart.entity.User;
+
+import java.math.BigDecimal;
+
+public class UserResponse {
+
+    private Long id;
+    private String name;
+    private String email;
+    private String role;
+    private BigDecimal virtualBalance;
+
+    public UserResponse() {
+    }
+
+    public UserResponse(
+            Long id,
+            String name,
+            String email,
+            String role,
+            BigDecimal virtualBalance) {
+
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.role = role;
+        this.virtualBalance = virtualBalance;
+    }
+
+    public static UserResponse fromUser(User user) {
+
+        return new UserResponse(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getRole(),
+                user.getVirtualBalance()
+        );
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public BigDecimal getVirtualBalance() {
+        return virtualBalance;
+    }
+}

@@ -1,0 +1,17 @@
+.stocks-page {
+    width: 100%;
+}
+
+.stocks-header {
+    margin-bottom: 30px;
+}
+
+.stocks-header h1 {
+    margin: 0 0 8px;
+    font-size: 36px;
+}
+
+.stocks-header p {
+    color: #6b7280;
+    margin: 0;
+}

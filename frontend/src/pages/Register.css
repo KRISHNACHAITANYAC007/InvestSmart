@@ -1,0 +1,241 @@
+.register-page {
+    min-height: 100vh;
+
+    display: flex;
+
+    background: #f8fafc;
+}
+
+
+
+
+
+.register-brand {
+    width: 42%;
+
+    padding: 55px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background: #166da3;
+
+    color: white;
+}
+
+.register-brand h1 {
+    margin: 0 0 12px;
+
+    font-size: 42px;
+    font-weight: 700;
+
+    color: white;
+}
+
+.register-brand p {
+    margin: 0;
+
+    font-size: 17px;
+
+    color: #e0edf5;
+}
+
+
+
+
+
+.register-section {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    box-sizing: border-box;
+}
+
+.register-box {
+    width: 100%;
+    max-width: 390px;
+}
+
+.register-box h2 {
+    margin: 0 0 7px;
+
+    font-size: 30px;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.register-subtitle {
+    margin: 0 0 28px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+
+
+
+.register-field {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 18px;
+}
+
+.register-field label {
+    margin-bottom: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #374151;
+}
+
+.register-field input {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+
+    background: white;
+
+    font-size: 15px;
+
+    color: #111827;
+}
+
+.register-field input::placeholder {
+    color: #9ca3af;
+}
+
+.register-field input:focus {
+    outline: none;
+
+    border-color: #166da3;
+
+    box-shadow: 0 0 0 2px rgba(22, 109, 163, 0.1);
+}
+
+
+
+
+.register-button {
+    width: 100%;
+
+    margin-top: 5px;
+
+    padding: 12px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: #166da3;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background 0.15s ease;
+}
+
+.register-button:hover {
+    background: #125b89;
+}
+
+
+
+
+
+.register-error {
+    margin: 0 0 15px;
+
+    color: #dc2626;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.register-success {
+    margin: 0 0 15px;
+
+    color: #15803d;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+
+
+
+.register-login {
+    margin-top: 20px;
+
+    text-align: center;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+.register-login span {
+    color: #166da3;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.register-login span:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+@media (max-width: 700px) {
+
+    .register-page {
+        flex-direction: column;
+    }
+
+    .register-brand {
+        width: 100%;
+
+        padding: 35px 25px;
+
+        min-height: 180px;
+
+        justify-content: flex-end;
+    }
+
+    .register-brand h1 {
+        font-size: 32px;
+    }
+
+    .register-section {
+        padding: 35px 25px;
+    }
+
+    .register-box {
+        max-width: none;
+    }
+
+}

@@ -1,0 +1,173 @@
+.orders-page {
+    width: 100%;
+}
+
+.orders-header {
+    margin-bottom: 30px;
+}
+
+.orders-header h1 {
+    margin: 0 0 8px;
+    font-size: 36px;
+}
+
+.orders-header p {
+    margin: 0;
+    color: #6b7280;
+}
+
+
+.orders-list {
+    display: grid;
+    gap: 16px;
+}
+
+
+
+.order-card {
+    padding: 22px;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+            0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+
+
+.order-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 20px;
+}
+
+.order-card-header h3 {
+    margin: 0 0 5px;
+
+    font-size: 20px;
+    color: #111827;
+}
+
+.order-card-header p {
+    margin: 0;
+
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+
+.order-type-buy,
+.order-type-sell {
+    padding: 5px 10px;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.order-type-buy {
+    color: #15803d;
+    background: #dcfce7;
+}
+
+.order-type-sell {
+    color: #b91c1c;
+    background: #fee2e2;
+}
+
+
+.order-details {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.order-details div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.order-details span {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.order-details strong {
+    color: #111827;
+    font-size: 15px;
+}
+
+.order-status {
+    text-transform: capitalize;
+
+    padding: 5px 10px;
+
+    width: fit-content;
+
+    border-radius: 6px;
+
+    background: #f3f4f6;
+}
+
+
+
+.orders-empty {
+    padding: 35px;
+
+    text-align: center;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    color: #6b7280;
+}
+
+
+
+@media (max-width: 800px) {
+
+    .order-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .order-card-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .order-details {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+.order-details div:nth-child(3) strong {
+    font-weight: 700;
+}

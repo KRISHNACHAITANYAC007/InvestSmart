@@ -1,0 +1,149 @@
+.dashboard-card {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: white;
+}
+
+.dashboard-card h2 {
+    margin-top: 0;
+}
+
+.dashboard-card-value {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.stock-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.stock-item {
+    padding: 22px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: white;
+
+    cursor: pointer;
+
+    transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            border-color 0.2s ease;
+}
+
+.stock-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
+}
+
+.stock-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 20px;
+}
+
+.stock-symbol {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.stock-item p {
+    margin: 6px 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.stock-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.stock-change-positive {
+    color: #16a34a !important;
+    font-weight: 600;
+}
+
+.stock-change-negative {
+    color: #dc2626 !important;
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .stock-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .stock-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+.order-list {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.order-table th,
+.order-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-table th {
+    font-weight: bold;
+}
+
+.stock-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+
+    margin-top: 18px;
+    padding-top: 15px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.stock-stats div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stock-stats span {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.stock-stats strong {
+    color: #111827;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .stock-stats {
+        gap: 8px;
+    }
+
+    .stock-stats strong {
+        font-size: 13px;
+    }
+}

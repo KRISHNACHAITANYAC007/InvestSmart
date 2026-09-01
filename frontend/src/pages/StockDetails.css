@@ -1,0 +1,206 @@
+.stock-details-page {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+
+
+.stock-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 30px;
+}
+
+.stock-details-symbol {
+    font-size: 36px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.stock-details-company {
+    margin-top: 5px;
+    color: #6b7280;
+}
+
+
+
+.stock-details-price {
+    font-size: 32px;
+    font-weight: 700;
+    color: #111827;
+}
+
+
+
+.stock-details-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+
+    margin-bottom: 30px;
+}
+
+.stock-info-card {
+    padding: 18px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+    background: white;
+}
+
+.stock-info-label {
+    color: #6b7280;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.stock-info-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+}
+
+
+
+.stock-trade-box {
+    padding: 25px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    background: white;
+}
+
+.stock-trade-box h3 {
+    margin-top: 0;
+}
+
+
+
+.stock-quantity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.stock-quantity input {
+    width: 100px;
+
+    padding: 10px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+
+    font-size: 16px;
+}
+
+
+
+.stock-total {
+    font-size: 20px;
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+
+
+.stock-trade-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.stock-buy-button,
+.stock-sell-button {
+    padding: 11px 28px;
+
+    border: none;
+    border-radius: 7px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.stock-buy-button {
+    background: #5a8baa;
+    color: white;
+}
+
+.stock-sell-button {
+    background: #dc2626;
+    color: white;
+}
+
+.stock-buy-button:disabled,
+.stock-sell-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+
+.stock-details-actions {
+    display: flex;
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+.stock-watchlist-button,
+.stock-back-button {
+    padding: 10px 18px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+
+    background: white;
+
+    cursor: pointer;
+}
+
+.stock-watchlist-button:hover,
+.stock-back-button:hover {
+    background: #f3f4f6;
+}
+
+
+
+.stock-success {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.stock-error {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+
+
+@media (max-width: 700px) {
+
+    .stock-details-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .stock-details-info {
+        grid-template-columns: 1fr;
+    }
+
+    .stock-trade-buttons {
+        flex-direction: column;
+    }
+
+    .stock-buy-button,
+    .stock-sell-button {
+        width: 100%;
+    }
+}

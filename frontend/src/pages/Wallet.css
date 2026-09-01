@@ -1,0 +1,182 @@
+.wallet-page {
+    width: 100%;
+}
+
+.wallet-header {
+    margin-bottom: 30px;
+}
+
+.wallet-header h1 {
+    margin: 0 0 8px;
+    font-size: 36px;
+}
+
+.wallet-header p {
+    margin: 0;
+    color: #6b7280;
+}
+
+
+
+.wallet-balance-card {
+    padding: 28px;
+
+    margin-bottom: 25px;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.wallet-balance-label {
+    margin: 0 0 10px;
+
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.wallet-balance-card h2 {
+    margin: 0;
+
+    font-size: 32px;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+
+
+.wallet-action-card {
+    padding: 25px;
+
+    max-width: 600px;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.wallet-action-card h2 {
+    margin: 0 0 6px;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.wallet-action-description {
+    margin: 0 0 25px;
+
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+
+.wallet-input-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    margin-bottom: 20px;
+}
+
+.wallet-input-group label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.wallet-input-group input {
+    padding: 11px 12px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    box-sizing: border-box;
+}
+
+.wallet-input-group input:focus {
+    outline: none;
+    border-color: #6b7280;
+}
+
+
+
+.wallet-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.wallet-buttons button {
+    flex: 1;
+
+    padding: 11px 18px;
+
+    border: none;
+    border-radius: 7px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+            transform 0.15s ease,
+            opacity 0.15s ease;
+}
+
+.wallet-buttons button:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+}
+
+.wallet-deposit-button {
+    background: #16a34a;
+    color: white;
+}
+
+.wallet-withdraw-button {
+    background: #166da3;
+    color: white;
+}
+
+
+
+
+.wallet-success {
+    margin-top: 18px;
+
+    color: #15803d;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.wallet-error {
+    margin-top: 18px;
+
+    color: #dc2626;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+
+
+@media (max-width: 600px) {
+
+    .wallet-buttons {
+        flex-direction: column;
+    }
+
+    .wallet-action-card {
+        max-width: none;
+    }
+
+}
+

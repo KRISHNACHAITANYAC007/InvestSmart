@@ -1,0 +1,622 @@
+
+
+### Create Stock
+POST http://localhost:8080/stocks
+Content-Type: application/json
+
+{
+  "symbol": "INFY",
+  "companyName": "Infosys",
+  "currentPrice": 1799.50,
+  "previousClose": 1760.00,
+  "dayHigh": 1810.00,
+  "dayLow": 1750.00
+}
+###
+POST http://localhost:8080/stocks
+Content-Type: application/json
+
+{
+  "symbol": "MSFT",
+  "companyName": "Microsoft",
+  "currentPrice": 179.50,
+  "previousClose": 160.00,
+  "dayHigh": 180.00,
+  "dayLow": 170.00
+}
+
+### Update Stock
+PUT http://localhost:8080/stocks/1
+Content-Type: application/json
+
+{
+  "symbol": "INFY",
+  "companyName": "Infosys",
+  "currentPrice": 1850.00,
+  "previousClose": 1799.50,
+  "dayHigh": 1870.00,
+  "dayLow": 1780.00
+}
+
+###
+GET http://localhost:8080/stocks/1
+
+###
+GET http://localhost:8080/stocks
+
+###
+DELETE http://localhost:8080/stocks/2
+
+### Add INFY to User 1 Watchlist
+POST http://localhost:8080/watchlist?userId=4&stockId=1
+
+
+
+### Create User
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "Krishna",
+  "email": "krishna@gmail.com",
+  "password": "123456",
+  "role": "USER",
+  "virtualBalance": 100000
+}
+
+### Get User 4 Watchlist
+GET http://localhost:8080/watchlist/4
+
+###
+DELETE http://localhost:8080/watchlist/4/1
+
+### BUY 5 INFY
+POST http://localhost:8080/orders/buy
+Content-Type: application/json
+
+{
+  "userId": 4,
+  "stockId": 1,
+  "quantity": 5
+}
+
+###
+GET http://localhost:8080/users/4
+
+### BUY 3 MORE INFY
+POST http://localhost:8080/orders/buy
+Content-Type: application/json
+
+{
+  "userId": 4,
+  "stockId": 1,
+  "quantity": 3
+}
+
+### SELL 2 INFY
+POST http://localhost:8080/orders/sell
+Content-Type: application/json
+
+{
+  "userId": 4,
+  "stockId": 1,
+  "quantity": 2
+}
+
+### Get User 4 Order History
+GET http://localhost:8080/orders/user/4
+
+###
+GET http://localhost:8080/portfolio/4
+
+### Get User 4 Balance
+GET http://localhost:8080/wallet/4
+
+### Deposit ₹10,000
+POST http://localhost:8080/wallet/deposit
+Content-Type: application/json
+
+{
+  "userId": 4,
+  "amount": 10000
+}
+
+### LOGIN TEST
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "krishna@gmail.com",
+  "password": "123456"
+}
+
+###
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "test@gmail.com",
+  "password": "123456",
+  "role": "USER",
+  "virtualBalance": 100000
+}
+
+###
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "123456"
+}
+
+### LOGIN
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "123456"
+}
+
+### PORTFOLIO WITHOUT JWT
+GET http://localhost:8080/portfolio/4
+
+### PORTFOLIO WITH JWT
+GET http://localhost:8080/portfolio/4
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTc4Njk2OTQ0MSwiZXhwIjoxNzg2OTczMDQxfQ.ahxZPN1hXy075zoUVBzbrkLvA7Tx9YIvs660fkOc4fk0B8IXYDoX2WLP3ClA4koq
+
+### USER THAT DOES NOT EXIST
+GET http://localhost:8080/portfolio/999
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTc4Njk2OTQ0MSwiZXhwIjoxNzg2OTczMDQxfQ.ahxZPN1hXy075zoUVBzbrkLvA7Tx9YIvs660fkOc4fk0B8IXYDoX2WLP3ClA4koq
+
+### USER NOT FOUND
+GET http://localhost:8080/portfolio/999
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTc4Njk2OTQ0MSwiZXhwIjoxNzg2OTczMDQxfQ.ahxZPN1hXy075zoUVBzbrkLvA7Tx9YIvs660fkOc4fk0B8IXYDoX2WLP3ClA4koq
+
+### LOGIN - NEW TOKEN
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "123456"
+}
+
+### USER NOT FOUND
+GET http://localhost:8080/portfolio/999
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTc4Njk2OTQ0MSwiZXhwIjoxNzg2OTczMDQxfQ.ahxZPN1hXy075zoUVBzbrkLvA7Tx9YIvs660fkOc4fk0B8IXYDoX2WLP3ClA4koq
+
+### LOGIN - FRESH TOKEN
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "123456"
+}
+
+### USER NOT FOUND
+GET http://localhost:8080/portfolio/999
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+###
+POST http://localhost:8080/orders/buy
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+{
+  "userId": 4,
+  "stockId": 1,
+  "quantity": -5
+}
+
+### SELL - INVALID QUANTITY
+POST http://localhost:8080/orders/sell
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+{
+  "userId": 4,
+  "stockId": 1,
+  "quantity": -5
+}
+
+### SELL - INSUFFICIENT HOLDINGS
+POST http://localhost:8080/orders/sell
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+{
+  "userId": 4,
+  "stockId": 1,
+  "quantity": 100
+}
+
+
+### BUY - INSUFFICIENT BALANCE
+POST http://localhost:8080/orders/buy
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+{
+  "userId": 4,
+  "stockId": 1,
+  "quantity": 100
+}
+
+### WALLET - INVALID DEPOSIT
+POST http://localhost:8080/wallet/deposit
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+{
+  "userId": 4,
+  "amount": -1000
+}
+
+### WALLET - ZERO DEPOSIT
+POST http://localhost:8080/wallet/deposit
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+{
+  "userId": 4,
+  "amount": 0
+}
+
+### WALLET - INVALID WITHDRAW
+POST http://localhost:8080/wallet/withdraw
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+{
+  "userId": 4,
+  "amount": -500
+}
+
+### WALLET - INSUFFICIENT BALANCE
+POST http://localhost:8080/wallet/withdraw
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+{
+  "userId": 4,
+  "amount": 999999
+}
+
+### WALLET - INVALID WITHDRAW
+POST http://localhost:8080/wallet/withdraw
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+{
+  "userId": 4,
+  "amount": -500
+}
+
+### WALLET - INSUFFICIENT BALANCE
+POST http://localhost:8080/wallet/withdraw
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+{
+  "userId": 4,
+  "amount": 999999
+}
+
+### WATCHLIST - USER NOT FOUND
+POST http://localhost:8080/watchlist?userId=999&stockId=1
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+### EXCEPTION 10 - WATCHLIST USER NOT FOUND
+POST http://localhost:8080/watchlist?userId=999&stockId=1
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+### EXCEPTION 11 - WATCHLIST STOCK NOT FOUND
+POST http://localhost:8080/watchlist?userId=4&stockId=999
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+### EXCEPTION 12 - WATCHLIST DUPLICATE
+POST http://localhost:8080/watchlist?userId=4&stockId=1
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+### BEAN VALIDATION - NEGATIVE QUANTITY
+POST http://localhost:8080/orders/buy
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg2OTc4NTQ5LCJleHAiOjE3ODY5ODIxNDl9.mj0tp5aV2bhB9KqnydzIN5gNnhvMRBibmepfqaMl9pVWHdJ_alIIwClTpCdYTvsP
+
+{
+  "userId": 4,
+  "stockId": 1,
+  "quantity": -5
+}
+
+### FRESH LOGIN
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "123456"
+}
+
+### VALIDATION - NEGATIVE DEPOSIT
+POST http://localhost:8080/wallet/deposit
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDQzMzU3LCJleHAiOjE3ODcwNDY5NTd9.QY83svkD_4n9eVj57B4X5in9ZzkiJGDBVg6c0XgEvLznniWn13eqtlcdpfpjMXHN
+
+{
+  "userId": 4,
+  "amount": -500
+}
+
+### VALIDATION - NULL AMOUNT
+POST http://localhost:8080/wallet/deposit
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDQzMzU3LCJleHAiOjE3ODcwNDY5NTd9.QY83svkD_4n9eVj57B4X5in9ZzkiJGDBVg6c0XgEvLznniWn13eqtlcdpfpjMXHN
+
+{
+  "userId": 4,
+  "amount": null
+}
+
+### VALIDATION - EMPTY EMAIL
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "",
+  "password": "123456"
+}
+
+### VALIDATION - INVALID EMAILi
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "hello",
+  "password": "123456"
+}
+
+### VALIDATION - SHORT PASSWORD
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "123"
+}
+
+### REGISTER - VALIDATION TEST
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "name": "",
+  "email": "newuser@gmail.com",
+  "password": "123456"
+}
+
+### REGISTER - VALID
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "newuser123@gmail.com",
+  "password": "123456"
+}
+
+### VALIDATION - NULL QUANTITY
+POST http://localhost:8080/orders/buy
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDQzMzU3LCJleHAiOjE3ODcwNDY5NTd9.QY83svkD_4n9eVj57B4X5in9ZzkiJGDBVg6c0XgEvLznniWn13eqtlcdpfpjMXHN
+
+{
+  "userId": 4,
+  "stockId": 1,
+  "quantity": null
+}
+
+### VALIDATION - NEGATIVE QUANTITY
+POST http://localhost:8080/orders/buy
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDQzMzU3LCJleHAiOjE3ODcwNDY5NTd9.QY83svkD_4n9eVj57B4X5in9ZzkiJGDBVg6c0XgEvLznniWn13eqtlcdpfpjMXHN
+
+{
+  "userId": 4,
+  "stockId": 1,
+  "quantity": -5
+}
+
+### VALIDATION - NULL AMOUNT
+POST http://localhost:8080/wallet/deposit
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDQzMzU3LCJleHAiOjE3ODcwNDY5NTd9.QY83svkD_4n9eVj57B4X5in9ZzkiJGDBVg6c0XgEvLznniWn13eqtlcdpfpjMXHN
+
+{
+  "userId": 4,
+  "amount": null
+}
+
+### VALIDATION - NEGATIVE AMOUNT
+POST http://localhost:8080/wallet/deposit
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDQzMzU3LCJleHAiOjE3ODcwNDY5NTd9.QY83svkD_4n9eVj57B4X5in9ZzkiJGDBVg6c0XgEvLznniWn13eqtlcdpfpjMXHN
+
+{
+  "userId": 4,
+  "amount": -500
+}
+
+### VALIDATION - INVALID EMAIL
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "hello",
+  "password": "123456"
+}
+
+### VALIDATION - SHORT PASSWORD
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "123"
+}
+### VALIDATION - EMPTY NAME
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "name": "",
+  "email": "newuser@gmail.com",
+  "password": "123456"
+}
+
+### VALIDATION - INVALID REGISTER EMAIL
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "hello",
+  "password": "123456"
+}
+
+### VALIDATION - SHORT REGISTER PASSWORD
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "anotheruser@gmail.com",
+  "password": "123"
+}
+
+### FINAL - LOGIN
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "123456"
+}
+
+### 1. GET ALL STOCKS
+GET http://localhost:8080/stocks
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDU3NjY2LCJleHAiOjE3ODcwNjEyNjZ9.J5u-pZvXhwvUG374JGein7gA2DKzKf0gH5pspEfq070q1nX41agSU3NJU0w5dioc
+
+### 2. GET STOCK 1
+GET http://localhost:8080/stocks/1
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDU3NjY2LCJleHAiOjE3ODcwNjEyNjZ9.J5u-pZvXhwvUG374JGein7gA2DKzKf0gH5pspEfq070q1nX41agSU3NJU0w5dioc
+
+### 3. GET USER 4 BALANCE
+GET http://localhost:8080/wallet/4
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDU3NjY2LCJleHAiOjE3ODcwNjEyNjZ9.J5u-pZvXhwvUG374JGein7gA2DKzKf0gH5pspEfq070q1nX41agSU3NJU0w5dioc
+
+### 4. GET CURRENT WATCHLIST
+GET http://localhost:8080/watchlist/4
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDU3NjY2LCJleHAiOjE3ODcwNjEyNjZ9.J5u-pZvXhwvUG374JGein7gA2DKzKf0gH5pspEfq070q1nX41agSU3NJU0w5dioc
+
+### 5. ADD STOCK 1 TO WATCHLIST
+POST http://localhost:8080/watchlist?userId=4&stockId=1
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDU3NjY2LCJleHAiOjE3ODcwNjEyNjZ9.J5u-pZvXhwvUG374JGein7gA2DKzKf0gH5pspEfq070q1nX41agSU3NJU0w5dioc
+
+### 6. BUY 1 INFY
+POST http://localhost:8080/orders/buy
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0aWNAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODc4NDQyMzksImV4cCI6MTc4Nzg0NzgzOX0.FTQwxu85PndCdaL_nefcLFrprTX0zUzgbgoMBJ2AtiCwMlOm-uN5iB4Q0u3p9YN5
+
+{
+  "userId": 7,
+  "stockId": 1,
+  "quantity": 1
+}
+### 7. GET ORDER HISTORY
+GET http://localhost:8080/orders/user/4
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDU3NjY2LCJleHAiOjE3ODcwNjEyNjZ9.J5u-pZvXhwvUG374JGein7gA2DKzKf0gH5pspEfq070q1nX41agSU3NJU0w5dioc
+
+### 8. GET PORTFOLIO
+GET http://localhost:8080/portfolio/4
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDU3NjY2LCJleHAiOjE3ODcwNjEyNjZ9.J5u-pZvXhwvUG374JGein7gA2DKzKf0gH5pspEfq070q1nX41agSU3NJU0w5dioc
+
+### 9. GET WALLET
+GET http://localhost:8080/wallet/4
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDU3NjY2LCJleHAiOjE3ODcwNjEyNjZ9.J5u-pZvXhwvUG374JGein7gA2DKzKf0gH5pspEfq070q1nX41agSU3NJU0w5dioc
+
+### 10. SELL 1 INFY
+POST http://localhost:8080/orders/sell
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDU3NjY2LCJleHAiOjE3ODcwNjEyNjZ9.J5u-pZvXhwvUG374JGein7gA2DKzKf0gH5pspEfq070q1nX41agSU3NJU0w5dioc
+
+{
+  "userId": 4,
+  "stockId": 1,
+  "quantity": 1
+}
+
+### 11. FINAL PORTFOLIO
+GET http://localhost:8080/portfolio/4
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDU3NjY2LCJleHAiOjE3ODcwNjEyNjZ9.J5u-pZvXhwvUG374JGein7gA2DKzKf0gH5pspEfq070q1nX41agSU3NJU0w5dioc
+
+### 12. FINAL WALLET
+GET http://localhost:8080/wallet/4
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDU3NjY2LCJleHAiOjE3ODcwNjEyNjZ9.J5u-pZvXhwvUG374JGein7gA2DKzKf0gH5pspEfq070q1nX41agSU3NJU0w5dioc
+
+### 13. FINAL WATCHLIST
+GET http://localhost:8080/watchlist/4
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzg3MDU3NjY2LCJleHAiOjE3ODcwNjEyNjZ9.J5u-pZvXhwvUG374JGein7gA2DKzKf0gH5pspEfq070q1nX41agSU3NJU0w5dioc
+
+###
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "testic@gmail.com",
+  "password": "123456"
+}
+
+### Get current user's portfolio
+GET http://localhost:8080/portfolio/me
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0aWNAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODc4MDY2NzgsImV4cCI6MTc4NzgxMDI3OH0.ahlzlBmAe0DjXoHasyLc4ZrAn7wl2P6mCrAUdjM3cYMtK1dFKDyhg5shEoyFICaN
+
+###
+GET http://localhost:8080/wallet/me
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0aWNAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODc4MTQ3ODksImV4cCI6MTc4NzgxODM4OX0.uA4D086RAPMJtBmzAFH_gdYz4NQBTT1fbO7L6g_2_NU-QTyceiZUL3_1dOJA0hRL
+
+###
+GET http://localhost:8080/orders/me
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0aWNAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODc4MzU5NzksImV4cCI6MTc4NzgzOTU3OX0.8SCujolAqnKWhqEF-H7JdBI8yRyvNwMw0GU7dccSsW3qIjbkMdCpKumZogn66mnK
+
+
+### Get all stocks
+GET http://localhost:8080/stocks
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0aWNAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODc4MzU5NzksImV4cCI6MTc4NzgzOTU3OX0.8SCujolAqnKWhqEF-H7JdBI8yRyvNwMw0GU7dccSsW3qIjbkMdCpKumZogn66mnK
+
+###
+GET http://localhost:8080/watchlist/me
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0aWNAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODgwOTI5NTAsImV4cCI6MTc4ODA5NjU1MH0.sPf8ciPmMdhQSrqL11c-WtVeO1wwnKtLow7pNCNdFc9mIKVud9hXtPzI7vtctM6-
+
+###
+POST http://localhost:8080/wallet/deposit
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0aWNAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODgwOTEwMjksImV4cCI6MTc4ODA5NDYyOX0.R5HXChKIupDj-0JgVs378Cl1uKeHDVigBS8MPA9uvrWkpqXMR2YplUjkuPUtJcNi
+
+{
+    "userId": 1,
+    "amount": 1000
+}
+
+###
+POST http://localhost:8080/watchlist?stockId=1
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0aWNAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODgwOTI5NTAsImV4cCI6MTc4ODA5NjU1MH0.sPf8ciPmMdhQSrqL11c-WtVeO1wwnKtLow7pNCNdFc9mIKVud9hXtPzI7vtctM6-
+
+###
+DELETE http://localhost:8080/watchlist/me/1
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0aWNAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODgwOTI5NTAsImV4cCI6MTc4ODA5NjU1MH0.sPf8ciPmMdhQSrqL11c-WtVeO1wwnKtLow7pNCNdFc9mIKVud9hXtPzI7vtctM6-

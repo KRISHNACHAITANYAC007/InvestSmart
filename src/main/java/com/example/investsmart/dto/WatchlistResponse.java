@@ -12,6 +12,19 @@ public class WatchlistResponse {
     private BigDecimal dayHigh;
     private BigDecimal dayLow;
     private BigDecimal previousClose;
+    private String instrumentKey;
+    private String exchange;
+    private String isin;
+    private java.time.LocalDateTime marketDataUpdatedAt;
+
+    public String getInstrumentKey() { return instrumentKey; }
+    public void setInstrumentKey(String value) { instrumentKey = value; }
+    public String getExchange() { return exchange; }
+    public void setExchange(String value) { exchange = value; }
+    public String getIsin() { return isin; }
+    public void setIsin(String value) { isin = value; }
+    public java.time.LocalDateTime getMarketDataUpdatedAt() { return marketDataUpdatedAt; }
+    public void setMarketDataUpdatedAt(java.time.LocalDateTime value) { marketDataUpdatedAt = value; }
 
     public WatchlistResponse() {
     }

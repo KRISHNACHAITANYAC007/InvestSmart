@@ -1,0 +1,10 @@
+.page-tabs { display:flex; gap:5px; margin:18px 0 24px; border-bottom:1px solid #dce3ec; overflow-x:auto; }
+.page-tabs button { background:transparent; border:0; border-bottom:2px solid transparent; padding:11px 19px; color:#68788b; font:inherit; font-size:13px; white-space:nowrap; cursor:pointer; }
+.page-tabs button[aria-current="page"] { border-bottom-color:#138b79; color:#087c6b; font-weight:650; }
+.page-tabs button:hover { background:#eef7f4; }.page-tabs button:focus-visible { outline:2px solid #138b79; outline-offset:-3px; }
+.page-heading-actions { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.portfolio-funds-actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.holding-actions { display:flex; align-items:center; gap:12px; margin-top:15px; }.holding-actions a { color:#087c6b; font-size:12px; }
+.holdings-preview { display:grid; gap:10px; }.holdings-preview-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:14px; border:1px solid #dce3ec; border-radius: var(--ui-radius, 8px); text-decoration:none; color:#172335; background:#fff; }
+.holdings-preview-row:hover { border-color:#75b9aa; }.holdings-preview-row span { display:grid; gap:5px; }.holdings-preview-row small { font-size:11px; color:#68788b; }.holdings-preview-row strong { font-size:13px; }.holdings-preview-row > span:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+.orders-filters { display:flex; flex-wrap:wrap; gap:12px; margin:20px 0; }.orders-filters input,.orders-filters select { padding:9px 12px; border:1px solid #dce3ec; border-radius:6px; background:#fff; font:inherit; font-size:12px; }.orders-filters input { flex:1; min-width:180px; }

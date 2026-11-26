@@ -1,0 +1,15 @@
+.options-desk { display: grid; gap: 16px; min-width: 0; }
+.options-heading,.options-actions,.options-filters { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.options-heading { justify-content: space-between; }
+.options-desk h2,.options-desk h3,.options-desk p { margin: 0; }
+.options-disclosure { padding: 14px; background: #f3f6fa; color: #455164; border: 1px solid #dce3eb; border-radius: 8px; line-height: 1.6; }
+.options-error { color: #a12727; }
+.options-filters label { display: grid; gap: 6px; font-weight: 600; }
+.options-filters select,.options-filters input { min-height: 40px; padding: 8px; border: 1px solid #c7d0db; border-radius: 6px; max-width: 240px; }
+.options-table-scroll { overflow-x: auto; max-height: 520px; border: 1px solid #dce3eb; border-radius: 8px; }
+.options-desk table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; white-space: nowrap; }
+.options-desk th,.options-desk td { padding: 12px; border-bottom: 1px solid #e5eaf0; }
+.options-desk th { background: #f3f6fa; position: sticky; top: 0; }
+.options-desk caption { text-align: left; padding: 10px; color: #536176; }
+.options-ticket { display: grid; gap: 16px; padding: 20px; border: 2px solid #456caa; border-radius: 8px; }
+@media(max-width:600px) { .options-heading { align-items: flex-start; }.options-filters label { width: 100%; }.options-filters select,.options-filters input { max-width: 100%; width: 100%; }.options-ticket { padding: 14px; } }

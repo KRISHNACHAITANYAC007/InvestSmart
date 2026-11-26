@@ -1,0 +1,1053 @@
+INVESTSMART - WHAT I NEED TO DO MANUALLY
+
+DECISION: 2026-11-23 — PAUSED BY OWNER DECISION.
+Reason: prioritizing V3 development before public launch.
+M01-M32: ON HOLD — V3 DEVELOPMENT IN PROGRESS.
+This hold supersedes every action instruction below until the owner resumes
+deployment. Keep all unfinished tasks pending; no purchase, deployment, paid
+activation, production DNS change, publication or automatic rotation is authorized.
+Historical 7 PASS / 2 FAIL / 17 BLOCKED remains unchanged and does not certify V3.
+Use DEPLOYMENT_CHECKLIST.md as the sole canonical dependency list. Existing prices
+and procedures below remain dated historical information, not current purchase advice.
+Prepared: 2026-11-16. Prices and external procedures checked on this date.
+Purpose: a self-contained guide that you can upload to ChatGPT.
+
+READ THIS FIRST
+===============
+There are 32 numbered manual task groups, M01-M32, below. All are currently
+unverified. Some steps have alternatives: complete your chosen route, not every
+alternative. Sub-checkboxes describe the actions within each group.
+
+Production is NOT approved. The catalogue has 7 PASS / 2 FAIL / 17 BLOCKED gates.
+Two BLOCKED gates are deferred V3 work, not V2 launch requirements. The applicable
+V2 gates therefore have 7 PASS / 2 FAIL / 15 BLOCKED results.
+
+Do not buy, deploy, promote an owner, change credentials, change DNS, publish
+source, or open public access just because these instructions exist. Give a
+separate explicit approval for each paid or sensitive action when you reach it.
+The final production commissioning and public-launch approvals are DIFFERENT.
+
+NEVER put these in this file, ChatGPT uploads, screenshots, Git, or pasted logs:
+passwords, private SSH keys, SMTP keys, API/access/analytics tokens, encryption
+keys, authenticator setup secrets, recovery codes, cookies or authorization URLs.
+Keep your real owner email and other private account identifiers out of the
+handoff documents. Enter them only in the appropriate private account/config.
+Do not upload production.env, application-local properties, test.http, SQL dumps,
+your password vault, or unredacted browser/network logs.
+
+This guide contains NO real credentials. UPPERCASE names such as SERVER_IP and
+RELEASE_ID are placeholders. Replace them privately; do not type them literally.
+app.example.com and staging.example.com are examples, not your deployment.
+
+WHERE TO WORK:
+- Personal Windows PC: the InvestSmart source folder, PowerShell, your browsers.
+- Staging server: a NEW isolated Linux machine for controlled acceptance.
+- Production server: a DIFFERENT Linux machine and fresh database, unless an
+  existing-data upgrade is explicitly approved and rehearsed.
+- Do not paste Linux commands into Windows PowerShell, or the other way around.
+- The current Compose network is fixed. Different project names alone do NOT
+  make concurrent staging/production on one host a supported configuration.
+
+FOR THE CHATGPT SESSION READING THIS FILE
+---------------------------------------
+Guide me through the first unfinished task, one service at a time. Do not ask me
+to paste secrets. Before purchases, publication, bootstrap, deployment or public
+exposure, ask for my explicit approval and explain the specific action/cost.
+Perform routine code/server/test work automatically only when tools and approved
+access actually exist. If you cannot access my project/server, explain exactly
+which local terminal action I must perform; do not claim you performed it.
+Never automate login, OTP, Windows Hello, biometrics or owner-MFA prompts.
+Record dated evidence, not assumptions. Stop a blocked task and continue only
+independent safe tasks. Do not repeat a failing long benchmark on the same host.
+Do not treat a privacy/licensing restriction as something to bypass with code.
+
+TRACKING AND WHAT IS ALREADY VERIFIED
+------------------------------------
+DEPLOYMENT_CHECKLIST.md remains the canonical project dependency list. This TXT
+is its requested portable expansion, not a separate independently maintained
+release ledger. A personal checkmark is not a production-gate PASS: send only
+safe completion evidence so the coding assistant can update the checklist,
+PROJECT_HANDOFF.md and RELEASE_READINESS_REPORT.md consistently.
+
+Already done automatically; do not manually repeat these as setup chores:
+- The validated code snapshot passed 332 backend tests total: 317 executed,
+  15 explicitly skipped opt-in tests, zero failures/errors.
+- Frontend: 51 tests, lint and production build passed. Tooling: 40 tests passed.
+- Fresh 2026-11-16 npm audit: zero findings. Maven OSV: 143 coordinates, zero
+  advisory matches. These are scoped known-advisory checks, not a guarantee
+  against unknown vulnerabilities or a container-OS penetration test.
+- Isolated MySQL 8.4, migration parity, backup/restore, restart, trusted local
+  HTTPS, CSRF, security headers, oversized-body rejection and staging restrictions
+  passed for the latest validated package.
+- The previously inconsistent local frontend install was aligned to the reviewed
+  lockfile. Tree/lint/51 tests/build passed; all 9 build files match the validated
+  bundle. No development server was stopped or started. No manual npm repair is
+  outstanding.
+- Current candidate: target/releases/InvestSmart-v2-dzYbes.tar.gz
+  SHA256: beefbe50cd6b1b89aaa2266d3c30a6ddf3e60fb550f1fadb3ec52ba72ad0ab3f
+  Its 56 payload checksums, 17 migration files and portable checks passed.
+- Known-sensitive-value inspection of its JAR/payload/selected logs found no
+  matches across 501 files. Source/history credential clearance is still pending.
+- No public deployment, purchase, real broker order or production-data change
+  was performed. No owner/physical-device acceptance was inferred from tests.
+
+If code changes after that snapshot, the assistant must automatically regenerate
+and reverify the candidate. The old archive certifies only its own snapshot.
+
+COSTS - CHOOSE AND APPROVE BEFORE PAYING
+======================================
+These are illustrative choices, not a requirement to use a particular vendor.
+Existing suitable accounts/hardware may remove incremental costs. USD amounts
+exclude tax, currency conversion, premium domains, egress, excess usage and any
+data-licensing charges. Recheck the actual checkout and renewal price.
+
+Service/capability                 Classification and indicative cost
+--------------------------------  -------------------------------------------
+GitHub private source repository   FREE account option; source must be reviewed.
+Standard Linux Actions benchmark  FREE within your included quota/storage.
+                                  Otherwise listed Linux 2-core rate is about
+                                  USD 0.006/min: up to USD 0.54 for a 90-minute
+                                  job, plus applicable artifact/storage charges.
+                                  Confirm actual plan/runner and budget first.
+Linux hosting                     PAID unless you already have suitable hosting.
+                                  Concrete example: DigitalOcean Basic Regular
+                                  4 vCPU / 8 GiB / 160 GiB, USD 48/month each.
+                                  One staging + one production server, both
+                                  retained: approximately USD 96/month total.
+                                  This trial size is NOT proven app capacity.
+Domain                            PAID unless you already own one. Cloudflare
+                                  currently lists ordinary .com registration
+                                  and renewal around USD 11.17/year. Premium
+                                  names/other suffixes can cost much more.
+Cloudflare authoritative DNS       FREE plan sufficient for this route; use
+                                  DNS ONLY, not the proxy/CDN for app records.
+Caddy/public TLS certificates      FREE automatic ACME certificates; no paid SSL
+                                  certificate is required for this setup.
+Brevo transactional SMTP           FREE option: 300 sends/day, subject to account
+                                  approval/conditions. Paid tiers start around
+                                  USD 9/month; optional until limits require it.
+Upstox API/Analytics Token         Standard access is advertised FREE; account
+                                  charges/eligibility may differ. Public data
+                                  display/redistribution permission is a
+                                  SEPARATE requirement; licensing cost is
+                                  UNKNOWN until the provider approves/quotes.
+Encrypted OFF-HOST backup storage  REQUIRED capability, vendor choice. Example:
+                                  DigitalOcean Spaces starts USD 5/month for
+                                  250 GiB; excess storage/transfer costs extra.
+                                  Existing suitable private storage can be used.
+Droplet resource monitoring        FREE opt-in DigitalOcean Monitoring.
+External uptime monitoring         Example Better Stack FREE tier advertises
+                                  10 monitors/heartbeats, 3-minute checks.
+                                  Check current terms; faster/premium escalation
+                                  features are OPTIONAL PAID upgrades.
+Authenticator/passkey software     FREE options using existing compatible phone
+                                  and OS. Physical devices/access are required
+                                  for testing; new hardware is not automatically
+                                  a required purchase.
+Support inbox/password storage     Existing suitable tools may be FREE. Paid
+                                  mailboxes/vaults are OPTIONAL choices.
+Privacy/legal/data-license advice  Cost depends on the qualified service/quote.
+                                  Adequate clearance is required; this guide
+                                  cannot provide a legal or licensing approval.
+
+Example recurring infrastructure: two USD 48 hosts + USD 5 backup storage =
+about USD 101/month, plus domain, tax and any other approved usage/licenses.
+Start with staging only; production hosting is purchased later after acceptance.
+A powered-off cloud VM may still be billable. Never delete a host or volume to
+stop charges until you have approved a data-preservation/decommissioning plan.
+Do not buy Twilio/SMS, Stripe, a managed DB, paid CDN, Kubernetes, load balancers,
+Upstox Plus, AI-chat services or an app-store account just to satisfy this V2 guide.
+
+Current official pricing/reference links are listed near tasks and at the end.
+
+PHASE A - DECISIONS, PRIVATE REVIEW AND BENCHMARK AUTHORIZATION
+============================================================
+
+[ ] M01 - Approve scope, spending limits and who can authorize release — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: REL-01, GOV-01. Cost: FREE decision.
+    [ ] Read the NO-GO statement and confirm this is educational PAPER trading:
+        no real customer money, deposits, payouts or broker order placement.
+    [ ] Choose your maximum one-time and monthly budget; include staging,
+        production, domain, off-host backups and possible data licensing.
+    [ ] Confirm one backend worker per environment, separate hosts/DBs/secrets,
+        and private staging before public launch.
+    [ ] Nominate who will personally approve purchases, owner bootstrap, private
+        production commissioning and final public access. These are separate
+        approvals, not one blanket "continue".
+    Safe reply: "M01: paper-only scope confirmed; budget [amount/currency];
+    separate staging/production approved." Do not provide private account IDs.
+
+[ ] M02 - Secure your operator accounts and recovery arrangements — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: SEC-02, SEC-03. Cost: existing/free tools can suffice.
+    [ ] Use an existing trusted password manager, or choose one yourself. Store
+        service logins, SSH passphrases and recovery material there, not here.
+    [ ] Enable account 2FA for GitHub, DNS/registrar, hosting and SMTP provider.
+        Go through each service's Settings/Security page personally.
+    [ ] Set up a compatible phone authenticator and normal device screen lock.
+        Do not disable screen locking to make a benchmark or passkey test work.
+    [ ] Save private recovery material outside the only phone/computer that can
+        access the accounts. Confirm you can recover it, without showing it.
+    Safe reply: "M02: operator accounts protected and private recovery tested."
+
+[ ] M03 - Privately resolve the credential-exposure inventory — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: SEC-03. Cost: FREE review; remediation may need service-owner access.
+    [ ] Open src/main/java/com/example/investsmart/test.http ONLY in a trusted
+        local editor. Do not upload it or paste its contents into ChatGPT.
+    [ ] Identify which services/accounts the password fields refer to and
+        whether any are still active or reused. Keep that inventory private.
+    [ ] Review who could access the original repository/history and any copies.
+        The local review covered 2 reachable commits/107 blobs, not the remote,
+        unreachable objects, Git-LFS content, caches or other people's copies.
+    [ ] Understand the finding: 14 distinct JWT-shaped strings had past expiry
+        claims; that does not prove password reuse is safe. Signatures were not
+        used to establish current account access.
+    [ ] Decide privately whether remediation is needed. Any password/session/key
+        change requires separate explicit owner approval; the assistant must not
+        rotate, delete or expose live credentials as part of this guide.
+        Do not casually replace the application encryption key: stored factors
+        and queued encrypted mail depend on the retained key.
+    Safe reply: "M03: reviewed privately; remediation [not needed / separately
+    approved and completed / still pending]." Never send values or token URLs.
+
+[ ] M04 - Approve a safe source snapshot and publication route — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: SEC-03, REL-01; prerequisite for GitHub CI.
+    Cost: FREE private GitHub option; check account limits.
+    [ ] Choose a reviewed private repository or a controlled private source
+        export. A private repository alone is not a secret-management system.
+    [ ] Ask the coding assistant to prepare an allowlisted source export WITHOUT
+        .git history, test.http, .env/production.env, application-local config,
+        private keys, database dumps, real user data, private logs or old archives.
+        Keep original private files/data intact; do not run destructive cleanup.
+    [ ] Review the file list and exposure report. Approve any remote publication
+        explicitly only after M03. Do not upload the whole current working tree.
+    [ ] Include the reviewed code, public templates, lockfiles, tests and workflow
+        files. Many current files are uncommitted/untracked; an old remote commit
+        is not the latest application just because the repository name matches.
+    [ ] Record the approved commit/source fingerprint and visibility. Ask the
+        assistant to rerun applicable checks for that actual published snapshot.
+    Safe reply: "M04: approved snapshot [commit/fingerprint]; private publication
+    authorized/completed" or "offline source route chosen". No secret files.
+
+[ ] M05 - Obtain market-data/public-use and compliance clearance BEFORE launch spending — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: TR-03, CAP-04, GOV-01. Cost: API access may be free; license UNKNOWN.
+    [ ] Read https://upstox.com/trading-api/ and its business-contact guidance.
+        Use the official business/API support route (currently api@upstox.com)
+        yourself; do not include keys, account passwords or token values.
+    [ ] Describe the actual proposal: multiple website users, educational paper
+        portfolios, live/delayed quotes, charts/history, NIFTY options, caching,
+        hosting location, backups and proposed user/load volumes. Ask which
+        exchanges/segments, display/reuse rights and quotas are explicitly allowed.
+    [ ] Obtain a written applicable answer/agreement and any fee quote. Working
+        REST calls, a personal broker login, Analytics Token or paid Plus plan
+        alone do NOT establish third-party public-display rights.
+    [ ] Review current SEBI/exchange requirements, including the 2024 circular
+        below and later changes, with an appropriately qualified reviewer when
+        needed. Educational labeling is not a blanket exemption.
+    [ ] STOP public release if approval is absent/denied. If only delayed data is
+        permitted, request a separate approved engineering plan; do not inject
+        stale quotes, disable freshness checks or fabricate fills to work around it.
+        Private/offline synthetic benchmarks can proceed independently.
+    Safe reply: "M05: written clearance [obtained/pending/denied]; allowed data
+    scope/delay and cost [non-sensitive summary]." Keep contracts/account IDs private.
+    References:
+    https://www.sebi.gov.in/legal/circulars/may-2024/norms-for-sharing-of-real-time-price-data-to-third-parties_83572.html
+    https://nsearchives.nseindia.com/web/sites/default/files/inline-files/NSE_Data_Sharing%26Usage_Policy.pdf
+    If support requires account eligibility first, complete only that part of M15
+    and return here. Do not assume permission while waiting for an answer.
+
+[ ] M06 - Choose and approve ONE uninterrupted benchmark route — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: CAP-01/02/03, REL-01. Cost: included/free quota or approved usage.
+    [ ] Preferred independent option: reviewed private GitHub source from M04,
+        using .github/workflows/capacity.yml. Alternative: an isolated Linux host
+        with Docker, Java21, Node24 and the current reviewed source checkout.
+    [ ] For GitHub, sign in at https://github.com/ and review your account or
+        organization's Settings -> Billing/usage/budgets and Actions policies.
+        Confirm runner access, included usage, storage and allowed spend. A budget
+        alert is not necessarily a hard spending cap.
+    [ ] For Windows instead, use only an organization/machine-policy-approved
+        execution route on AC power with lid open and no manual sleep. Current
+        policy is Restricted. Do NOT use Bypass/Unrestricted flags or disable
+        security to run scripts. A short power probe is not long-run evidence.
+    [ ] Authorize the selected route and an uninterrupted window, allowing warmup,
+        35 minutes of timed load, 5-minute cooldown and setup/recovery checks.
+    Safe reply: "M06: route [GitHub/Linux/approved Windows]; budget and uninterrupted
+    window approved." Do not give service login details or SSH private keys.
+
+[ ] M07 - Start the approved job and personally accept its evidence — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: CAP-01/02/03. Cost: see M06; no live provider/mail traffic is needed.
+    [ ] GitHub route: after the reviewed workflow is published, open the repository
+        -> Actions -> "InvestSmart synthetic capacity" -> Run workflow -> select
+        the approved branch/ref -> Run workflow. No workflow was dispatched here.
+    [ ] Confirm the job commit matches M04. Its guard rejects protected local
+        files; do not weaken the guard if it fails. Fix source-publication safety
+        through the approved review process instead.
+    [ ] When finished, open the run and download investsmart-capacity-evidence.
+        Give the assistant aggregate JSON/JSONL only, not environments or raw
+        private logs. A green packaging workflow is not the capacity workflow.
+    [ ] Require completed full steady/burst phases, continuous metrics, successful
+        financial reconciliation and capacityAcceptance=PASS. Expected timed rates
+        are 30 requests/second for1800s and60/second for300s with100 sessions.
+        Read p95 <=500ms; mutation p95 <=2s; unexpected errors <1%; no accounting
+        discrepancies. Missing metrics/interruption must not be accepted.
+    [ ] If blocked/failed, send the safe failure category and aggregate report.
+        Do not repeatedly rerun the same unavailable dependency or lower thresholds.
+    Safe reply: "M07: approved run/commit; analysis [PASS/FAIL/BLOCKED]; aggregate
+    evidence available." Source-checkout Linux commands are in Appendix A.
+    IMPORTANT: this harness measures synthetic HTTP application + MySQL, not the
+    packaged public proxy/frontend, real provider quotas or actual production VPS.
+    M26 is still required. CI alone does not certify a100-user public website.
+
+PHASE B - SERVICES AND PRIVATE INPUTS
+====================================
+
+[ ] M08 - Choose/buy the domain and secure registrar control — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: INF-02, REL-02, SEC-02. Cost: PAID unless already owned.
+    [ ] Decide final names before enrolling production passkeys, for example
+        app.YOUR_DOMAIN and staging.YOUR_DOMAIN. These are different origins.
+    [ ] If using Cloudflare, sign in at https://dash.cloudflare.com/ -> Domain
+        Registration/Register domains -> search the name -> review registration
+        AND renewal price. Select Free DNS; paid Pro/CDN is not required here.
+    [ ] Approve the actual purchase yourself; verify registration-contact email.
+        Keep registrar 2FA, recovery and renewal/payment arrangements current.
+    [ ] If the domain is elsewhere, retain registrar access and approve adding its
+        DNS zone to Cloudflare Free. Carefully preserve existing mail/DNS records.
+    Safe reply: "M08: domain controlled; staging/production hostnames chosen;
+    renewal reviewed." Public hostnames may be supplied; no account credentials.
+    https://developers.cloudflare.com/registrar/get-started/register-domain/
+    https://pricing.registrar.cloudflare.com/?q=com
+
+[ ] M09 - Select an SMTP-compatible host and purchase STAGING only — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: INF-01/02, CAP-03. Cost: PAID example USD48/month.
+    [ ] FIRST confirm outbound mail compatibility. DigitalOcean blocks25/465/587.
+        Brevo documents2525 as an alternative. Ask the host whether outbound2525
+        to your approved relay is allowed; required STARTTLS must stay enabled.
+        This is not proof that your eventual instance can send mail. If blocked,
+        choose an approved host/relay arrangement rather than evading host policy.
+    [ ] If choosing DigitalOcean: https://cloud.digitalocean.com/ -> Create ->
+        Droplets. Choose Ubuntu24.04 LTS, an appropriate supported region, Basic
+        Regular4vCPU/8GiB (verify current USD48 plan), and SSH-key authentication.
+    [ ] Complete M10 to add your public key. Choose a staging-specific hostname.
+        Enable free Monitoring if offered. Review extras and total; approve Create.
+    [ ] Record the staging public IP privately and confirm billing alerts. This
+        specification is a starting benchmark size, not a capacity guarantee.
+        Do not buy production yet or put both environments on this host.
+    Safe reply: "M09: staging host provisioned; specification/region/cost and SMTP
+    egress policy confirmed." Share public endpoint only through approved access.
+    https://www.digitalocean.com/pricing/droplets
+    https://docs.digitalocean.com/support/why-is-smtp-blocked/
+
+[ ] M10 - Create/control SSH access and approve limited server administration — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: INF-01/02, SEC-03. Cost: FREE tooling.
+    [ ] On your Windows PC, create a dedicated key ONLY if you do not already have
+        a suitable one. PowerShell:
+          ssh-keygen -t ed25519 -f "$env:USERPROFILE\.ssh\investsmart_release"
+        Choose your own private passphrase at the prompt. Do not overwrite an
+        existing key. The file WITHOUT .pub is private and must never be uploaded.
+    [ ] Open only the .pub file locally; add its public text in the hosting account
+        SSH Keys/New SSH Key control. Do not put the private key into that field.
+    [ ] Connect using the provider's approved initial user, for example:
+          ssh -i "$env:USERPROFILE\.ssh\investsmart_release" root@STAGING_SERVER_IP
+        Independently verify the host-key fingerprint through the provider console
+        before accepting a new host; do not blindly accept a changed fingerprint.
+    [ ] Approve a named non-root sudo operator account and hardening. The assistant
+        can configure it through approved access; test a second SSH session BEFORE
+        removing any initial login method. Keep recovery-console access available.
+    [ ] If ChatGPT has no approved remote tool, run guided commands in your own
+        terminal. Never paste a private key/password to "give ChatGPT access".
+    Safe reply: "M10: key login and recovery access verified; administration scope
+    approved." No private key, passphrase, account identifier or full SSH logs.
+
+[ ] M11 - Approve the cloud firewall and narrow tester allowlist — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: INF-02/03, SEC-04. Cost: DigitalOcean Cloud Firewall is FREE.
+    [ ] DigitalOcean: Networking -> Firewalls -> Create Firewall; attach staging.
+        Replace any default SSH-from-anywhere rule with TCP22 from your current
+        trusted public IPv4/32 (and IPv6/128 if needed). Keep recovery-console access.
+    [ ] Allow inbound TCP80 and TCP443 for public certificate/routing needs.
+        UDP443 is optional HTTP/3 support. Do NOT publish3306,8080 or5173.
+    [ ] Allow necessary outbound traffic for DNS, time sync, HTTPS registries/data,
+        and the approved SMTP relay/port. Do not disable the firewall for debugging.
+    [ ] Choose exact tester egress addresses for STAGING_ALLOWED_CIDRS. No0.0.0.0/0,
+        ::/0 or broad public network. Mobile IP changes need a legitimate allowlist
+        update or approved stable egress; never a forged forwarded header.
+    [ ] Ask the assistant to check Docker port exposure as well as host rules;
+        Docker-published ports must not be assumed protected by UFW alone.
+    Safe reply: "M11: SSH restricted; only intended web ports public; tester
+    allowlist chosen; recovery access retained." Do not upload firewall secrets.
+    https://docs.digitalocean.com/products/networking/firewalls/how-to/create/
+
+[ ] M12 - Set the staging DNS record to DNS ONLY — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: INF-02/03. Cost: FREE DNS; domain cost covered by M08.
+    [ ] Cloudflare: select domain -> DNS -> Records -> Add record -> A.
+        Name=staging; IPv4=your staging server; TTL=Auto; Proxy status=DNS only
+        (gray cloud). Save. Do not copy the example.com address from this file.
+    [ ] If the zone is not active, follow Cloudflare's displayed nameserver
+        instructions at your registrar; do not overwrite existing mail records.
+    [ ] Do not add an AAAA record until IPv6 routing/firewall has been verified.
+        Remove/correct a conflicting old record only after you review its purpose.
+    [ ] Keep the app direct-to-host. The current peer-IP/trusted-proxy design has
+        NOT approved Cloudflare's orange-cloud proxy, Tunnel or another CDN.
+    Safe reply: "M12: staging hostname resolves to intended host; DNS only."
+    https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/
+
+[ ] M13 - Create/approve the transactional sender and authenticate its domain — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: REL-02, SEC-03. Cost: Brevo FREE tier may suffice; approval/limits apply.
+    [ ] Sign up/sign in at https://app.brevo.com/ and complete its account checks.
+        Activate transactional sending as required by your account; do not assume
+        creating an account grants SMTP delivery permission.
+    [ ] Open Settings -> Senders, Domains & IPs -> Domains -> Add a domain.
+        Use the domain/subdomain from which you will send account messages.
+    [ ] Copy the exact domain-verification/DKIM/DMARC records shown by Brevo to
+        your DNS control panel. Follow the current provider instructions; do not
+        invent SPF/DKIM values, duplicate SPF records or overwrite existing mail.
+    [ ] Return and select Authenticate/Verify until the domain is confirmed.
+        Add the intended sender through Senders -> Add a sender; verify as asked.
+    [ ] Ensure a monitored support/contact inbox exists. Brevo SMTP is not an inbox
+        service; an existing suitable inbox may be used for contact/recovery.
+    Safe reply: "M13: transactional sender/domain authenticated; quota understood;
+    support inbox available." No DNS-account credentials or private verification codes.
+    https://help.brevo.com/hc/en-us/articles/12163873383186-Authenticate-your-domain-with-Brevo-Brevo-code-DKIM-DMARC
+
+[ ] M14 - Create/store SMTP credentials privately and confirm the allowed port — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: REL-02, SEC-03. Cost: included sending quota; paid upgrade only if needed.
+    [ ] Brevo: Settings -> SMTP & API -> SMTP -> Generate a new SMTP key.
+        Complete personal verification. Choose the Standard key and a name for
+        this environment; record its expiry/reminder privately. Do not revoke an
+        existing live key just to follow these instructions.
+    [ ] Save the new key directly in your private vault. Copy the SMTP Login field,
+        not the relay hostname, as the username. The key is NOT your account
+        password and NOT the Brevo HTTP API key.
+    [ ] Private config: SMTP_HOST=smtp-relay.brevo.com; SMTP_USERNAME=the provided
+        login; SMTP_PASSWORD=the private SMTP key; MAIL_FROM=the verified sender.
+        For the DigitalOcean/Brevo route choose SMTP_PORT=2525 only after approved
+        host allowance. On hosts allowing standard submission,587 is the default.
+    [ ] Required STARTTLS and certificate identity verification must stay enabled.
+        Do not use465 with the current STARTTLS configuration or trust-all settings.
+        Approve only legitimate provider security/IP-confirmation prompts.
+    Safe reply: "M14: private SMTP settings stored; hostname/port and expiry plan
+    confirmed." Do not send username/key values, key screenshots or tokens.
+    https://help.brevo.com/hc/en-us/articles/7959631848850-Create-and-manage-your-SMTP-keys
+    https://help.brevo.com/hc/en-us/articles/115000188150-Troubleshooting-Issues-with-Brevo-SMTP
+
+[ ] M15 - Arrange the authorized market-data account/token, not real trading — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: TR-03, CAP-04, GOV-01. Cost: API/Analytics Token advertised FREE;
+    separate account fees, entitlement and public-use licensing may apply.
+    [ ] Complete account eligibility/KYC or business onboarding personally only
+        if required by your approved provider arrangement. No broker order,
+        trading deposit or paid Plus upgrade is required just to follow this file.
+    [ ] Upstox: https://account.upstox.com/developer/apps -> Analytics tab ->
+        Generate Token -> Confirm -> copy directly to your private vault.
+        Current documentation describes a read-only,1-year token. Only one is
+        permitted per account: if one already exists, do NOT revoke/regenerate
+        it without separately approving the impact on existing integrations.
+    [ ] Ask the assistant/provider to verify every InvestSmart GET endpoint needed
+        for instruments, quotes, OHLC/history, status and option contracts. Some
+        account/profile reads require a registered static server IP. Do not treat
+        a single successful quote or token presence as complete entitlement.
+    [ ] Store the approved token privately as UPSTOX_API_TOKEN. Agree how staging
+        and production access are isolated; one-token limits require a provider-
+        approved arrangement, not an invented second credential or fake account.
+    [ ] If using a standard OAuth token instead, use the official developer app
+        Generate flow. Its documented expiry is3:30AM the following day; agree a
+        human renewal/outage plan. Do not invent an InvestSmart OAuth callback
+        or token-refresh feature that this release does not implement.
+    Safe reply: "M15: token type/expiry plan and endpoint scope confirmed; stored
+    privately; written public-use permission status [state]." Never send the token.
+    https://upstox.com/developer/api-documentation/analytics-token/
+    https://upstox.com/developer/api-documentation/authentication/
+    https://upstox.com/developer/api-documentation/get-token/
+
+[ ] M16 - Personally review authoritative trading AND settlement calendars — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: TR-03, GOV-01. Cost: public publications may be FREE; review is required.
+    [ ] Obtain applicable exchange/clearing publications and later corrections
+        for each offered exchange/segment, not a generic weekday calendar.
+        Start with https://www.nseclearing.in/clearing-settlement/capital-market/settlement-cycle
+        and the exchange/clearing circular and holiday pages. Trading holidays
+        and settlement holidays are different. A2026 list does not prove2027 dates.
+    [ ] Have the assistant prepare a review draft from the publications; YOU or
+        a qualified operator must verify provenance, coverage and exceptions.
+        Do not ask the assistant to guess unpublished dates or automatically
+        activate data scraped from an unrelated calendar website.
+    [ ] Review private copies of deploy/settlement-calendar.csv.example and
+        deploy/calendar-review.example.json. CSV header must be exactly:
+          date,trading_open,settlement_open,note
+        Supply1-1830 consecutive explicit dates, including closures; true/false
+        flags; UTF-8; <=4MiB. The empty shipped CSV intentionally cannot activate.
+    [ ] Record public HTTPS source without credentials/query/fragment, exchange,
+        segment, coverage, SHA256 and review reason. Include unresolved trade
+        dates and their next settlement days, not just the newest year.
+        Dates must be YYYY-MM-DD; notes are single-line, at most300characters.
+        Let the assistant handle CSV quoting/structural checks; you verify facts.
+    [ ] Authorize activation only after the guarded validation/import and owner
+        reauthentication. A worksheet flag is not an activation command. Missing
+        coverage must remain unavailable/pending rather than inventing settlement.
+        Actual UI: Admin -> Operations -> Reviewed T+1 calendars -> Activate an
+        independently reviewed calendar. Select Exchange/Segment; supply Public
+        source URL, Reviewed CSV and Review reason; tick the independent-review
+        statement only when true; select Activate reviewed calendar. Personally
+        provide password/authenticator confirmation if requested, then check the
+        displayed coverage/version/checksum and audit result before retrying.
+    Safe reply: "M16: reviewed segment/coverage/source/checksum; activation
+    authorized/completed." Public provenance/checksums are safe; no account data.
+    Reference: deploy/SETTLEMENT.md. A validation-only command is in Appendix A.
+
+[ ] M17 - Approve privacy, public disclosures and operational retention policy — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: GOV-01, SEC-03, DATA-02. Cost: review may require a professional quote.
+    [ ] Review applicable privacy/market-data obligations for your actual operator,
+        user locations and providers. Obtain qualified advice where needed.
+    [ ] Approve accurate paper-simulation disclosures, contact method, terms,
+        privacy notice, deletion process and retention/backup handling. No claim
+        of broker affiliation, regulatory approval, guaranteed returns or real
+        investment advice should appear without actual authority.
+    [ ] Cover account/security data, simulated history, providers, factors and
+        recovery/deletion. Current defaults include90-day security events and
+        one-year Admin audit retention; confirm these fit your policy. Do not
+        promise immediate deletion from every protected backup if it is untrue.
+    [ ] Confirm the UI distinguishes virtual funds/fees/debt and application
+        settings such as2x simulated MIS buying power and15:10IST entry cutoff.
+    [ ] Give the assistant approved NON-SECRET text/contact-display instructions
+        for any required pages. Rendering/publishing that content is an automatic
+        engineering task after approval, not a task requiring you to write code.
+    Safe reply: "M17: disclosures/privacy/retention approved [revision/date];
+    required content ready." Keep private identity documents/contracts out of chat.
+
+[ ] M18 - Choose OFF-HOST encrypted backup storage and key custodians — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: DATA-02, SEC-03, OPS-01. Cost: capability required; provider optional.
+    [ ] Choose existing suitable private storage or approve a paid service. For
+        DigitalOcean: Create -> Spaces Object Storage; review the USD5 subscription,
+        region, included storage/transfer and any extra charges before confirming.
+    [ ] Keep bucket/object access PRIVATE; no public listing or backup CDN.
+        Obtain least-privilege access through the provider's account controls.
+        Keep access credentials out of this file and outside the release archive.
+    [ ] Approve backup frequency/retention and access permissions. Example policy
+        to review, not a legal default:7daily +4weekly +3monthly encrypted copies.
+        Include database, migration history and recoverable matching app secrets.
+    [ ] Decide who privately holds the backup-decryption material and original
+        application encryption key. Maintain a protected independent recovery copy.
+        A dump on the same VPS, a public bucket, or only a VM snapshot is insufficient.
+    [ ] Authorize the assistant to configure the approved encryption/upload job
+        only after private access exists. You need not manually write backup code.
+    Safe reply: "M18: private off-host destination/retention/custody approved;
+    protected access configured." Never upload a key, dump or access credential.
+    https://docs.digitalocean.com/products/spaces/details/pricing/
+
+PHASE C - RESTRICTED STAGING AND PERSONAL ACCEPTANCE
+===================================================
+
+[ ] M19 - Privately supply staging configuration and preserve its secrets — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: SEC-03, INF-01, REL-02. Cost: FREE configuration, existing service costs.
+    [ ] On the STAGING server, use your protected editor/secret store to make a
+        PRIVATE copy of deploy/production.env.example, for example
+        /opt/investsmart/secrets/staging.env. Never upload that copy to ChatGPT.
+    [ ] Personally generate/approve separate strong random values for DB_PASSWORD,
+        MYSQL_ROOT_PASSWORD, JWT_SECRET and SECURITY_ENCRYPTION_KEY. Independent
+        64-character random hex values are one supported choice. Do not change
+        keys/passwords for an existing initialized system as a setup shortcut.
+    [ ] Fill the required values using Appendix B. Keep optional AI/news settings
+        blank unless separately approved. The chosen owner email goes only in the
+        private INVESTSMART_ADMIN_EMAIL field; it does not promote anybody alone.
+    [ ] Restrict the file to its owner (Linux mode600); confirm secret backups.
+        Use the approved tool's private environment editor rather than sending
+        the values to the assistant. If no such tool exists, edit it yourself.
+    [ ] Approve read-only preflight using Node24's --env-file option and quiet
+        Compose validation. Do not print env, expanded Compose or use shell tracing.
+    Safe reply: "M19: private staging inputs supplied; preflight [PASS/BLOCKED];
+    keys backed up." Send only missing-field names or sanitized errors if needed.
+
+[ ] M20 - Approve the exact release and grant secure transfer/setup access — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: REL-01, DATA-01/02, INF-01. Cost: FREE tools; host usage is billable.
+    [ ] Confirm which source/candidate is approved. The current archive/hash is
+        at the top of this guide. Ask for a fresh verified candidate after code
+        changes; do not reuse its approval for a different JAR or source snapshot.
+    [ ] Give approved private server access or run guided commands yourself. Let
+        the assistant install/verify Docker Engine+Compose, Node24, Java21 tools
+        and tar using official supported sources. These are automatable setup
+        tasks, not reasons to upload your SSH private key into ChatGPT.
+    [ ] Authorize transfer of ONLY the release archive and its checksum, never
+        the Windows development DB, private .env, raw Git tree or private logs.
+    [ ] Require archive SHA256 before extraction, all payload checksums after
+        extraction, and correct prod/security/migration files. Appendix A shows
+        commands for your review; the assistant may run them after access approval.
+    Safe reply: "M20: candidate/hash approved; secure transfer and non-deploying
+    setup/checks authorized; checksums verified." No private connection secrets.
+
+[ ] M21 - Choose fresh data vs upgrade, then explicitly approve PRIVATE staging startup — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: DATA-01/02, INF-01/03, SEC-04. Cost: existing staging usage.
+    [ ] Default approved route: NEW empty staging DB/volume. Preserve all existing
+        Windows accounts, holdings, balances and local databases. Fresh staging
+        accounts are separate; do not assume local sign-ins were migrated.
+    [ ] CONDITIONAL existing-data route: if any retained DB must be used, STOP.
+        Authorize a backup, isolated restore, schema inspection and individual
+        forward-migration rehearsal. Let the assistant reconcile applied changes.
+        Never run fresh SQL over retained data, blindly apply every script, or
+        delete a volume to resolve a schema/password error.
+    [ ] Confirm source/candidate, private env, DNS-only hostname, firewall and exact
+        tester allowlist. Approve the restricted staging deployment explicitly.
+    [ ] Require the staging override on EVERY relevant command, one worker,
+        correct volumes, API health, trusted HTTPS, SPA deep links and access403
+        from a non-allowlisted device despite forged forwarded headers.
+        Successful /api/health should be HTTP200 with JSON {"status":"UP"}, not
+        merely an HTML page returned by SPA fallback.
+    [ ] Personally observe the address bar's connection/certificate information.
+        No browser security-warning override or certificate-validation bypass.
+    Safe reply: "M21: [fresh/retained] data route; restricted staging authorized;
+    actual-host TLS/access checks [results]." Reference commands: Appendix A.
+
+[ ] M22 - Personally receive real mail and verify a regular test account — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: REL-02, SEC-02. Cost: SMTP quota; controlled test inboxes.
+    [ ] Open your REAL staging HTTPS hostname, select Register and use an inbox
+        you control. Use a unique strong15-64-character password (<=72UTF-8 bytes).
+    [ ] Check Inbox/Spam; verify the new-registration message actually arrives.
+        Inspect the link privately: it must go to YOUR staging HTTPS origin.
+        Do not send the link or a screenshot containing its token to ChatGPT.
+    [ ] Open the verification link and test login. Registration must not be
+        accepted as verified merely because the UI says mail was queued.
+    [ ] Test resend and a controlled password reset/recovery request. Use the
+        newest link; resend invalidates the previous one. Verification expiry is
+        24hours; reset expiry30minutes. Coordinate safe expiry tests with the
+        assistant rather than altering the production clock or DB flags.
+    [ ] Confirm sender reputation/quota and inbox outcomes; a provider accepted
+        SMTP submission alone is not evidence of delivery.
+    Safe reply: "M22: signup/resend/reset mail received; HTTPS destinations and
+    login/recovery verified" plus sanitized failure category if not.
+
+[ ] M23 - Personally approve owner bootstrap and complete authenticator MFA — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: SEC-02, UX-01, REL-01. Cost: FREE compatible authenticator software.
+    [ ] Register and verify the intended owner privately. Set its exact email in
+        the private INVESTSMART_ADMIN_EMAIL field, not this guide or a role-edit API.
+    [ ] Explicitly approve ONE non-web bootstrap and a maintenance window. The
+        assistant can stop only the web backend, run the guarded CLI and verify
+        the owner/audit result. It must not promote somebody by SQL or bypass email
+        verification. Appendix A explains the supported command pattern.
+    [ ] After the one-off process is stopped and normal backend restarted, sign
+        in yourself. Add the displayed setup to your authenticator using its
+        Scan QR/Add account/Enter setup key function. Never share setup material.
+    [ ] Enter a fresh6-digit/30-second code yourself. Store the10 one-use recovery
+        codes privately/offline. Admin access must require password plus MFA.
+    [ ] Confirm recent-authentication prompts for sensitive actions. Wait for a
+        new code if a previously consumed code is rejected; do not disable replay
+        prevention, rate limits or MFA to make tests pass.
+    Safe reply: "M23: owner bootstrap approved/completed; MFA enrolled and protected
+    actions verified; recovery stored privately." No owner email, codes or QR.
+
+[ ] M24 - Personally test phone-code pairing and Windows Hello/passkey behavior — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: SEC-02, UX-01. Cost: FREE supported OS/browser on existing devices.
+    [ ] Use a verified REGULAR test account for phone pairing/trusted-device
+        unlock; owner/admin remains password plus authenticator MFA.
+    [ ] On desktop, follow the phone-verification setup. Open its email pairing
+        link on your phone at the same staging origin. Select Confirm phone pairing,
+        then Pair using phone biometric/PIN. You operate every system prompt.
+    [ ] Save that phone factor's recovery codes privately and select I have saved
+        these codes. At /phone choose Open with phone biometric/PIN as required.
+        Observe the six-digit changing sign-in code; enter it on the PC yourself.
+        This web phone-code system needs internet, not an invented native app.
+    [ ] Test expiry, hidden/background phone page, same-phone login and the
+        controlled replacement/recovery flow on disposable test accounts. Do not
+        deliberately lose the real owner's only factor.
+    [ ] For optional trusted-device unlock, use the regular account's Account
+        security UI, enroll its passkey and personally complete Windows Hello.
+        Windows: Settings -> Accounts -> Sign-in options for your PIN/biometric
+        configuration. Lock/unlock should retain the active session; sign-out
+        revokes it. Never use a passkey to skip owner/admin MFA.
+    Safe reply: "M24: device/OS/browser versions and pairing, code, unlock,
+    expiry/recovery outcomes." Never share an OTP, credential object or recovery code.
+
+[ ] M25 - Perform the actual desktop/mobile/Admin visual and usability review — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: UX-01, SEC-02, TR-01. Cost: existing/trusted device access; no app purchase.
+    [ ] Test Windows Chrome/Edge/Firefox, macOS Safari, Android Chrome, and real
+        iPhone/iPad Safari/tablet flows as applicable to the declared support matrix.
+        Use controlled regular test accounts on borrowed equipment, not your owner
+        credentials or SSH keys. Emulation does not prove physical acceptance.
+    [ ] Check narrow/rotated screens, safe areas, keyboard-open forms, zoom,
+        keyboard-only navigation, readable errors, chart controls/ranges/full view,
+        Buy/Sell colors/buttons and watchlists. Record browser/version and date.
+    [ ] Personally review the five owner Admin sections: Overview, Users, Security,
+        Operations, Audit. Confirm password+MFA prompts and safe details/DTOs.
+    [ ] On STAGING only, explicitly approve disposable-account tests for reasoned
+        suspend/reactivate, single/all-session revocation, forced password reset,
+        verification resend limits and additive/subtractive VIRTUAL balance
+        adjustments. Confirm reset/suspension blocks login and actions are audited.
+    [ ] Review Security alert notes/status, Operations mail/provider/job health
+        and calendar coverage, and read-only Audit. Provider-listing overrides or
+        unresolved IPO retries require controlled eligible test records/approval;
+        settled outcomes cannot be edited. Delete only an approved disposable
+        regular test account with exact-email/reason confirmation, never the owner
+        or a real user. Mark any unexercised protected flow unverified.
+    [ ] Exercise supported enabled paper order modes, cancellation, owned partial
+        exits, portfolio/history and virtual wallet. Delivery must not oversell
+        holdings; an MIS short is a separate product with collateral constraints.
+        Disabled products must explain refusal rather than pretend to execute.
+    [ ] Test offline/reconnect, stale/unavailable quotes, duplicate-submit protection,
+        logout/back navigation and two regular accounts' ownership boundaries.
+        A closed-market rejection is correct but does not replace successful
+        lifecycle acceptance during an authorized open session.
+    Safe reply: "M25: matrix [versions/results]; failures [sanitized descriptions]."
+    Screenshots must exclude codes, tokens, personal accounts and recovery material.
+
+[ ] M26 - Authorize actual-host performance, abuse and provider-quota acceptance — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: CAP-01..04, SEC-04, INF-03, OPS-01. Cost: host/approved provider usage.
+    [ ] Approve an isolated test window, controlled synthetic accounts and scoped
+        traffic. Do not load-test production users, real broker orders or inboxes.
+        Supply authorized read-only provider scope/quota facts privately as needed.
+    [ ] Have the assistant measure response/error/resource stability on the chosen
+        staging host and assess the packaged proxy/HTTPS path and upstream quotas
+        separately. The existing loopback synthetic harness alone cannot certify
+        that whole route. If additional engineering/test setup is needed, the
+        assistant prepares it; you authorize access and witness acceptance.
+    [ ] Confirm the full-duration result, continuous CPU/heap/GC/DB/pool evidence,
+        financial reconciliation and no performance degradation. Interrupted
+        samples or a short smoke must remain failed/inconclusive.
+    [ ] Authorize intentional abuse-limit and attribution tests only with safe
+        test identities. Verify denied access cannot be fixed by spoofing headers;
+        oversized requests are rejected; limits are not reduced/disabled to pass.
+    [ ] Observe live provider freshness/telemetry and quota behavior during the
+        authorized session. Missing contracts/prices/calendars must fail unavailable.
+    Safe reply: "M26: actual-host acceptance reports and source/host specification;
+    thresholds/reconciliation/security/quota [results]." Aggregates only.
+
+[ ] M27 - Witness OFF-HOST restore/rollback and real operator alert receipt — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: DATA-02, OPS-01, CAP-03. Cost: backup/monitoring services as approved.
+    [ ] Authorize the assistant's encrypted backup job and an isolated restore
+        drill using the actual chosen storage. Supply private access only through
+        the approved tool/secret store; never upload a SQL dump or decryption key.
+    [ ] Personally confirm the intended custodian can recover the protected keys
+        and the off-host copy. Require a restored sandbox, matching app/DB/key
+        versions and reconciliation of balances, positions, reservations, fees,
+        factors, journals and audit history. A successful upload is not a restore.
+    [ ] Approve a rollback rehearsal with writes stopped in the isolated test
+        environment. Retained databases are never overwritten or volumes deleted
+        as an automatic rollback shortcut.
+    [ ] In DigitalOcean Monitoring choose Create Resource Alert; select the host,
+        real recipient and reviewed thresholds. Investigate sustained CPU>70%,
+        heap/pool>80%, disk pressure and job/quote/mail failures. Host memory and
+        application heap are different measurements; ask for appropriate probes.
+    [ ] Configure/approve an OFF-HOST HTTP monitor, for example Better Stack:
+        https://betterstack.com/uptime -> sign in -> Monitors -> create HTTP(S)
+        monitor for YOUR /api/health, expected200, approved interval and recipient.
+        On restricted staging use an approved allowlisted probe/static egress;
+        do not open the app globally just to admit a monitor's changing addresses.
+    [ ] Receive a controlled failure/recovery notification yourself and approve
+        the response/backup-retention runbook. Do not intentionally break production.
+    Safe reply: "M27: off-host restore/rollback and alert delivery witnessed;
+    retention/recovery owner arrangement confirmed." No dump/key/private logs.
+
+PHASE D - PRODUCTION COMMISSIONING, THEN A SEPARATE PUBLIC-LAUNCH DECISION
+========================================================================
+
+[ ] M28 - Provision the SEPARATE production host and final DNS privately — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: INF-01/02/03, SEC-03. Cost: another approved host, e.g. USD48/month.
+    [ ] Proceed only after staging outcomes are reviewed and the spending decision
+        is explicit. Repeat M09-M12 for a different production host/IP/volume set.
+        Do not restore the staging DB as a shortcut to get production accounts.
+    [ ] Create the final app DNS A record pointing ONLY to the intended production
+        server, DNS only; verify firewall/SSH and IPv6 separately.
+    [ ] Create /opt/investsmart/secrets/production.env privately from the template.
+        Use the final HTTPS origin, new independent DB/root/JWT/encryption secrets,
+        provider-approved access and a new verified sender integration as needed.
+        Copy no staging session/factor data. Keep STAGING_ALLOWED_CIDRS narrow
+        for private production commissioning using the restriction overlay.
+    [ ] Arrange protected backups for these specific production keys. If any
+        retained production installation already exists, invoke the M21 upgrade
+        branch instead of regenerating keys or initializing fresh SQL over it.
+    Safe reply: "M28: separate production host/volume/origin and private inputs
+    ready; retained-data status confirmed." No credentials or private identity values.
+
+[ ] M29 - Explicitly authorize PRIVATE production commissioning and own-factor setup — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: SEC-02/03, INF-01..03, REL-01/02. Cost: approved production usage.
+    [ ] Say explicitly that the assistant may deploy the approved candidate to the
+        new production host WITH THE IP RESTRICTION OVERLAY STILL ENABLED. This is
+        not approval for public access. Require checksum/preflight/quiet-config
+        and backup checks before the start command.
+    [ ] Personally receive verification mail at the FINAL origin and create/verify
+        the intended production owner. Authorize its guarded non-web bootstrap,
+        then personally enroll owner MFA and store NEW private recovery material.
+    [ ] Repeat regular phone/passkey enrollment on the final origin. Staging-origin
+        passkeys, sessions and pairing are not proof that production-origin factors
+        work. Never copy factor tables or alter RP IDs to fake acceptance.
+    [ ] Confirm actual storage/persistence, TLS and safe startup on production.
+        Stop and report errors; do not change secure-cookie/CSRF/schema settings.
+    Safe reply: "M29: restricted production commissioning explicitly approved;
+    final-origin owner/factor/mail acceptance [results]." No codes or owner identifiers.
+
+[ ] M30 - Personally accept the restricted FINAL-origin service and recovery route — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: SEC-02/04, INF-02/03, REL-02, UX-01, DATA-02, OPS-01, TR-03.
+    [ ] On allowed devices visit the actual final HTTPS hostname. Inspect the
+        connection/certificate, /api/health and SPA deep links; reject certificate
+        warnings, wrong origin or API requests still going to localhost.
+    [ ] Verify real signup/reset/phone messages, valid/expired/replayed-factor
+        behavior, sign-out, protected Admin actions and account boundaries.
+        Use fresh controlled test accounts; protect all personal authentication.
+    [ ] Confirm production provider authorization/freshness, active reviewed
+        calendar coverage, one worker, durable storage and operational telemetry.
+    [ ] Personally confirm production off-host backup accessibility and alert
+        receipt. Authorize an isolated production-backup restore rehearsal;
+        the assistant must never restore over the running production database.
+    [ ] Review the final device/functional checklist and unresolved findings.
+        Do not claim success merely because a previous staging package passed.
+    Safe reply: "M30: final-origin checklist/restore/alerts reviewed [dated results]."
+
+[ ] M31 - Review the exact candidate and all applicable release-gate evidence — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: REL-01, GOV-01 and all applicable P0/P1 gates. Cost: FREE review.
+    [ ] Have the assistant regenerate the report for the ACTUAL tested source,
+        archive, host, data permissions, calendars and physical observations.
+        Routine builds/audits/report generation are automatable after access.
+    [ ] Review every P0 and P1 item; require dated evidence for each PASS. The
+        interrupted old capacity run and missing credentials/permission/device
+        acceptance cannot simply be marked accepted or deleted from the report.
+    [ ] Confirm provider/public-use terms, privacy/contact/retention text and
+        continuing operator obligations. A denial requiring different pricing/data
+        behavior needs a separate engineering/compliance plan, not a manual waiver.
+    [ ] Confirm the rollback plan and tested backup/key recovery before giving
+        a public-release decision. If any applicable gate is FAIL/BLOCKED, remain
+        private. Do not shrink the workload or support matrix merely to force PASS.
+    Safe reply: "M31: exact release/source reviewed; applicable gates [result];
+    public-release decision [approved/not approved]." No secret values.
+
+[ ] M32 - Separately approve public exposure and verify the live result/ongoing duties — ON HOLD — V3 DEVELOPMENT IN PROGRESS
+    Gates: REL-01, OPS-01, GOV-01. Cost: ongoing approved service usage.
+    [ ] ONLY after M31: explicitly authorize removal of the IP-restriction overlay
+        for this exact production project/host/release. Preserve the same private
+        env, database/certificate volumes and one worker; no down --volumes.
+    [ ] Personally verify the real public origin from an ordinary external device:
+        HTTPS, health, SPA, registration/mail, regular login, owner MFA and virtual
+        trading safety. Ensure DB/backend/Vite ports are still not public.
+    [ ] Confirm uptime/resource/job/mail/quote/calendar alerts and support inbox
+        are being watched. Record who responds and how maintenance/rollback is
+        approved; do not rely on this ChatGPT session staying awake forever.
+    [ ] Set reminders for domain, SMTP/token expiries, calendar coverage, backups,
+        billing, security updates and periodic real-device/recovery checks.
+        Standard Upstox OAuth needs daily authorization; an approved Analytics
+        Token has its own expiry/revocation obligations. Neither is immortal.
+    [ ] Require a post-launch evidence update. Public availability is not approval
+        to add real payments/orders, replicas, Android publishing or V3 features.
+    Safe reply: "M32: explicit exposure approval and post-launch checks recorded;
+    operator monitoring/reminders active." If not ready, keep this unchecked.
+
+APPENDIX A - COMMANDS FOR REVIEW/APPROVED OPERATION, NOT A RUN-ALL SCRIPT
+========================================================================
+These commands are explanations and handoff material, not additional manual
+engineering chores. The assistant can execute them after approved access; if
+you must use your terminal, do only the current approved step. STOP on errors.
+
+A1. Source-checkout Linux synthetic benchmark (not on a retained production DB):
+    node scripts/build-v2-release.mjs --require-containers
+    env -u V2_LOAD_STEADY_SECONDS -u V2_LOAD_BURST_SECONDS node scripts/check-v2-containers.mjs --capacity
+    node scripts/analyze-capacity.mjs target/release-checks/smoke-ACTUAL_ID target/capacity-analysis.json
+    The assistant identifies the NEW run's workspace, not an old successful file.
+    Require capacityAcceptance=PASS, actual full durations and continuous metrics.
+    No real SMTP/Upstox keys are needed: the runner uses mocked quotes/mail and
+    guarded disposable synthetic accounts. Do not redirect it at production.
+
+A2. Only on an approved Windows execution route, an OPTIONAL alternative:
+    powershell.exe -NoProfile -File scripts/run-v2-capacity.ps1 -ProbeOnly
+    powershell.exe -NoProfile -File scripts/run-v2-capacity.ps1
+    The current Restricted policy blocks this route. Do not add Bypass flags.
+    Approval/probe success does not prove a long run cannot be interrupted.
+
+A3. Candidate hash on your Windows PC, from the source folder:
+    Get-FileHash -Algorithm SHA256 .\target\releases\InvestSmart-v2-dzYbes.tar.gz
+    Compare to the exact approved hash at the top. If a new candidate was built,
+    use its new filename/hash and verified report instead.
+
+A4. Linux candidate verification BEFORE extraction into a NEW release directory:
+    sha256sum -c InvestSmart-v2-dzYbes.tar.gz.sha256
+    tar -tzf InvestSmart-v2-dzYbes.tar.gz
+    mkdir -p /opt/investsmart/releases/RELEASE_ID
+    tar -xzf InvestSmart-v2-dzYbes.tar.gz -C /opt/investsmart/releases/RELEASE_ID
+    cd /opt/investsmart/releases/RELEASE_ID
+    sha256sum -c SHA256SUMS
+    Confirm the archive is trusted and has no unsafe paths before extraction.
+    Never extract over retained database volumes or an old release directory.
+
+A5. STAGING private env and non-deploying checks, on the staging Linux server:
+    cd /opt/investsmart/releases/RELEASE_ID
+    ENV_FILE=/opt/investsmart/secrets/staging.env
+    chmod 600 "$ENV_FILE"
+    node --env-file="$ENV_FILE" scripts/check-v2-staging.mjs --compose
+    dc() { docker compose --project-name investsmart-staging --env-file "$ENV_FILE" -f deploy/compose.yaml -f deploy/compose.staging.yaml -f deploy/compose.capacity.yaml "$@"; }
+    dc config --quiet
+    Node24 loads this private file without executing it as shell code; the
+    preflight prints field-name diagnostics only. Compose --env-file alone does
+    NOT export values to a separate Node/Java process. Do not print config/env.
+    Capacity resource limits are a trial baseline; verify host resources first.
+
+A6. ONLY after M21 explicitly authorizes new restricted staging startup:
+    dc up --build -d --wait
+    dc ps
+    curl --fail --silent --show-error https://staging.YOUR_DOMAIN/api/health
+    Use the exact same project/env/overlays for later staging operations. Opening
+    a new SSH terminal loses the dc function; recreate it before using it.
+
+A7. ONLY after M23 approves the owner action; private env selects verified owner:
+    dc stop backend
+    dc run --rm --no-deps -T backend --spring.main.web-application-type=none --bootstrap-admin=true --investsmart.ipo.scheduler.enabled=false --investsmart.options.scheduler.enabled=false --investsmart.paper.scheduler.enabled=false --investsmart.settlement.scheduler.enabled=false
+    The one-off process may stay running because background infrastructure exists.
+    Have the assistant verify the bootstrap outcome/audit privately; do not infer
+    success from a startup banner. Stop the one-off process with Ctrl+C after
+    verification, then:
+    dc up -d --wait backend
+    You then sign in and personally complete MFA. This command intentionally
+    changes the approved owner's role/session state; never run it casually.
+
+A8. Offline calendar validation only, in the extracted release directory:
+    java -Dloader.main=com.example.investsmart.settlement.CalendarImport -cp backend/app.jar org.springframework.boot.loader.launch.PropertiesLauncher --file /protected/path/reviewed-calendar.csv --exchange NSE --segment EQUITY --source https://OFFICIAL_PUBLIC_SOURCE_PATH --validate
+    Substitute the actually reviewed segment/source. This validates structure,
+    not source authenticity or legal permission. It does not activate coverage.
+    Use the owner guarded import/reauthentication after explicit review approval.
+    SHA256 on Linux: sha256sum /protected/path/reviewed-calendar.csv
+    Windows: (Get-FileHash -Algorithm SHA256 'YOUR_REVIEWED_CSV_PATH').Hash.ToLowerInvariant()
+
+A9. Existing-data migration inspection, NOT automatic application:
+    java -Dloader.main=com.example.investsmart.deployment.MigrationLedger -cp backend/app.jar org.springframework.boot.loader.launch.PropertiesLauncher --catalog
+    This is an offline catalogue. Applying/adopting any migration additionally
+    requires intended private DB access, stopped writes, a backup and isolated
+    reconciliation. Do not apply everything merely in filename/date order.
+
+A10. PRIVATE production commissioning uses the production host and its own env:
+    ENV_FILE=/opt/investsmart/secrets/production.env
+    node --env-file="$ENV_FILE" scripts/check-v2-staging.mjs --compose
+    pdc() { docker compose --project-name investsmart-production --env-file "$ENV_FILE" -f deploy/compose.yaml -f deploy/compose.staging.yaml -f deploy/compose.capacity.yaml "$@"; }
+    pdc config --quiet
+    ONLY after M29 explicit authorization, use pdc up --build -d --wait on the
+    approved fresh/upgrade route. Keep the IP restriction overlay initially.
+    Owner bootstrap uses the same pattern with pdc only after separate approval.
+
+A11. PUBLIC exposure is not the commissioning command. ONLY after M31/M32:
+    node --env-file="$ENV_FILE" scripts/check-v2-release.mjs --compose
+    publicdc() { docker compose --project-name investsmart-production --env-file "$ENV_FILE" -f deploy/compose.yaml -f deploy/compose.capacity.yaml "$@"; }
+    publicdc config --quiet
+    publicdc up -d --wait
+    This deliberately drops the staging restriction override for the SAME project
+    while retaining volumes. Review effective input files before authorizing it.
+    Never run against the staging host or omit private environment selection.
+
+Never use these as troubleshooting shortcuts: docker system prune, deleting
+volumes, down --volumes, git clean, fresh SQL over retained data, direct role edits,
+certificate-validation disablement, insecure cookies, CSRF/MFA disablement, guessed
+calendars, forged prices or broad public CIDRs. Plan recovery before any write.
+
+APPENDIX B - PRIVATE CONFIGURATION FIELD MAP (NO VALUES GO IN THIS GUIDE)
+========================================================================
+Use the actual public template; fill only your PRIVATE copy/secret store.
+Required for the supported Compose route:
+  SPRING_PROFILES_ACTIVE = prod, exactly; never prod,test or prod,local
+  DB_URL = jdbc:mysql://mysql:3306/investsmart for this bundled topology
+  DB_USERNAME = chosen non-root application DB user, e.g. investsmart_app
+  DB_PASSWORD = unique private value; no user/password inside the JDBC URL
+  MYSQL_ROOT_PASSWORD = different private root value; never an app login
+  JWT_SECRET = separate strong random private value, at least32 UTF-8 bytes
+  SECURITY_ENCRYPTION_KEY = separate strong random private value, >=32characters
+  UPSTOX_API_TOKEN = privately stored provider-approved read-only/access token
+  PUBLIC_URL = https://staging.YOUR_DOMAIN or https://app.YOUR_DOMAIN, no slash/path
+  CORS_ORIGINS = the same exact HTTPS origin for this same-origin deployment
+  STAGING_ALLOWED_CIDRS = exact approved tester IPv4/32 and/or IPv6/128 addresses
+  SMTP_HOST = the provider's relay hostname; Brevo uses smtp-relay.brevo.com
+  SMTP_PORT = approved STARTTLS port;2525 for approved DO/Brevo route, otherwise587
+  SMTP_USERNAME = the provider's private SMTP login field
+  SMTP_PASSWORD = the private SMTP key, NOT account password or API key
+  MAIL_FROM = the provider-verified sender address for this environment
+  PORT = 8080, internal backend port; never publicly publish it
+  VITE_API_URL = /api, at FRONTEND BUILD time; changing runtime env does not rebuild JS
+  INVESTSMART_ADMIN_EMAIL = intended verified owner, private selector only
+
+Optional V3 AI_CHAT_URL/MODEL/API_KEY and NEWS_RSS_URL remain blank unless separately
+approved. No .env flag can create permitted data rights or guessed calendar dates.
+Do not share stage/prod DB/signing/encryption secrets. If the provider permits only
+one Analytics Token per account, obtain its approved isolation arrangement rather
+than revoking a live token or inventing another account.
+Editing DB passwords in an env file does not rotate an already initialized MySQL
+volume's accounts. Editing encryption keys can make saved factors/mail unreadable.
+Any existing-credential change requires a separate reviewed operation and backup.
+
+ALL FAILED/BLOCKED GATES ACCOUNTED FOR
+=====================================
+FAIL CAP-01: interrupted full-duration workload -> M06,M07,M26,M31.
+FAIL CAP-02: invalid performance/error evidence across standby -> same tasks.
+BLOCKED TR-03: authorized data/contracts and reviewed calendars -> M05,M15,M16,M30.
+BLOCKED SEC-02: personal factors/protected flows -> M02,M22-M25,M29,M30.
+BLOCKED SEC-03: credential history/reuse and protected host secrets ->
+  M03,M04,M10,M14,M18,M19,M27-M29.
+BLOCKED SEC-04: actual peer attribution/abuse/bounds -> M11,M21,M26,M30.
+BLOCKED INF-01: real environment separation -> M09,M19,M21,M28,M29.
+BLOCKED INF-02: real domain/TLS/firewall/persistence -> M08-M12,M28,M30.
+BLOCKED INF-03: real direct-peer restriction -> M11,M12,M21,M26,M29,M30.
+BLOCKED CAP-03: continuous actual-host resources -> M06,M07,M26,M27.
+BLOCKED CAP-04: upstream permission/quota/cache acceptance -> M05,M15,M26.
+BLOCKED OPS-01: actual monitoring/alerts/operator response -> M18,M26,M27,M32.
+BLOCKED DATA-02: off-host encryption/restore/retention/rollback -> M18,M21,M27-M30.
+BLOCKED REL-01: exact release and explicit launch decision -> M01,M20,M31,M32.
+BLOCKED REL-02: actual sender/inbox/final HTTPS links -> M13,M14,M22,M29,M30.
+BLOCKED UX-01: real devices, protected UI and accessibility -> M24,M25,M30.
+BLOCKED GOV-01: permission/privacy/disclosures -> M05,M15-M17,M31.
+BLOCKED SCALE-02: DEFERRED P2 future distributed-worker expansion; not V2 launch.
+BLOCKED FUT-01: DEFERRED P2 future Android/store/V3 phase; not V2 launch.
+Do not implement/purchase deferred features merely to reduce the displayed count.
+
+FINAL PRODUCTION DEPLOYMENT / VERIFICATION CHECKLIST
+===================================================
+These repeat the final acceptance conditions as a safety review, not extra task
+groups. Leave all unchecked until the actual final-origin evidence is verified.
+[ ] Written data/public-use/compliance clearance and approved disclosures.
+[ ] Exact release/source SHA and current audits/tests accepted.
+[ ] Uninterrupted full benchmark, continuous resources and reconciliation accepted;
+    actual-host/proxy/provider scope separately covered; no stale result substituted.
+[ ] Credential exposure/reuse decision completed privately; host secrets recoverable.
+[ ] Separate production host, correct private env and reviewed fresh/upgrade data route.
+[ ] Narrow commissioning restriction, real DNS-only origin and trusted TLS verified.
+[ ] No public3306/8080/5173; one backend; persistent DB/certificate volumes.
+[ ] Real final-origin signup/reset/pairing mail received; sender/quota/expiry monitored.
+[ ] Owner bootstrap separately approved; personal MFA/recovery and regular factors tested.
+[ ] Desktop/real Android/iOS/tablet, accessibility, trading/wallet/portfolio/Admin accepted.
+[ ] Reviewed calendar/contract coverage and quote freshness; missing data stays unavailable.
+[ ] Encrypted off-host backup restored/reconciled; matching rollback/key recovery rehearsed.
+[ ] External uptime/resource/job/mail/data alerts received; operator response assigned.
+[ ] Every applicable P0/P1 gate PASS with evidence; deferred P2 items identified separately.
+[ ] Private production commissioning was explicitly approved, NOT mistaken for public approval.
+[ ] Exact public exposure change separately approved and executed with retained volumes.
+[ ] Public-origin health/auth/mail/virtual workflow checks and post-launch report complete.
+
+SAFE COMPLETION MESSAGE FORMAT
+===============================
+Tell the guiding assistant only:
+  Task ID(s): Mxx
+  Result: COMPLETE / BLOCKED / NOT STARTED
+  Date and service/device/version (non-sensitive)
+  Non-sensitive confirmation or aggregate evidence reference
+  Next approval requested, if any
+Keep credentials, recovery material, actual owner identifiers and private logs out.
+If a task is only configured, say CONFIGURED, NOT YET VERIFIED. Do not write COMPLETE
+until the behavior/evidence has actually been checked. Save marked copies privately
+and have the coding assistant synchronize dated results to the canonical checklist.
+
+OFFICIAL REFERENCES / PRICING CHECKED 2026-11-16
+================================================
+DigitalOcean plans: https://www.digitalocean.com/pricing/droplets
+Create VM: https://docs.digitalocean.com/products/droplets/how-to/create/
+Firewalls: https://docs.digitalocean.com/products/networking/firewalls/how-to/create/
+SMTP restrictions: https://docs.digitalocean.com/support/why-is-smtp-blocked/
+Backups/storage pricing: https://docs.digitalocean.com/products/spaces/details/pricing/
+Resource alerts: https://docs.digitalocean.com/products/monitoring/getting-started/quickstart/
+Domain pricing: https://pricing.registrar.cloudflare.com/?q=com
+Registration: https://developers.cloudflare.com/registrar/get-started/register-domain/
+DNS: https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/
+Free TLS: https://letsencrypt.org/docs/faq/
+Brevo plans: https://www.brevo.com/pricing/
+Brevo free-plan details: https://help.brevo.com/hc/en-us/articles/208589409-About-Brevo-s-pricing-plans
+Brevo domain setup: https://help.brevo.com/hc/en-us/articles/12163873383186-Authenticate-your-domain-with-Brevo-Brevo-code-DKIM-DMARC
+Brevo keys: https://help.brevo.com/hc/en-us/articles/7959631848850-Create-and-manage-your-SMTP-keys
+Brevo ports/login: https://help.brevo.com/hc/en-us/articles/115000188150-Troubleshooting-Issues-with-Brevo-SMTP
+Upstox API/business route: https://upstox.com/trading-api/
+Upstox Analytics: https://upstox.com/developer/api-documentation/analytics-token/
+Upstox standard auth: https://upstox.com/developer/api-documentation/authentication/
+Upstox standard expiry: https://upstox.com/developer/api-documentation/get-token/
+SEBI source: https://www.sebi.gov.in/legal/circulars/may-2024/norms-for-sharing-of-real-time-price-data-to-third-parties_83572.html
+NSE policy: https://nsearchives.nseindia.com/web/sites/default/files/inline-files/NSE_Data_Sharing%26Usage_Policy.pdf
+NSE Clearing: https://www.nseclearing.in/clearing-settlement/capital-market/settlement-cycle
+GitHub billing: https://docs.github.com/en/billing/concepts/product-billing/github-actions
+Runner rates: https://docs.github.com/en/billing/reference/actions-runner-pricing
+Windows scoped requests: https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-powersetrequest
+Uptime option: https://betterstack.com/uptime
+Docker Ubuntu installation: https://docs.docker.com/engine/install/ubuntu/
+
+Service buttons/prices/terms can change. If a screen differs, consult the linked
+official documentation and current account console; never invent an approval or
+click a paid/security-sensitive action merely because an old guide names it.

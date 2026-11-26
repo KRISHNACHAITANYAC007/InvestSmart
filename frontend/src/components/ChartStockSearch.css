@@ -1,0 +1,191 @@
+.market-search .chart-stock-search {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    min-height: auto;
+    max-height: none;
+    flex-shrink: 1;
+    padding: 0;
+    border: 0;
+    border-bottom: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #263549;
+}
+
+.market-search .chart-stock-search > label {
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.market-search .chart-stock-search-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+}
+
+.market-search .chart-stock-search-input input::-webkit-search-cancel-button {
+    display: none;
+}
+
+.market-search .chart-stock-search-input input {
+    box-sizing: border-box;
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: #fff;
+    color: #263549;
+    font: inherit;
+}
+
+.market-search .chart-stock-search-input input:focus-visible {
+    border-color: #245fce;
+    outline: 2px solid #245fce;
+    outline-offset: 2px;
+}
+
+.market-search .chart-stock-search button,
+.market-search .chart-search-actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 8px 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: #fff;
+    color: #33465e;
+    font: 500 13px/1.35 system-ui, "Segoe UI", sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.market-search .chart-stock-search-input .chart-search-clear {
+    flex: 0 0 auto;
+    min-width: 64px;
+    min-height: 42px;
+    padding-inline: 14px;
+    color: #52657e;
+}
+
+.market-search .chart-stock-search button:not(:disabled):hover,
+.market-search .chart-search-actions a:hover {
+    border-color: #9aacc3;
+    background: #f3f7fc;
+}
+
+.market-search .chart-stock-search button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.market-search .chart-search-status {
+    min-height: 18px;
+    margin: 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.market-search .chart-search-results {
+    display: grid;
+    gap: 8px;
+    max-height: 360px;
+    overflow: auto;
+    margin: 2px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.market-search .chart-search-result {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    min-width: 0;
+    padding: 13px 15px;
+    border: 1px solid #e3e9f1;
+    border-radius: 8px;
+    background: #fff;
+    transition: border-color .15s ease, background-color .15s ease;
+}
+
+.market-search .chart-search-result:hover { border-color:#c5d2e0; background:#fbfcfe; }
+
+.market-search .chart-search-name {
+    display: grid;
+    min-width: 0;
+    gap: 3px;
+}
+
+.market-search .chart-search-name strong {
+    overflow-wrap: anywhere;
+    color: #263549;
+    font-size: 13px;
+}
+
+.market-search .chart-search-name small {
+    color: #64748b;
+    font-size: 11px;
+}
+
+.market-search .chart-search-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.market-search .chart-search-actions .watchlist-add-control {
+    display: inline-flex;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.market-search .chart-search-actions .watchlist-quick-add {
+    border-color: #35685f;
+    background: #174b40;
+    color: #fff;
+}
+
+.market-search .chart-search-actions .watchlist-quick-add:hover {
+    border-color: #174b40;
+    background: #123d34;
+}
+
+.market-search .chart-search-actions .watchlist-add-control > small {
+    color: #b42318;
+}
+
+.market-search .chart-search-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+@media (max-width: 640px) {
+    .market-search .chart-search-result {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .market-search .chart-search-actions {
+        justify-content: flex-start;
+    }
+}

@@ -1,0 +1,84 @@
+name: investsmart
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: investsmart
+      MYSQL_USER: ${DB_USERNAME:?Set DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set a separate MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d:ro
+    networks: [database]
+    healthcheck:
+      test: [CMD, mysqladmin, ping, -h, 127.0.0.1, --silent]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+  backend:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.backend
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:mysql://mysql:3306/investsmart
+      DB_USERNAME: ${DB_USERNAME:?Set DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET}
+      SECURITY_ENCRYPTION_KEY: ${SECURITY_ENCRYPTION_KEY:?Set SECURITY_ENCRYPTION_KEY}
+      UPSTOX_API_TOKEN: ${UPSTOX_API_TOKEN:?Set UPSTOX_API_TOKEN}
+      PUBLIC_URL: ${PUBLIC_URL:?Set PUBLIC_URL}
+      CORS_ORIGINS: ${CORS_ORIGINS:?Set CORS_ORIGINS}
+      SMTP_HOST: ${SMTP_HOST:?Set SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USERNAME: ${SMTP_USERNAME:?Set SMTP_USERNAME}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:?Set SMTP_PASSWORD}
+      MAIL_FROM: ${MAIL_FROM:?Set MAIL_FROM}
+      INVESTSMART_ADMIN_EMAIL: ${INVESTSMART_ADMIN_EMAIL:-}
+      PORT: 8080
+      INVESTSMART_SECURITY_TRUSTEDPROXIES: 172.30.60.10
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks: [database, edge]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, --max-time, "5", http://localhost:8080/health]
+      interval: 15s
+      timeout: 6s
+      retries: 20
+      start_period: 90s
+  web:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.web
+    restart: unless-stopped
+    environment:
+      PUBLIC_URL: ${PUBLIC_URL:?Set PUBLIC_URL to the HTTPS origin}
+    ports: ["80:80", "443:443", "443:443/udp"]
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      edge:
+        ipv4_address: 172.30.60.10
+volumes:
+  mysql_data:
+  caddy_data:
+  caddy_config:
+networks:
+  database:
+    internal: true
+  edge:
+    ipam:
+      config:
+        - subnet: 172.30.60.0/24

@@ -1,0 +1,19 @@
+https://localhost:18443 {
+    request_body {
+        max_size 16MB
+    }
+    header Strict-Transport-Security "max-age=31536000"
+    header X-Content-Type-Options "nosniff"
+    header Referrer-Policy "no-referrer"
+    tls internal
+    handle_path /api/* {
+        reverse_proxy backend:8080 {
+            header_up X-Forwarded-For {remote_host}
+        }
+    }
+    handle {
+        root * /srv
+        try_files {path} /index.html
+        file_server
+    }
+}

@@ -10,14 +10,17 @@ import org.springframework.security.core.Authentication;
 public class PortfolioController {
 
     private final PortfolioService portfolioService;
+    private final com.example.investsmart.security.SecurityAccounts accounts;
 
-    public PortfolioController(PortfolioService portfolioService) {
+    public PortfolioController(PortfolioService portfolioService,com.example.investsmart.security.SecurityAccounts accounts) {
+        this.accounts=accounts;
         this.portfolioService = portfolioService;
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<PortfolioResponse> getPortfolio(
-            @PathVariable Long userId) {
+            @PathVariable Long userId,Authentication authentication,jakarta.servlet.http.HttpServletRequest request) {
+        accounts.requireOwner(userId,authentication.getName(),request);
 
         PortfolioResponse portfolio =
                 portfolioService.getPortfolio(userId);

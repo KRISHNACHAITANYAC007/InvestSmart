@@ -16,8 +16,10 @@ import java.math.BigDecimal;
 public class WalletController {
 
     private final WalletService walletService;
+    private final com.example.investsmart.security.SecurityAccounts accounts;
 
-    public WalletController(WalletService walletService) {
+    public WalletController(WalletService walletService,com.example.investsmart.security.SecurityAccounts accounts) {
+        this.accounts=accounts;
         this.walletService = walletService;
     }
 
@@ -57,7 +59,8 @@ public class WalletController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<BigDecimal> getBalance(
-            @PathVariable Long userId) {
+            @PathVariable Long userId,Authentication authentication,jakarta.servlet.http.HttpServletRequest request) {
+        accounts.requireOwner(userId,authentication.getName(),request);
 
         BigDecimal balance =
                 walletService.getBalance(userId);

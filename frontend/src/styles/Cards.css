@@ -1,7 +1,7 @@
 .dashboard-card {
     padding: 20px;
     border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: var(--ui-radius, 8px);
     background: white;
 }
 
@@ -23,7 +23,7 @@
 .stock-item {
     padding: 22px;
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border-radius: var(--ui-radius, 8px);
     background: white;
 
     cursor: pointer;

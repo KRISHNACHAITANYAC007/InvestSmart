@@ -1,0 +1,25 @@
+{$PUBLIC_URL} {
+    header Strict-Transport-Security "max-age=31536000"
+    header X-Content-Type-Options "nosniff"
+    header Referrer-Policy "no-referrer"
+    encode zstd gzip
+    route {
+        @denied not remote_ip {$STAGING_ALLOWED_CIDRS:127.0.0.1/32 ::1/128}
+        respond @denied "Private staging: access restricted." 403
+        header X-Robots-Tag "noindex, nofollow, noarchive"
+        request_body {
+            max_size 16MB
+        }
+        handle_path /api/* {
+            reverse_proxy backend:8080 {
+                header_up X-Forwarded-For {remote_host}
+            }
+        }
+        handle {
+            root * /srv
+            try_files {path} /index.html
+            header Cache-Control "no-cache"
+            file_server
+        }
+    }
+}

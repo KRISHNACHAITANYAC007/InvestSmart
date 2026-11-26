@@ -1,0 +1,22 @@
+# Optional measured single-host baseline; combine with the staging override.
+# Not evidence that this hardware/configuration supports the target workload.
+services:
+  backend:
+    mem_limit: 2g
+    cpus: 2.0
+    environment:
+      JAVA_TOOL_OPTIONS: -XX:MaxRAMPercentage=65
+      SPRING_DATASOURCE_HIKARI_MAXIMUMPOOLSIZE: 12
+      SPRING_DATASOURCE_HIKARI_MINIMUMIDLE: 2
+      SPRING_DATASOURCE_HIKARI_CONNECTIONTIMEOUT: 3000
+      SERVER_TOMCAT_THREADS_MAX: 80
+      SERVER_TOMCAT_THREADS_MINSPARE: 8
+      SERVER_TOMCAT_ACCEPTCOUNT: 100
+      SERVER_TOMCAT_MAXCONNECTIONS: 300
+  mysql:
+    mem_limit: 3g
+    cpus: 1.5
+    command: [--max-connections=60, --innodb-buffer-pool-size=1536M]
+  web:
+    mem_limit: 256m
+    cpus: 0.5

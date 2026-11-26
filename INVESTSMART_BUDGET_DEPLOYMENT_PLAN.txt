@@ -1,0 +1,681 @@
+INVESTSMART: STUDENT-BUDGET PUBLIC RELEASE PROPOSAL
+=================================================
+Prepared: 2026-11-16. Currency: INR unless specified.
+Decision: CONDITIONALLY FEASIBLE within Rs 2,000/month for infrastructure.
+Current production decision: NO-GO. No purchase or deployment authorized here.
+
+This is a proposal for review, not an implementation or approval. The original
+WHAT_TO_DO_MANUALLY.txt, DEPLOYMENT_CHECKLIST.md, RELEASE_READINESS_REPORT.md,
+requirements, handoff and queue are preserved. The checklist remains canonical.
+All proposed task changes below require approval and later synchronization there.
+No code, production credentials, DNS, financial data or release statuses changed.
+
+READ THIS BEFORE SPENDING
+------------------------
+1. The current two permanent DigitalOcean-server example is outside your budget.
+   It is an example, not a technical need for two continuously paid servers.
+2. A single 8 GB x86 Linux VPS can be a reasonable trial for this architecture.
+   It has NOT demonstrated the required 100-session workload. Buy no capacity
+   promise: run the unchanged acceptance tests on the actual chosen hardware.
+3. My recommended priced option has a large PREPAYMENT. Its advertised monthly
+   equivalent is not a monthly invoice. If you cannot pay around Rs 23,314 for
+   hosting plus a domain initially, do not buy that term. Obtain a short-term
+   quote or wait for a suitable alternative; cash-flow feasibility is separate.
+4. Public real-time Indian market-data use is an unresolved legal/product blocker.
+   A free API token and an educational disclaimer are insufficient permission.
+   A paid license may not cure restrictions applicable to educational use.
+   Obtain applicable written provider permission AND compliance review first.
+5. This proposal retains every applicable P0/P1 test. Lowering the declared
+   capacity or replacing live trading with historical replay needs a separately
+   approved product/requirements change, not a budget exception.
+
+1. WHAT WAS REVIEWED AND WHAT IS ACTUALLY VERIFIED
+================================================
+Reviewed the deployment/manual/report requirements and their task/gate mapping;
+current Maven/npm manifests; release Dockerfiles; production properties; base,
+staging and capacity Compose definitions; staging, recovery and capacity runbooks;
+CI workflow; chart attribution configuration; and existing aggregate test evidence.
+Source inventory: 120 Java files, 128 frontend source files and 22 script files.
+This is deployment-focused review, not a fresh line-by-line security certification
+of every source file or an independent penetration test.
+
+Existing verified snapshot evidence, NOT new tests performed for this proposal:
+- Backend: 332 tests total, 317 executed, 15 opt-in skips; no failures/errors.
+- Frontend: 51 tests, lint/build; tooling: 40 tests. Known-advisory npm audits zero;
+  resolved Maven OSV audit: 143 coordinates, zero matches, dated Nov 16.
+- Isolated MySQL 8.4, migration parity, restore/restart, local trusted HTTPS,
+  CSRF, headers/body limits and staging-denial checks passed in recorded scope.
+- Candidate: target/releases/InvestSmart-v2-dzYbes.tar.gz; independent 56 payload
+  checksums and 17 migrations verified in the existing reports. Its evidence
+  applies only to its snapshot; future changes require a fresh candidate.
+- Release totals remain 7 PASS / 2 FAIL / 17 BLOCKED. Two blocked P2 expansion
+  gates are deferred; focused V2 has 24 applicable gates: 7/2/15.
+
+Measured sizing evidence:
+- A short synthetic 100-session run completed 2,700 requests without errors,
+  timeouts, drops or 429s. Read p95 124.35 ms; mutation p95 496.25 ms; reconciled.
+- It lasted only 60 seconds steady plus 15 seconds burst. The host was shared
+  Windows with 16 GB RAM / 12 logical CPUs, not a two-core budget VPS.
+- Test heap ceiling was 768 MiB. Interrupted-run sampled heap peaked near
+  119 MiB, with up to 13 DB connections. Heap is NOT total process/container RAM.
+  Native memory, class metadata, threads, direct buffers and OS cache also count.
+- The full attempt had approximately 1,396-second app / 1,398-second container
+  telemetry gaps during standby, 3,945 workload errors and no final reconciliation.
+  It is invalid for capacity or leak acceptance. Low sampled CPU is not sizing proof.
+- The harness tests synthetic HTTP application + MySQL. It does not by itself
+  certify the packaged HTTPS edge, real provider quotas, device UX or future DB size.
+Evidence: RELEASE_READINESS_REPORT.md; target/release-monitored-short-analysis.json;
+target/release-capacity-full-analysis.json; target/release-checks/smoke-3ztP0Z/result.json.
+
+No new builds, audits or long load tests were needed or run for this document-only,
+read-only analysis. They would not establish missing host or provider acceptance.
+
+2. RECOMMENDED ARCHITECTURE AND EXACT SERVICES
+============================================
+Preferred priced proposal, subject to prepayment, availability and tests:
+
+  Browser / future mobile API client
+       -> DNS-only app.YOUR_DOMAIN
+       -> one Hostinger KVM 2 x86 VPS, Ubuntu 24.04 LTS
+            Caddy 2: HTTPS + React production assets + /api reverse proxy
+            one Java 21 / Spring Boot 4.1.2 backend
+            MySQL 8.4 on a private internal Docker network + persistent volume
+       -> approved Upstox read-only data integration, subject to legal clearance
+       -> Brevo transactional SMTP, authenticated STARTTLS on allowed port
+       -> private encrypted backup objects in Cloudflare R2 Standard
+       -> Better Stack Free uptime/heartbeats + local bounded resource probes
+
+Use Cloudflare Registrar for an ordinary .com and Cloudflare Free authoritative
+DNS. Keep app/staging records DNS ONLY (gray cloud). Caddy obtains trusted ACME
+certificates without buying SSL. Retain certificate volumes across upgrades.
+
+Build and test the JAR/dist on an approved clean source checkout/CI, not while the
+small production server is serving users. Transfer immutable verified artifacts.
+The portable package already contains runtime Dockerfiles using a prebuilt JAR
+and frontend assets. Production needs no Vite dev server, Node application server,
+Redis, Kubernetes, paid control panel, load balancer or second backend replica.
+Do not install an extra application-management proxy without a trust-path review.
+
+Database: keep MySQL Community 8.4 in the current bundled topology. License cost
+is zero; administration, security updates and recovery remain your responsibility.
+A managed DB is not essential at this scale and is not included in this budget.
+Do not switch to PostgreSQL/free serverless storage just to follow a free tier.
+
+Select the offered India region if available and compliant with provider terms;
+otherwise compare Singapore/other offered regions, latency, cross-border privacy
+and provider access. No India-region availability or data-residency approval was
+verified in an account. Use x86; ARM is a separate unverified platform change.
+
+Reliability: this is a single-host portfolio service, not high availability.
+A host outage stops both app and DB. Backups provide recovery, not instant failover.
+Plan maintenance windows and an honest public status page. A vendor uptime claim
+does not establish application uptime, affordable failover or a recovery SLA.
+
+3. RESOURCES, STORAGE AND EXPECTED CAPACITY
+=========================================
+Verified configuration: deploy/compose.capacity.yaml is a trial overlay, not a
+minimum or certified capacity. It sets backend 2 GiB / 2 CPU, MySQL 3 GiB / 1.5 CPU,
+and web 256 MiB / 0.5 CPU: memory ceilings total 5.25 GiB. Java MaxRAMPercentage=65
+allows about 1.3 GiB heap within the backend limit. Hikari max=12/min=2; Tomcat
+max threads=80, queue=100, max connections=300; MySQL max connections=60 and
+1,536 MiB buffer pool. These are real current settings, not measured requirements.
+
+8 GB trial host:
+- Retain these memory ceilings initially, reserving about 2.75 GiB for Linux,
+  Docker, cache, agents and transient overhead. Measure actual headroom under load.
+- The recommended two-vCPU plan has LESS CPU than the four-vCPU trial described
+  in requirements. Aggregate CPU ceilings can contend; they do not create CPUs.
+  Benchmark and review per-service CPU allocations before accepting this host.
+- Static React rendering/chart drawing mostly uses the user's device; history
+  requests, quote polling and server jobs still load the API/provider/database.
+- Use prebuilt artifacts; simultaneous Maven/npm builds, restore drills or load
+  generators on production can invalidate capacity and disrupt users.
+
+4 GB fallback, not recommended as a proven replacement:
+- The 5.25 GiB overlay does not fit. A different reviewed resource overlay is
+  required; plausible STARTING estimates are backend limit 1.5 GiB / heap 768 MiB,
+  MySQL 1 GiB / buffer 256 MiB, Caddy 128 MiB and at least 1 GiB for OS/headroom.
+  Review Hikari 4-6 and servlet concurrency against job/UI demand, then benchmark.
+- Do not apply those numbers without tests; shrinking pools can cause queues.
+  1-2 GB plans are not a safe default for this full three-service application.
+  Swap may reduce emergency OOM risk but cannot substitute for RAM or acceptance.
+
+Storage estimates, not production measurements:
+- On 100 GB disk, initially budget roughly 10 GB OS/tools, 10 GB current/previous
+  images/releases, 10 GB DB working allowance, 5 GB bounded logs and 5 GB temporary
+  backup/maintenance space, leaving approximately 60 GB headroom. These are planning
+  allocations, not evidence the database will grow by a particular rate.
+- Measure indexed rows, journals/security events, daily DB growth, compressed dump
+  size and restore workspace. No actual public user population has been measured.
+- Do not store every quote tick or unbounded HTTP logs. Review existing retention,
+  bounded rotation, disk alerts and provider cache rights; never delete financial
+  history merely to fit disk. Investigate at 70% disk and escalate before 80%.
+
+Expected capacity is UNVERIFIED. The only defensible observed result is the short
+synthetic run above. A student beta is the intended use, not a promise of 10, 100,
+or 1,000 concurrent users. Registered accounts, active sessions and requests/sec
+are different. Example estimate: 20 users polling once per 5 sec create 4 reads/sec
+before charts, writes and jobs; 100 such users create 20/sec. Actual fan-out may
+be higher. Real provider quota and authorized coalescing can limit capacity first.
+Keep the current 100-session/30-rps/60-rps requirements until explicitly revised.
+
+4. PRICE COMPARISON AND BUDGET
+=============================
+Official public pages were checked Nov 16, 2026. Prices are not a checkout quote.
+Planning conversion ONLY: USD 1 = Rs 95; EUR 1 = Rs 110. These are conservative
+budget assumptions, not verified spot exchange rates. Add 18% tax contingency
+where not already included; actual tax/card FX/rounding must be checked privately.
+Do not add tax twice if the final invoice already includes it.
+
+Host comparison (base vendor prices before assumed taxes):
+
+Option              RAM / CPU / disk          Price and suitability
+------------------  -----------------------  ---------------------------------
+Hostinger KVM 2      8 GB / 2 vCPU / 100 GB    Rs 779/mo equivalent, 24 months;
+                                             Rs 18,696 upfront. Renewal Rs 1,199
+                                             per month for the same term.
+Hostinger KVM 1      4 GB / 1 vCPU / 50 GB     Rs 599/mo equivalent, 24 months;
+                                             Rs 14,376 upfront; renewal Rs 999.
+                                             Less headroom; tuning/tests needed.
+DigitalOcean Basic  8 GiB / 4 vCPU / 160 GiB   USD 48/mo; hourly option available.
+                                             About Rs 5,381 tax-buffered monthly
+                                             for ONE host; outside this budget.
+Hetzner cost-       x86 4-8 GB candidates      Official cloud page currently says
+optimized CX                                 unavailable for cost-optimized tier.
+                                             Do not budget an obtainable server
+                                             from old CX23/CX33 advertisements.
+Oracle Always Free  A1 ARM; current docs      Free if eligible/available; currently
+                    2 OCPU / 12 GB total      1,500 OCPU-hour/9,000 GB-hour allowance.
+                                             Capacity/account restrictions; not
+                                             a verified deployment substitute.
+Render Free         static + limited web     Free preview alternative; provider
+                                             advises against free production use.
+                                             Sleeping service/no equivalent free
+                                             persistent MySQL topology. Not fit.
+
+Hostinger page also lists 8 TB transfer on KVM 2 and 4 TB on KVM 1, weekly backups,
+and upfront billing. Treat region, IPv4, taxes, renewal and cancellation conditions
+as checkout verifications. Shared compute has variable performance; support is not
+application management. Its weekly VM backup is extra protection, not DATA-02.
+Sources: [S1], [S2], [S3], [S4], [S5]. No paid plan ordered or stock checked in-console.
+
+Recommended MONTHLY planning envelope (Hostinger KVM 2):
+Item                                  Intro term        Renewal term
+------------------------------------  ----------------  ----------------
+VPS with assumed 18% tax               Rs   919.22       Rs 1,414.82
+.com domain annual cost spread         Rs   105.00       Rs   105.00
+Private off-host storage allowance     Rs    50.00       Rs    50.00
+CI / temporary stage usage allowance   Rs   100.00       Rs   100.00
+Additional contingency                Rs   150.00       Rs   150.00
+TOTAL budget envelope                  Rs 1,324.22       Rs 1,819.82
+Round monthly budget to                Rs 1,325          Rs 1,820
+Annual equivalent, rounded             Rs 15,900         Rs 21,840
+
+Domain assumption: ordinary Cloudflare .com USD 11.17/year [S6]; at planning FX
+and tax buffer approximately Rs 1,252.16/year, rounded Rs 105/month above.
+Domain renewals may change. Premium names are excluded. A host's free first-year
+domain offer is optional, not relied on; keep an independent predictable renewal.
+Free SMTP, monitoring, DNS and TLS add Rs 0 within accepted limits [S7-S9].
+
+This is amortized spending, not your monthly bank debit. Hosting prepayment with
+the same tax assumption is Rs 22,061.28 for 24 months. Add about Rs 1,252 for the
+first-year domain: initial cash approximately Rs 23,314, excluding any test usage.
+At the current renewal rate the NEXT 24-month hosting prepayment would be about
+Rs 33,955.68. Future prices are not guaranteed. Reserve money towards renewal.
+
+Bare recurring equivalent, free ancillary quotas/no reserves: about Rs 1,025
+intro / Rs 1,520 renewal including domain. That is a floor, not a recommended
+operating budget. Rs 1,000 consistently is too tight for this quoted option.
+The Rs 1,325/1,820 envelopes allow small contingencies, not unlimited testing.
+Rs 100 buys about 12 hours of the cited USD 0.07143/h DO test host at planning
+FX/tax if CI is included free, or roughly one 90-minute paid Linux CI job plus
+four host hours. Persistent volumes/IPs/storage and long test windows cost extra.
+Unused allowance is not a service guarantee. Approve each temporary-resource bill.
+
+Excluded/unpriced costs: market-data agreements, compliance advice, new devices,
+operator time, exceptional traffic/abuse, paid email upgrades and mobile stores.
+Do not present their unknown price as zero. A legal/licensing quote above the
+remaining Rs 180/month renewal headroom breaks this envelope unless other costs
+are legitimately lower or the budget/product changes. No license quote obtained.
+
+If ONLY monthly payment is affordable:
+- Do not select a 24-month term based on the monthly-equivalent headline.
+- Obtain the actual one-month x86 8 GB checkout quote. It was not verified here.
+  With these allowances the VPS subtotal must be <= about Rs 1,350/month before
+  the assumed 18% tax to keep the total near Rs 2,000. If not, reject the quote.
+- Recheck Hetzner console availability/pricing without purchasing, or use approved
+  student credit temporarily; neither is a reliable permanent-budget promise.
+- DO's quoted 4 GiB USD 24 tier alone is about Rs 2,690 with the same FX/tax
+  assumption. The original two USD 48 hosts plus USD 5 storage are about
+  Rs 11,427/month including the domain: clearly outside budget [S2].
+
+5. STAGING: SECURE ISOLATION WITHOUT TWO PERMANENT BILLS
+======================================================
+Do not co-run staging and production as two project names with the current files.
+The fixed 172.30.60.0/24 edge subnet and trusted web IP 172.30.60.10 conflict.
+DB/signing/encryption keys, origins, volumes, factors and permissions must differ.
+The existing staging runbook expressly requires different hosts. This document
+does not change that rule or close INF-01.
+
+Preferred saving: keep ONE continuously billed production VPS and use a genuinely
+separate TEMPORARY staging Linux machine only for release/recovery windows.
+Use approved borrowed suitable Linux hardware, or an explicitly approved hourly
+DigitalOcean 8 GiB test VM; keep SSH/firewall, narrow direct-peer staging allowlist,
+trusted staging HTTPS, separate secrets, synthetic DB and provider authorization.
+GitHub Actions supplies clean isolated synthetic CI; it is NOT a substitute for
+interactive staging, physical factors, actual-host tests or final-origin checks.
+
+Before first launch, the eventual production VPS can undergo isolated synthetic
+actual-host capacity testing BEFORE it contains production data/users. Use a
+separate test configuration/database. After preserving required evidence and
+approved backups, provision production with independent secrets and a fresh DB.
+Do not promote a staging DB/owner/passkey into production. Stage acceptance and
+production-origin commissioning still happen separately on their respective hosts.
+
+For later releases, use the temporary separate stage for tests/restore rehearsal;
+do not benchmark or restore over the running production service. If a test needs
+the exact production size, obtain matching temporary hardware and record differences.
+Scheduled staging should remain available long enough for real devices/recovery;
+if this exceeds the allowance, increase the approved test budget, not skip tests.
+
+Review/approve a runbook amendment explicitly recognizing ephemeral staging, with
+its retained evidence, encrypted data custody, rebuild procedure and bill cap.
+Only then synchronize M01/M09/M28 and INF-01 evidence expectations. No security
+gate disappears. Decommission only with separate approval AFTER preserving needed
+data/keys/evidence; powering off may still incur charges. No deletion commands here.
+A concurrent shared-host design would need additional network, access-control and
+resource-isolation engineering; it is not recommended or implemented in this plan.
+
+6. BACKUPS, MAIL, MONITORING AND FREE ALTERNATIVES
+==============================================
+Backups: Cloudflare R2 STANDARD private bucket. Free allowance is 10 GB-month,
+1 million Class A and 10 million Class B operations/month; internet egress free.
+Beyond free storage, USD 0.015/GB-month, plus operations [S7]. Require account/
+billing approval; alerts are not necessarily hard caps. No public bucket/CDN.
+Encrypt before upload, scope write credentials, separately safeguard decryption
+and application encryption keys. Database + matching migration/release metadata
+must be restorable. Same-VM snapshots alone do not satisfy off-host recovery.
+
+Proposed retention for approval: 7 daily + 4 weekly + 3 monthly encrypted snapshots.
+Fourteen 100 MB copies approximate 1.4 GB; fourteen 1 GB copies approximate 14 GB.
+Actual compression, versions, WAL/binlogs, retained releases and overlaps affect
+storage. Measure before promising free retention. Rs 50 is an allowance, not a
+backup-size forecast. Never shorten essential retention merely to stay free.
+Propose initial RPO <=24h and measured restore target <=4h for student scale;
+these are NOT verified commitments. If losing up to a day of virtual history is
+unacceptable, approve more frequent consistent backups/binlog recovery and retest.
+Use a consistent logical dump/appropriate supported backup, not an arbitrary copy
+of live MySQL files. Verify restore, ledger/factor reconciliation and coordinated
+rollback with writes stopped in an isolated environment before DATA-02 passes.
+
+SMTP: Brevo Free, 300 sends/day shared across all approved account traffic [S8].
+Use authenticated relay smtp-relay.brevo.com on allowed STARTTLS 587 (or approved
+2525); keep mandatory TLS and hostname verification. Sender/DKIM/DMARC and actual
+receipt/HTTPS links must pass. Do not run your own mail server to avoid payment.
+Mail quota is a capacity limit: verification, resets and pairing all consume it.
+Do not bypass verification when quota expires; review upgrade cost before launch.
+
+Monitoring: Better Stack Free offers 10 monitors/heartbeats and email alerts [S9].
+Use health, backup/job heartbeat and sanitized status information. Add low-overhead
+bounded probes for CPU, container RSS/limits, JVM heap/nonheap/GC, DB wait/pool,
+disk growth and application job/mail/provider health; host resource alerting still
+needs configuration and actual delivery acceptance. No session-replay integration
+or raw authenticated payload upload is proposed. Uptime alone is insufficient.
+On restricted staging, use approved probe egress or outbound heartbeat; do not
+open the whole service merely to accommodate a monitoring provider's IP changes.
+
+Other free routes and limitations:
+- Oracle A1: useful experiment if account quota/region capacity allows. Current
+  docs differ from old 4-OCPU/24-GB advice; follow the account's eligible limits.
+  ARM images/native dependencies, persistence, recovery and full workload are
+  unverified; Oracle's free DB is not a drop-in MySQL replacement [S4].
+- Render Free: acceptable preview/static demo route, not this accepted always-on
+  Spring/MySQL production stack; do not hack around idle sleep [S5].
+- Free static hosting could serve React, but does not eliminate API/DB cost.
+  Splitting origins changes cookies/CSRF/CORS/proxy rules and requires acceptance.
+  Same-origin Caddy is simpler and already supported; do not split for Rs 0 savings.
+- GitHub Actions: included quota is account-dependent; paid standard two-core
+  Linux is USD 0.006/min, around Rs 61 for 90 minutes with planning tax/FX [S10].
+  No current source upload/dispatch authorized; source credential review first.
+- Student credits can reduce first-year expense but are temporary and eligibility-
+  dependent; no approved credit balance was verified. Budget for their expiry.
+- Existing compatible phones/computers and a support inbox can be reused. New
+  devices, SMS services, paid CDN, paid SSL and a managed DB are not prerequisites.
+
+7. REQUIRED PROPOSED CHANGES BEFORE APPROVAL/IMPLEMENTATION
+=========================================================
+No Java/React rewrite or database-engine switch is needed for the cost model.
+The following work is proposed, not completed by this analysis:
+
+A. Documentation/config: replace the costly vendor example only AFTER approval;
+   clarify ephemeral separate staging, prepayment/renewal, backup custody and
+   recovery responsibilities. Preserve canonical gate definitions/evidence.
+B. Select/pin the actual x86 runtime images and immutable release. Use portable
+   runtime Dockerfiles off-server; verify this packaging route on the selected
+   OS. Do not ship dev/test properties or secrets to obtain a green startup.
+C. Review the two-core CPU allocation and existing capacity overlay on 8 GB.
+   A 4 GB route needs a separate tested overlay; do not silently shrink limits.
+D. Configure/verify encrypted off-host backup scheduling, retention, least-privilege
+   storage, restore/rollback and alert receipt. These capabilities require real
+   service inputs and operator approval, not a promise in a document.
+E. Add actual-host packaged HTTPS measurement alongside the existing synthetic
+   harness. Record code/image identity, resource limits, disk/DB sizes, CPU/RSS/GC,
+   waits/connections, rate/error/latency, reconciliation and complete cooldown.
+F. Resolve chart-library attribution before public distribution. Current
+   frontend/src/components/MarketCandlestickChart.jsx:213 sets attributionLogo:
+   false; a source search found no compensating TradingView notice/link in
+   frontend/src or public. The library's public attribution requirement must be
+   satisfied and rendered before release [S14]. This is a concrete unresolved
+   compliance finding, not evidence of an exploitable security vulnerability.
+   No CSS/code change was authorized under this read-only task. Review all shipped
+   third-party notices too; the existing clean advisory audit is not a license audit.
+G. Product/data branch: if applicable policy permits only historical educational
+   data, design a SEPARATE approved historical replay mode with an explicit clock,
+   source/delay labels, licensed history, matching contract/calendar handling and
+   replay accounting tests. Do not send 30-day-old prices into live execution or
+   relax freshness guards. Synthetic-only public demo would also be a new approved
+   production mode; current mocks are guarded test-only, not a public feature.
+H. Keep single-worker money locks and idempotent jobs. No replicas/autoscaling
+   until distributed claims/locks and recovery have been implemented and tested.
+
+8. MARKET-DATA / LEGAL COSTS: THE MAIN GO/NO-GO DEPENDENCY
+=======================================================
+Important update beyond the older guide's May 2024 reference:
+SEBI's May 8, 2026 circular, effective July 1, 2026, addresses educational price
+data with a 30-day lag; it also addresses agreements, audit trails and monetary
+incentives. NSE circulated it on May 11 [S12, S13]. This is not a personalized
+legal determination for InvestSmart; obtain current applicable advice and written
+provider confirmation. Do not assume a paid feed enables a prohibited live use.
+The older one-day or three-month explanations are insufficient current guidance.
+
+Upstox advertises a free read-only Analytics Token valid for one year and lists
+supported API categories/static-IP conditions [S11]. That authenticates API access;
+it does not by itself license public charts, redistribution or simulated trading.
+Ask about symbols/exchanges/options/history, educational use, multi-user display,
+caching, geography, quotas and whether the proposed product is permitted at all.
+Use official business contact api@upstox.com yourself [S15]; no message was sent.
+One-token limits and environment isolation require an approved arrangement, not
+unapproved account duplication or sharing personal broker access with users.
+
+Therefore:
+- Licensed infrastructure can fit this budget; unrestricted real-time data rights
+  for this educational product have NOT been established, financially or legally.
+- An unknown agreement/advice fee cannot be included as Rs 0. Stop launch spending
+  until scope/cost is known. Refusal or incompatible policy blocks the current mode.
+- A permitted historical/synthetic portfolio showcase might be cheaper, but changes
+  product behavior and needs a separately approved implementation/test plan.
+- Privacy notice, retention/deletion, processor locations, secure recovery and
+  paper-only disclosures remain mandatory review items. No cash rewards, deposits,
+  real broker execution or investment recommendations are introduced by this plan.
+
+9. HOW THE EXISTING 32 MANUAL GROUPS CHANGE
+=========================================
+These are PROPOSED amendments to the portable guide, not completed checkboxes.
+Changed means provider/budget/sequence detail changes; the acceptance obligation
+remains. Dependencies still live in the unchanged canonical checklist until approval.
+
+ID   Proposed effect
+---  --------------------------------------------------------------------------
+M01  CHANGE: approve Rs 1,325 intro/Rs 1,820 renewal envelope, upfront cash and
+     ephemeral separate staging proposal; retain all P0/P1 and single-worker rules.
+M02  RETAIN: operator MFA, vault and independent recovery; free existing tools.
+M03  RETAIN: private credential-reuse/history review; no exposure/automatic rotation.
+M04  RETAIN: safe clean private source snapshot before CI; no raw dirty-tree upload.
+M05  UPDATE: review 2026 educational-data rules before purchases, not just 2024;
+     obtain applicable provider permission, lawful scope and complete fee quote.
+M06  CHANGE: included Linux CI plus an approved temporary independent stage;
+     cap paid usage. Do not attempt another blocked Windows standby/policy run.
+M07  RETAIN: full exact-source synthetic benchmark; no shortened substitute.
+M08  RETAIN: predictable ordinary domain/renewal; host freebies optional.
+M09  CHANGE: select KVM 2 only after cash-flow/region/egress quote review;
+     temporary independent staging replaces permanent USD 48 staging purchase.
+M10  ADAPT: same SSH/host-key/non-root/recovery rules on the chosen hosts.
+M11  ADAPT: provider firewall UI differs; private DB/API and narrow staging peers
+     remain. Verify Docker-published ports, not just the host firewall UI.
+M12  RETAIN: stage A record DNS-only; IPv6 only after separate verification.
+M13  RETAIN: Brevo domain/sender authentication and support inbox.
+M14  ADAPT: approved STARTTLS port on actual host, normally 587; no DO-specific
+     2525 assumption. Actual relay receipt still required.
+M15  UPDATE: legal approval first, private token type/endpoint/quota review;
+     verify geographic/IP requirements for the chosen host, no real broker orders.
+M16  RETAIN: independently reviewed trading AND settlement calendars/activation.
+M17  UPDATE: current educational-data rules, third-party chart notices, processors,
+     realistic retention/recovery and public paper-simulation statements.
+M18  CHANGE: private encrypted R2 Standard instead of USD 5 Spaces example;
+     measure retention size and safeguard independent keys; no free-tier waiver.
+M19  RETAIN: independent staging secrets/private mode-600 environment and preflight.
+M20  ADAPT: verified prebuilt artifact transfer; avoid build load on production.
+M21  RETAIN: explicitly approved restricted stage/fresh synthetic DB; safe upgrades.
+M22  RETAIN: personally receive signup/resend/reset mail and inspect HTTPS origin.
+M23  RETAIN: guarded owner bootstrap + personal MFA/recovery, separately approved.
+M24  RETAIN: personally operate phone-code/passkey/Windows Hello prompts.
+M25  RETAIN: real Android/iOS/tablet/desktop/Admin workflow/rendered acceptance.
+M26  UPDATE: two-vCPU actual-host full test, packaged HTTPS and provider quotas;
+     no population guarantee from CI. Preserve exact thresholds/reconciliation.
+M27  CHANGE: R2 restore/rollback + low-overhead probes/Better Stack alert receipt;
+     temporary isolated restore host; vendor weekly backup is supplementary only.
+M28  CHANGE: one permanent production host plus separate ephemeral stage, rather
+     than two permanent bills. Independent production keys/volumes/origin required;
+     staging DB/factors are never promoted. Approve runbook amendment first.
+M29  RETAIN: separately approve IP-restricted final commissioning and own factors.
+M30  RETAIN: actual FINAL-origin mail/devices/data/restore/alert verification.
+M31  RETAIN: exact candidate and every applicable gate reviewed with evidence;
+     a cheaper plan does not confer release approval.
+M32  RETAIN: separate explicit public-exposure approval and ongoing operations;
+     test-host decommissioning needs a safe preservation/billing decision.
+
+Substantive budget/provider/sequence amendments affect 14 groups:
+M01,M05,M06,M09,M10,M11,M14,M15,M17,M18,M20,M26,M27,M28.
+The other 18 groups retain their acceptance obligations; provider UI references
+and cross-references may need minor wording alignment after approval.
+All 32 groups remain unverified manual obligations; no task was removed/completed.
+
+10. UPDATED EXECUTION ORDER AND STEP-BY-STEP ROADMAP
+==================================================
+For the next ChatGPT reviewer: guide the first unfinished step only. Do not run
+this section as a deployment script; no paid/external/state-changing action has
+been approved. Assistant can do routine engineering after approval/private access;
+the student personally handles purchases, permissions and authentication prompts.
+
+[ ] Step 1 - Read this proposal together with the unchanged three original docs.
+    Confirm paper-only scope, budget, upfront affordability and who approves release
+    (M01). Protect operator accounts and resolve private exposure review (M02-M03).
+
+[ ] Step 2 - Obtain current applicable data/compliance response (M05/M15/M17).
+    Contact Upstox yourself through its official route; describe the public product,
+    2026 rule, data types/age, users, region and quotas. Share only a non-secret
+    permission/cost summary with ChatGPT. If incompatible, stop purchases and
+    commission an approved historical/synthetic product plan. Do not buy a token
+    or license on the assumption it overrides regulatory requirements.
+
+[ ] Step 3 - Approve a clean source export and isolated Linux runner (M04/M06).
+    In GitHub Settings review Actions billing/policies. Publish only the approved
+    snapshot. Actions -> InvestSmart synthetic capacity -> select approved ref ->
+    Run workflow, only after publication/dispatch authorization. Download aggregate
+    evidence. Require full workload and analyzer PASS (M07). Resolve attribution
+    and proposed engineering changes before final packaging and retest as needed.
+
+[ ] Step 4 - Approve the architecture/runbook amendment and actual spending quote.
+    Visit https://www.hostinger.com/in/vps-hosting -> KVM 2 -> inspect term,
+    region, tax, IPv4, renewal and total. Do not pay until explicitly approved.
+    Request the one-month quote if prepayment is unaffordable. Confirm SMTP egress
+    and recovery-console access. Approve separate ephemeral stage/cost cap (M09).
+    Use https://dash.cloudflare.com for reviewed ordinary domain/DNS (M08).
+
+[ ] Step 5 - After separate purchase/access approval, establish non-root SSH and
+    host-key verification, firewall and private ports (M10-M11). Set stage/app
+    records DNS-only, preserving existing DNS/mail records (M12). Temporary stage
+    must use a separate host, not the live production machine or overlapping stack.
+
+[ ] Step 6 - In https://app.brevo.com authenticate the approved domain/sender and
+    privately store SMTP settings (M13-M14). Prepare approved token scope (M15),
+    reviewed calendar coverage (M16) and privacy/notice/retention text (M17).
+    Create private R2 Standard backup destination, least-privilege credentials and
+    independent key custody after account approval (M18). Never paste keys into chat.
+
+[ ] Step 7 - Have the assistant prepare approved resource/backup/monitoring/measurement
+    configuration and exact candidate; run relevant backend/frontend/tooling,
+    dependency, container-OS, migration/restore and release checks for that snapshot.
+    Update evidence honestly, independent checksum verification included (M19-M20).
+    No configuration change inherits the previous candidate's acceptance.
+
+[ ] Step 8 - Explicitly approve private staging startup with fresh synthetic data
+    (M21). Verify trusted HTTPS, real peer denial/forged-header denial, health JSON,
+    CSRF/cookies, persistence and private ports. Personally test actual mail,
+    bootstrap/MFA, phone/passkeys and protected real-device/UI flows (M22-M25).
+
+[ ] Step 9 - Authorize isolated full measurement and recovery (M26-M27).
+    Keep 100 sessions, 30 API requests/sec for 1,800 seconds, then 60/sec for 300
+    seconds and 300-second cooldown; add setup/warmup time. Require read p95 <=500ms,
+    mutation p95 <=2s, unexpected errors <1%, no accounting discrepancies and
+    continuous complete telemetry. Include CPU/RSS/GC/memory, disk, DB waits/pool,
+    queue stability and post-load recovery. Trend inspection is not proof of no
+    memory leaks. Cover the chosen production-size host before real users and
+    packaged HTTPS separately; provider tests use only authorized read scope/quota.
+    Keep rate limits intact. Stop failed acceptance, diagnose and retest after a
+    meaningful fix/environment change; never declare success from an interrupted run.
+
+    Source-checkout Linux reference commands, isolated environment ONLY:
+      node scripts/build-v2-release.mjs --require-containers
+      env -u V2_LOAD_STEADY_SECONDS -u V2_LOAD_BURST_SECONDS node scripts/check-v2-containers.mjs --capacity
+      node scripts/analyze-capacity.mjs target/release-checks/smoke-ACTUAL_ID target/capacity-analysis.json
+    Identify the NEW run directory. This is synthetic capacity, not a direct
+    production traffic generator. Use existing runbooks for additional host tests.
+
+    Rehearse encrypted off-host restore, matching app/DB rollback, balances/
+    reservations/fees/journals/factors, alert failure/recovery receipt and operator
+    response on isolated data. Do not restore over a live database.
+
+[ ] Step 10 - Only after stage acceptance, approve production provisioning and
+    restricted commissioning (M28-M29). Use separate fresh data/keys/origin and
+    one backend; preserve existing local accounts. Rehearse upgrades if any retained
+    production database exists. Do not use fresh SQL or key regeneration over it.
+    Personally enroll final-origin owner MFA and regular factors, receive actual
+    mail and verify device/recovery/monitoring/data/calendar behavior (M30).
+
+[ ] Step 11 - Review exact-source archive, all applicable gates, legal scope and
+    cost commitments (M31). Explicitly authorize public access separately (M32).
+    The assistant then uses the reviewed public-exposure runbook without losing
+    volumes. This document does not authorize that action. Retain tested rollback.
+
+[ ] Step 12 - After launch, watch alerts and billing; patch/rebuild/retest, retain
+    periodic restore drills and review provider/calendar/domain expiries. Stop
+    admitting untested load rather than weakening safeguards; investigate sustained
+    CPU >70%, heap/pool >80%, queue/disk pressure or SLO misses. Admission/scope
+    changes need review. Retest a larger single worker before considering replicas.
+    Preserve data/evidence before separately approved temporary-host retirement.
+
+11. ALL 26 RELEASE GATES: UNCHANGED RESULTS AND REMAINING EVIDENCE
+==============================================================
+Gate      Status   Still needed / verified scope
+--------- -------- -----------------------------------------------------------
+TR-01     PASS     Existing intent/ownership/excess-exit regressions only; UX open.
+TR-02     PASS     Existing accounting/MySQL/restart scope; full-load reconcile open.
+TR-03     BLOCKED  Lawful provider/contract permissions and reviewed working calendars.
+SEC-01    PASS     Existing zero-known-findings audits; rerun for changed release.
+SEC-02    BLOCKED  Physical factors, owner MFA and protected workflow acceptance.
+SEC-03    BLOCKED  Private reuse/history/exposure decisions, actual host/key custody.
+SEC-04    BLOCKED  Actual peer attribution, abuse/429 and bounded requests on host.
+INF-01    BLOCKED  Approved isolation runbook and real distinct stage/prod evidence.
+INF-02    BLOCKED  Actual DNS/TLS/firewall/private ports and persistence acceptance.
+INF-03    BLOCKED  Actual staged direct-peer/forged-header denial acceptance.
+CAP-01    FAIL     Full uninterrupted steady/burst workload, not shorter smoke.
+CAP-02    FAIL     Valid complete latency/error SLOs and financial reconciliation.
+CAP-03    BLOCKED  Continuous chosen-host resources, stability and headroom evidence.
+CAP-04    BLOCKED  Authorized upstream quota/latency/cache compatibility acceptance.
+CAP-05    PASS     Existing guarded synthetic isolation, no real mail/data load.
+SCALE-01  PASS     One worker retained; no horizontal replicas.
+SCALE-02  BLOCKED  Deferred P2 distributed scaling; not focused V2 launch condition.
+OPS-01    BLOCKED  Actual host/job/mail/data/backup alerts and operator response.
+OPS-02    PASS     Existing bounded catch-up/restart scope, not host monitoring.
+DATA-01   PASS     Existing managed migration/fresh schema parity scope.
+DATA-02   BLOCKED  Actual encrypted off-host retention, restore/rollback/key recovery.
+REL-01    BLOCKED  Exact final release + all gates + explicit release/exposure approval.
+REL-02    BLOCKED  Real mail receipt and final HTTPS destinations at final origin.
+UX-01     BLOCKED  Actual desktop/Android/iPhone/tablet/protected latest UI acceptance.
+GOV-01    BLOCKED  Current data/compliance, chart notices, privacy/retention approval.
+FUT-01    BLOCKED  Deferred P2 mobile/store/V3 phase, separate from web launch.
+
+The newly identified educational-data update and chart-notice finding belong in
+the GOV-01 review when the owner approves checklist updates. Neither reduces
+existing counts. No missing evidence is converted into PASS by choosing a vendor.
+
+12. ANDROID/iOS AND V3: FUTURE COSTS, NOT THIS WEB BUDGET
+======================================================
+The same accepted API can support later clients, but mobile authentication,
+passkeys/origins, secure storage, signed builds, privacy/store disclosures and API
+version compatibility need their own plan/tests. A website wrapper is not automatic
+store approval. Keep installed old clients compatible while migrating backend/V3.
+
+Google Play developer registration currently USD 25 once: roughly Rs 2,803 with
+planning tax/FX, plus identity/device/testing requirements [S16]. Apple Developer
+Program USD 99/year: roughly Rs 11,098/year / Rs 925 monthly equivalent using
+the same assumptions, plus compatible build/test hardware or build service [S17].
+Local checkout may differ. Apple annual enrollment added to the recommended renewal
+web envelope exceeds Rs 2,000/month. Fund mobile separately or postpone iOS; free
+mobile browser access is not an App Store publication. No store account purchased.
+
+13. FINAL DECISION FOR THE NEXT REVIEWER
+======================================
+CONDITIONALLY FEASIBLE: secure small-scale public infrastructure can plausibly fit
+Rs 2,000/month using one prepaid 8 GB x86 VPS, separate ephemeral staging, bundled
+private MySQL, free DNS/TLS/SMTP/monitoring and inexpensive encrypted off-host backup.
+Rs 1,000 is an optimistic floor, not a robust renewal/contingency budget.
+
+NOT READY TO DEPLOY: unchanged 7 PASS / 2 FAIL / 17 BLOCKED. The quotation's upfront
+cash, two-core workload acceptance, current educational-data legality/permission,
+chart attribution, real host services/recovery, credentials and human/device gates
+remain unresolved. If no lawful affordable data/product arrangement or suitable
+tested host exists, the current live-data launch is infeasible within this budget.
+A historical/synthetic showcase may be a viable separately approved alternative.
+
+No purchases, publication, deployment, DNS edits, credential changes, architecture
+changes, user-data writes or security bypasses were performed for this proposal.
+
+OFFICIAL SOURCES (CHECKED 2026-11-16; RECHECK BEFORE PURCHASE)
+==========================================================
+[S1] Hostinger India VPS plans/terms:
+https://www.hostinger.com/in/vps-hosting
+Hostinger SMTP/firewall reference (actual relay egress still needs verification):
+https://www.hostinger.com/support/7854530-is-smtp-port-25-blocked-on-hostinger-vps/
+[S2] DigitalOcean bundled plans/hourly pricing:
+https://www.digitalocean.com/pricing/droplets
+https://docs.digitalocean.com/products/droplets/details/pricing/
+[S3] Hetzner official availability, shared-resource explanation:
+https://www.hetzner.com/cloud/
+The older June adjustment URL returned 404 on open; no old price is a firm quote.
+[S4] Oracle current free quotas/availability:
+https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+[S5] Render free-instance limitations and production warning:
+https://render.com/docs/free
+[S6] Cloudflare Registrar registration AND renewal list:
+https://pricing.registrar.cloudflare.com/?q=com
+[S7] R2 Standard/free/operation pricing:
+https://developers.cloudflare.com/r2/pricing/
+[S8] Brevo free-plan limits:
+https://help.brevo.com/hc/en-us/articles/208589409-About-Brevo-s-pricing-plans
+Relay/login/port guidance:
+https://help.brevo.com/hc/en-us/articles/115000188150-Troubleshooting-Issues-with-Brevo-SMTP
+[S9] Better Stack free personal-project monitoring:
+https://betterstack.com/pricing
+[S10] GitHub runner pricing (included quota depends on account):
+https://docs.github.com/en/billing/reference/actions-runner-pricing
+[S11] Upstox read-only token, scope, IP and expiry:
+https://upstox.com/developer/api-documentation/analytics-token/
+[S12] SEBI May 8, 2026 educational-price-data circular:
+https://www.sebi.gov.in/legal/circulars/may-2026/norms-for-sharing-and-usage-of-price-data-for-educational-purposes_101293.html
+[S13] NSE circulation with full SEBI text and July 1 effective date:
+https://nsearchives.nseindia.com/content/circulars/COMP74156.pdf
+Additional data-use policy (check current agreements as well):
+https://nsearchives.nseindia.com/web/sites/default/files/inline-files/NSE_Data_Sharing%26Usage_Policy.pdf
+[S14] Lightweight Charts attribution requirements:
+https://tradingview.github.io/lightweight-charts/docs#license-and-attribution
+[S15] Upstox API/business integration contact:
+https://upstox.com/trading-api/
+[S16] Google Play account fee/testing requirements:
+https://support.google.com/googleplay/android-developer/answer/6112435?hl=en
+[S17] Apple developer enrollment fee:
+https://developer.apple.com/help/account/membership/program-enrollment
+
+Service UIs, pricing, availability, tax and legal requirements change. Official
+console checks are not permission to purchase, weaken controls or bypass prompts.

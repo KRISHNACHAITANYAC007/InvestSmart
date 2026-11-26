@@ -34,3 +34,16 @@ build/
 
 # Environment / secrets
 src/main/resources/application-local.properties
+src/main/resources/application-local.yml
+src/main/resources/application-local.yaml
+
+# Private runtime environment files; commit templates only.
+.env
+.env.*
+*.env
+!.env.example
+!*.env.example
+
+# Local agent configuration and credential-bearing manual request scratch.
+.codex/
+src/main/java/com/example/investsmart/test.http

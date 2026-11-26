@@ -1,0 +1,7 @@
+# Always combine with compose.yaml and an explicit isolated project name.
+services:
+  web:
+    environment:
+      STAGING_ALLOWED_CIDRS: ${STAGING_ALLOWED_CIDRS:?Set explicit tester IP/CIDR allowlist}
+    volumes:
+      - ./Caddyfile.staging:/etc/caddy/Caddyfile:ro

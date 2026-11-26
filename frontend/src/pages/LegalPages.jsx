@@ -1,0 +1,8 @@
+import { Link } from "react-router-dom";
+import { LEGAL_DOCUMENTS, LEGAL_VERSION } from "../legal/content.js";
+import { LegalLinks } from "../components/LegalLinks.jsx";
+import "./LegalPages.css";
+export default function LegalPages({ document }) {
+    const doc = LEGAL_DOCUMENTS[document];
+    return <main className="legal-page"><header><Link className="legal-brand" to="/login">InvestSmart <small>by KC</small></Link><Link to="/dashboard">Back to workspace</Link></header><article aria-labelledby="legal-title"><p className="legal-review">Draft · Legal review required before public launch · Version {LEGAL_VERSION}</p><h1 id="legal-title">{doc.title}</h1>{doc.sections.map(([heading, text]) => <section key={heading}><h2>{heading}</h2><p>{text}</p></section>)}<aside className="legal-sources"><h2>Official reference material</h2><p>References inform review; they do not establish permission or approval for InvestSmart.</p><ul><li><a href="https://www.sebi.gov.in/legal/circulars/may-2026/norms-for-sharing-and-usage-of-price-data-for-educational-purposes_101293.html">SEBI educational price-data circular (May 2026)</a></li><li><a href="https://nsearchives.nseindia.com/web/sites/default/files/inline-files/NSE_Data_Sharing%26Usage_Policy.pdf">NSE data usage and sharing policy</a></li><li><a href="https://marketdata.bseindia.com/">BSE market-data services</a></li><li><a href="https://upstox.com/developer/api-documentation/analytics-token/">Upstox API token scope</a></li><li><a href="https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf">Official DPDP commencement notification</a></li></ul></aside></article><LegalLinks /></main>;
+}

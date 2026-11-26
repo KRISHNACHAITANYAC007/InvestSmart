@@ -46,15 +46,22 @@
 
 
 .navbar-title {
+    display: inline-flex;
     margin: 0;
 
     font-size: 22px;
     font-weight: 700;
-
     color: #111827;
     text-decoration: none;
-
     cursor: pointer;
+}
+
+.navbar-title-accent {
+    color: #087c6b;
+}
+
+.navbar-title:hover .navbar-title-accent {
+    color: #066858;
 }
 
 

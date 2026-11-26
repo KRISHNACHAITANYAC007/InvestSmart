@@ -1,0 +1,21 @@
+# InvestSmart continuation rules
+
+Before starting each new work unit, announce **new work !!!!** in bold and explain the work in simple words, then proceed. This is the user's communication preference.
+
+Keep V3_SIMPLE_CHECKLIST.md as the user's plain-language V3 progress checklist. After meaningful milestones, synchronize its done/current/next work with PROJECT_OVERVIEW.md, the handoff and queue. Explain technical/AI terms simply, distinguish local previews from enabled live AI, and keep owner dependencies exclusively in DEPLOYMENT_CHECKLIST.md.
+
+Keep PROJECT_OVERVIEW.md as the short, plain-language user entry point. After meaningful milestones, update its completed/current/next work alongside the handoff and queue. Clearly distinguish intended AI features from currently enabled behavior; retain technical evidence in the handoff and open owner dependencies only in DEPLOYMENT_CHECKLIST.md.
+
+Read PROJECT_HANDOFF.md, WORK_QUEUE.md and DEPLOYMENT_CHECKLIST.md before changing this repository. Work against the active approved Goal and resume the first unfinished task; do not restart completed work or discard unrelated working-tree changes.
+
+Update PROJECT_HANDOFF.md and checkpoint WORK_QUEUE.md after every meaningful change or small implementation unit, including code, tests, configuration and documentation, before proceeding to the next unit, before long verification commands and before ending the turn. Record changed areas, current status, exact verification commands/results (or explicitly pending/not run), remaining failures and the next action. Use the handoff status legend: [x] complete only with evidence, [~] partial/in progress, [ ] not started. Keep the latest checkpoint prominent and preserve historical evidence; do not imply implementation or release acceptance from planning alone. Record these documentation updates together as part of the same change unit; they do not require an endless chain of self-referential updates. A usage limit or interruption does not mean the task is complete. Native Goal continuation remains subject to platform availability and limits; no quota bypass, automatic authentication or guaranteed quota-reset wakeup is permitted.
+
+Keep every open user dependency exclusively in DEPLOYMENT_CHECKLIST.md. Remove a request only after recording completion evidence in PROJECT_HANDOFF.md. Never store credentials, personal owner identifiers or recovery codes in these documents.
+
+All financial features are educational paper simulations. Preserve existing accounts, holdings, balances, reservations and historical trades. New products must fail unavailable when authorized pricing/contract/calendar data is missing. Calendar days are not settlement working days. Legacy APIs must share new accounting constraints, never bypass them.
+
+Use constructor injection, DTO boundaries, the shared user lock for money writes and idempotent journals/jobs. Add managed migrations and matching fresh/runtime schema baselines. Verify meaningful financial invariants, concurrency and restart/restore behavior. Automated protocol tests do not certify rendered UI or physical devices. Browser safety barriers and user authentication prompts must not be automated or bypassed.
+
+No public deployment, real broker order, payment, owner promotion or external message is implied by local implementation. The previous validated archive certifies only its own source snapshot. Update the handoff and checklist truthfully for each task.
+
+For AI-related work, read AI_LEARNING_ROADMAP.md and review it when features, architecture, frameworks/dependencies, prerequisites, security risks, resources or feature completion/deferral change. Update affected topics and the AI Development Change Log incrementally; preserve stable topic IDs and learning history. Only explicit learner confirmation permits personal topics to become Completed; implementation is not learning evidence. Before an approved AI implementation unit, briefly name the concepts/topic IDs, prerequisites, one best free resource and beginner-level data flow; keep extended explanations in the roadmap and do not block routine work for study. Keep owner approvals in DEPLOYMENT_CHECKLIST.md. This maintenance occurs during future work, not through a background automation.

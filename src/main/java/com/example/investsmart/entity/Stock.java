@@ -2,6 +2,7 @@ package com.example.investsmart.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "stocks")
@@ -11,11 +12,17 @@ public class Stock{
     private Long id;
 
     private String symbol;
+    @Column(unique = true)
+    private String instrumentKey;
+    private String exchange;
+    private String isin;
     private String companyName;
+    private String sector;
     private BigDecimal currentPrice;
     private BigDecimal previousClose;
     private BigDecimal dayHigh;
     private BigDecimal dayLow;
+    private LocalDateTime marketDataUpdatedAt;
 
     public Stock(){}
 
@@ -36,12 +43,39 @@ public class Stock{
         this.symbol = symbol;
     }
 
+    public String getInstrumentKey() {
+        return instrumentKey;
+    }
+
+    public void setInstrumentKey(String instrumentKey) {
+        this.instrumentKey = instrumentKey;
+    }
+
+    public String getExchange() {
+        if (exchange != null) return exchange;
+        return instrumentKey != null && instrumentKey.startsWith("BSE_") ? "BSE" : "NSE";
+    }
+    public void setExchange(String exchange) { this.exchange = exchange; }
+    public String getIsin() {
+        return isin != null ? isin : instrumentKey != null && instrumentKey.startsWith("NSE_EQ|")
+                ? instrumentKey.substring(7) : null;
+    }
+    public void setIsin(String isin) { this.isin = isin; }
+
     public String getCompanyName() {
         return companyName;
     }
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
     }
 
     public BigDecimal getCurrentPrice() {
@@ -74,6 +108,12 @@ public class Stock{
 
     public void setDayLow(BigDecimal dayLow) {
         this.dayLow = dayLow;
+    }
+
+    public LocalDateTime getMarketDataUpdatedAt() { return marketDataUpdatedAt; }
+
+    public void setMarketDataUpdatedAt(LocalDateTime marketDataUpdatedAt) {
+        this.marketDataUpdatedAt = marketDataUpdatedAt;
     }
 
 }

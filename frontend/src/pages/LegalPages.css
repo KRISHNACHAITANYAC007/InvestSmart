@@ -1,0 +1,25 @@
+.legal-page { max-width:900px; margin:0 auto; padding:clamp(20px,5vw,56px); color:#24344b; }
+.legal-page header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:32px; }
+.legal-brand { font-size:1.4rem; font-weight:700; text-decoration:none; }
+.legal-brand small,.creator-signature { display:block; font-size:.8rem; font-weight:400; letter-spacing:.04em; }
+.legal-page h1 { font-size:clamp(1.7rem,5vw,2.5rem); line-height:1.2; }
+.legal-page h2 { font-size:1.12rem; margin:28px 0 10px; }
+.legal-page p,.legal-page li { line-height:1.75; overflow-wrap:anywhere; }
+.legal-page a,.legal-links a,.simulation-notice a { color:#166da3; text-underline-offset:3px; }
+.legal-review { padding:14px 16px; border-left:3px solid #a99555; background:rgba(169,149,85,.1); font-size:.85rem; }
+.legal-links { display:flex; flex-wrap:wrap; gap:4px 18px; margin-top:18px; font-size:.78rem; }
+.legal-links a { display:inline-flex; align-items:center; min-height:44px; }
+.simulation-notice { margin:24px 0 0; font-size:.78rem; line-height:1.6; color:#52647a; }
+.auth-panel .legal-acknowledgment { display:flex; align-items:flex-start; gap:10px; font-size:.8rem; line-height:1.6; font-weight:400; margin:18px 0; }
+.auth-panel .legal-acknowledgment input[type="checkbox"] { width:18px; height:18px; min-width:18px; margin-top:4px; padding:0; flex:none; accent-color:#167ab5; }
+.auth-panel .legal-acknowledgment a { color:inherit; text-decoration:underline; text-underline-offset:3px; }
+.creator-signature { margin-top:12px; color:inherit; opacity:.85; }
+.auth-brand-tagline { margin-top:16px; font-size:14px; font-weight:400; }
+.auth-brand-wrap .creator-signature { color:#166da3; margin-top:4px; }
+.auth-legal-details { margin-top:14px; font-size:.78rem; }
+.auth-legal-details summary { cursor:pointer; padding:8px 0; }
+.auth-legal-details .legal-links { margin-top:4px; }
+.login-brand .creator-signature { color:#fff; font-size:13px; margin-top:8px; text-decoration:none; }
+.login-page .legal-links a { color:#166da3; }
+.legal-page :focus-visible,.legal-links :focus-visible { outline:2px solid #68b8f6; outline-offset:4px; }
+@media(prefers-color-scheme:light) { .legal-page { color:#24344b; } .legal-page a { color:#126696; } }

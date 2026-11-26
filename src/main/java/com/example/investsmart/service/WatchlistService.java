@@ -31,17 +31,19 @@ public class WatchlistService {
         this.stockRepository = stockRepository;
     }
 
+    @org.springframework.transaction.annotation.Transactional
     public Watchlist addToWatchlist(
             String email,
             Long stockId) {
 
         User user = userRepository
-                .findByEmail(email)
+                .findByEmailForUpdate(email)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
                                 "User not found"
                         ));
 
+        user.requireActive();
         Stock stock = stockRepository
                 .findById(stockId)
                 .orElseThrow(() ->
@@ -52,15 +54,14 @@ public class WatchlistService {
         List<Watchlist> existing =
                 watchlistRepository.findByUserId(user.getId());
 
-        boolean alreadyExists = existing.stream()
-                .anyMatch(w ->
-                        w.getStock().getId().equals(stockId)
-                );
-
-        if (alreadyExists) {
-            throw new BadRequestException(
-                    "Stock already exists in watchlist"
-            );
+        List<Watchlist> matches = existing.stream().filter(w ->
+                w.getStock().getId().equals(stockId) || stock.getIsin() != null
+                        && stock.getIsin().equals(w.getStock().getIsin())).toList();
+        if (!matches.isEmpty()) {
+            Watchlist saved = matches.get(0);
+            saved.setStock(stock);
+            if (matches.size() > 1) watchlistRepository.deleteAll(matches.subList(1, matches.size()));
+            return watchlistRepository.save(saved);
         }
 
         Watchlist watchlist = new Watchlist();
@@ -106,22 +107,28 @@ public class WatchlistService {
                     );
 
             responses.add(response);
+            response.setInstrumentKey(stock.getInstrumentKey());
+            response.setExchange(stock.getExchange());
+            response.setIsin(stock.getIsin());
+            response.setMarketDataUpdatedAt(stock.getMarketDataUpdatedAt());
         }
 
         return responses;
     }
 
+    @org.springframework.transaction.annotation.Transactional
     public void removeFromWatchlist(
             String email,
             Long stockId) {
 
         User user = userRepository
-                .findByEmail(email)
+                .findByEmailForUpdate(email)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
                                 "User not found"
                         ));
 
+        user.requireActive();
         Watchlist watchlist =
                 watchlistRepository
                         .findByUserIdAndStockId(

@@ -30,7 +30,7 @@
     background: white;
 
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border-radius: var(--ui-radius, 8px);
 
     transition:
             transform 0.2s ease,
@@ -140,7 +140,7 @@
     background: white;
 
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border-radius: var(--ui-radius, 8px);
 
     color: #6b7280;
 }

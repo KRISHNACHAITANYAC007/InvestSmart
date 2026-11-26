@@ -23,7 +23,7 @@ public class WatchlistController {
     }
 
     @PostMapping
-    public ResponseEntity<Watchlist> addToWatchlist(
+    public ResponseEntity<java.util.Map<String,Long>> addToWatchlist(
             Authentication authentication,
             @RequestParam Long stockId) {
 
@@ -37,7 +37,7 @@ public class WatchlistController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(watchlist);
+                .body(java.util.Map.of("id",watchlist.getId(),"stockId",watchlist.getStock().getId()));
     }
 
     @GetMapping("/me")

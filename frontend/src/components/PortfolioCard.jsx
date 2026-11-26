@@ -1,6 +1,7 @@
 import "../styles/Cards.css";
 
 function PortfolioCard({ portfolio }) {
+    const money = value => value == null ? "Unavailable" : Number(value).toLocaleString("en-IN",{style:"currency",currency:"INR"});
 
     return (
         <div className="dashboard-card">
@@ -8,15 +9,15 @@ function PortfolioCard({ portfolio }) {
             <h2>Portfolio</h2>
 
             <p>
-                Balance: ₹{portfolio.balance}
+                Balance: {money(portfolio.balance)}
             </p>
 
             <p>
-                Holdings Value: ₹{portfolio.holdingsValue}
+                Holdings Value: {money(portfolio.holdingsValue)}
             </p>
 
             <p className="dashboard-card-value">
-                ₹{portfolio.totalValue}
+                {money(portfolio.totalValue)}
             </p>
 
         </div>

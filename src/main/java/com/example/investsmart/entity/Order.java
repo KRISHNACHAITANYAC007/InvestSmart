@@ -2,10 +2,20 @@ package com.example.investsmart.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.time.Instant;
 
 @Entity
 @Table(name = "orders")
 public class Order {
+    private String source;
+    public String getSource() { return source == null ? "MARKET" : source; }
+    public void setSource(String value) { source = value; }
+    @Column(name = "created_at", updatable = false)
+    private Instant createdAt;
+    @PrePersist
+    void setCreatedAt() { if (createdAt == null) createdAt = Instant.now(); }
+    public Instant getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Instant value) { createdAt = value; }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

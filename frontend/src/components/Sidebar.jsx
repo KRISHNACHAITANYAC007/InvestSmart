@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
+import { MAIN_PAGES } from "../api/navigation.js";
+import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
+import { useEffect } from "react";
+import { useAuth } from "../context/useAuth.js";
 
 function Sidebar({ menuOpen, setMenuOpen }) {
+    const { user } = useAuth();
+    useEffect(() => { if (!menuOpen) return; const close = event => { if (event.key === "Escape") setMenuOpen(false); }; window.addEventListener("keydown", close); return () => window.removeEventListener("keydown", close); }, [menuOpen, setMenuOpen]);
 
     function handleLinkClick() {
         setMenuOpen(false);
@@ -10,65 +15,22 @@ function Sidebar({ menuOpen, setMenuOpen }) {
     return (
         <>
             {menuOpen && (
-                <div
+                <button
                     className="sidebar-overlay"
+                    aria-label="Close navigation"
                     onClick={() => setMenuOpen(false)}
-                ></div>
+                />
             )}
 
-            <aside className={`sidebar ${menuOpen ? "sidebar-open" : ""}`}>
+            <aside id="main-navigation" aria-label="Main navigation" aria-hidden={!menuOpen} inert={!menuOpen} className={`sidebar ${menuOpen ? "sidebar-open" : ""}`}>
 
                 <h3 className="sidebar-title">
                     Menu
                 </h3>
+                {import.meta.env.DEV && import.meta.env.VITE_AGENT_PREVIEW === "true" && <NavLink to="/agent" onClick={handleLinkClick}>Portfolio companion</NavLink>}
 
-                <Link
-                    className="sidebar-link"
-                    to="/dashboard"
-                    onClick={handleLinkClick}
-                >
-                    Dashboard
-                </Link>
-
-                <Link
-                    className="sidebar-link"
-                    to="/stocks"
-                    onClick={handleLinkClick}
-                >
-                    Stocks
-                </Link>
-
-                <Link
-                    className="sidebar-link"
-                    to="/watchlist"
-                    onClick={handleLinkClick}
-                >
-                    Watchlist
-                </Link>
-
-                <Link
-                    className="sidebar-link"
-                    to="/portfolio"
-                    onClick={handleLinkClick}
-                >
-                    Portfolio
-                </Link>
-
-                <Link
-                    className="sidebar-link"
-                    to="/orders"
-                    onClick={handleLinkClick}
-                >
-                    Orders
-                </Link>
-
-                <Link
-                    className="sidebar-link"
-                    to="/wallet"
-                    onClick={handleLinkClick}
-                >
-                    Wallet
-                </Link>
+                {MAIN_PAGES.map(([path,title]) => <NavLink key={path} className={({isActive}) => `sidebar-link${isActive ? " active" : ""}`} to={path} onClick={handleLinkClick}>{title}</NavLink>)}
+                {user?.role === "ADMIN" && <NavLink className="sidebar-link" to="/admin" onClick={handleLinkClick}>Admin</NavLink>}
 
             </aside>
         </>

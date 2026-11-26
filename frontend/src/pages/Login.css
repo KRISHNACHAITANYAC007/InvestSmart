@@ -1,191 +1,115 @@
-.login-page {
+/* Restore the original split login design; authentication remains in AuthScreen. */
+.auth-page.login-page {
     min-height: 100vh;
-
+    min-height: 100dvh;
     display: flex;
-
+    padding: 0;
     background: #f8fafc;
 }
 
-
-
-
-
-.login-brand {
+.login-page .login-brand {
     width: 42%;
-
+    flex-shrink: 0;
     padding: 55px;
-
-    box-sizing: border-box;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     background: #166da3;
-
-    color: white;
+    color: #fff;
 }
 
-.login-brand h1 {
-    margin: 0 0 12px;
-
+.login-page .auth-brand {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    color: #fff;
     font-size: 42px;
     font-weight: 700;
-
-    color: white;
+    line-height: 1.2;
+    letter-spacing: -0.7px;
 }
 
-.login-brand p {
-    margin: 0;
-
+.login-page .auth-brand span {
+    margin-top: 12px;
     font-size: 17px;
-
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0;
     color: #e0edf5;
 }
 
-
-
-
-
-.login-section {
+.login-page .login-section {
     flex: 1;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 40px;
-    box-sizing: border-box;
-}
-
-.login-box {
-    width: 100%;
-    max-width: 390px;
-}
-
-.login-box h2 {
-    margin: 0 0 7px;
-
-    font-size: 30px;
-    font-weight: 700;
-
-    color: #111827;
-}
-
-.login-subtitle {
-    margin: 0 0 28px;
-
-    color: #6b7280;
-
-    font-size: 14px;
-}
-
-
-
-.login-field {
+    min-width: 0;
     display: flex;
     flex-direction: column;
-
-    margin-bottom: 18px;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
 }
 
-.login-field label {
-    margin-bottom: 7px;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    color: #374151;
-}
-
-.login-field input {
+.login-page .login-box {
     width: 100%;
+    max-width: 390px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    border-radius: 0;
+}
 
-    padding: 11px 12px;
-
-    box-sizing: border-box;
-
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-
-    background: white;
-
-    font-size: 15px;
-
+.login-page .login-box h1 {
+    margin: 0 0 7px;
     color: #111827;
+    font-size: 30px;
+    font-weight: 700;
 }
 
-.login-field input::placeholder {
-    color: #9ca3af;
+.login-page .login-box > .account-muted {
+    color: #6b7280;
+    font-size: 14px;
 }
 
-.login-field input:focus {
-    outline: none;
-
-    border-color: #166da3;
-
-    box-shadow: 0 0 0 2px rgba(22, 109, 163, 0.1);
-}
-
-
-
-
-.login-button {
-    width: 100%;
-
-    margin-top: 5px;
-
-    padding: 12px;
-
-    border: none;
-    border-radius: 6px;
-
-    background: #166da3;
-    color: white;
-
-    font-size: 15px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: background 0.15s ease;
-}
-
-.login-button:hover {
-    background: #125b89;
-}
-
-
-.login-reg{
-    color: deepskyblue;
-}
+.login-page .login-box form { margin-top: 28px; gap: 18px; }
+.login-page .login-box label { color: #374151; font-size: 14px; font-weight: 600; }
+.login-page .login-box input { padding: 11px 12px; border-color: #d1d5db; border-radius: var(--ui-control-radius, 6px); color: #111827; font-size: 15px; }
+.login-page .login-box input::placeholder { color: #9ca3af; }
+.auth-password-field { position: relative; }
+.auth-password-field input { padding-right: 44px !important; }
+.auth-password-toggle { position: absolute; top: 50%; right: 7px; display: grid; width: 34px; height: 34px; place-items: center; padding: 0; transform: translateY(-50%); border: 0; border-radius: 5px; background: transparent; color: #64748b; cursor: pointer; }
+.auth-password-toggle:hover { background: #f1f5f9; color: #1f2937; }
+.auth-password-toggle:focus-visible { outline: 2px solid #166da3; outline-offset: 1px; }
+.auth-password-toggle svg { width: 19px; height: 19px; }
+.login-page .login-box input:focus-visible { outline: 2px solid #166da3; outline-offset: 2px; border-color: #166da3; }
+.login-page .login-box .ui-button.primary { width: 100%; min-height: 46px; margin-top: 5px; border-color: #166da3; background: #166da3; font-size: 15px; font-weight: 600; }
+.login-page .login-box .ui-button.primary:hover { border-color: #125b89; background: #125b89; }
+.login-page .login-box .ui-button:disabled { opacity: .55; cursor: default; }
+.login-page .login-register { margin-top: 25px; color: #6b7280; font-size: 14px; }
+.login-page .login-register a { margin-left: 4px; color: #166da3; font-weight: 500; text-decoration: none; }
+.login-page .login-register a:hover { text-decoration: underline; }
+.login-page .auth-links { gap: 10px 18px; margin-top: 20px; padding-top: 16px; border-color: #e2e8f0; }
+.login-page .auth-links a { color: #166da3; }
+.login-page .auth-footer { width: 100%; max-width: 390px; margin: 24px 0 0; font-size: 12px; color: #7a8797; }
 
 @media (max-width: 700px) {
+    .auth-page.login-page { flex-direction: column; }
+    .login-page .login-brand { width: 100%; min-height: 180px; padding: 35px 25px; justify-content: flex-end; }
+    .login-page .auth-brand { font-size: 32px; }
+    .login-page .login-section { padding: 35px 25px; }
+    .login-page .login-box, .login-page .auth-footer { max-width: 440px; }
+}
 
-    .login-page {
-        flex-direction: column;
-    }
-
-    .login-brand {
-        width: 100%;
-
-        padding: 35px 25px;
-
-        min-height: 180px;
-
-        justify-content: flex-end;
-    }
-
-    .login-brand h1 {
-        font-size: 32px;
-    }
-
-    .login-section {
-        padding: 35px 25px;
-    }
-
-    .login-box {
-        max-width: none;
-    }
-
+/* The split brand panel owns the login safe area; avoid double insets. */
+.auth-page.login-page { padding:0; }
+.login-page .login-brand { padding-left:max(25px,env(safe-area-inset-left,0px)); padding-top:max(35px,env(safe-area-inset-top,0px)); }
+.login-page .login-section { padding-right:max(25px,env(safe-area-inset-right,0px)); padding-bottom:max(35px,env(safe-area-inset-bottom,0px)); }
+@media(max-width:700px) {
+ .login-page .login-brand { min-height:140px; padding:24px max(20px,env(safe-area-inset-right,0px)) 24px max(20px,env(safe-area-inset-left,0px)); padding-top:max(24px,env(safe-area-inset-top,0px)); }
+ .login-page .login-section { justify-content:flex-start; padding:28px max(20px,env(safe-area-inset-right,0px)) max(28px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px)); }
+ .login-page .login-box input { font-size:16px; }
+ .login-page .auth-links a { display:inline-flex; align-items:center; min-height:44px; }
+}
+@media(max-height:500px) and (orientation:landscape) {
+ .login-page .login-brand { min-height:100px; }
+ .login-page .login-section { justify-content:flex-start; }
 }

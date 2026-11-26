@@ -1,0 +1,64 @@
+name: InvestSmart synthetic capacity
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: investsmart-synthetic-capacity
+  cancel-in-progress: false
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Reject protected local files in the published snapshot
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import {execFileSync} from 'node:child_process';
+          const paths=execFileSync('git',['ls-files','-z']).toString().split('\0').filter(Boolean);
+          const forbidden=paths.some(p=>/(?:^|\/)(?:test\.http|production\.env|\.env(?:\..*)?|application-local\.(?:properties|ya?ml))$/.test(p)&&!p.endsWith('.example'));
+          if(forbidden)throw Error('Protected local files must not be present in the approved CI snapshot; no contents printed.');
+          NODE
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Verify the exact candidate before measurement
+        run: node scripts/build-v2-release.mjs --require-containers
+      - name: Run isolated 30-minute steady and 5-minute burst workload
+        env:
+          V2_LOAD_STEADY_SECONDS: '1800'
+          V2_LOAD_BURST_SECONDS: '300'
+        run: node scripts/check-v2-containers.mjs --capacity
+      - name: Analyze complete workload and continuous metrics
+        shell: bash
+        run: |
+          workspace=$(find target/release-checks -mindepth 1 -maxdepth 1 -type d -name 'smoke-*' -printf '%T@ %p\n' | sort -nr | head -n1 | cut -d' ' -f2-)
+          test -n "$workspace"
+          node scripts/analyze-capacity.mjs "$workspace" target/capacity-analysis.json
+          node --input-type=module -e "import fs from 'node:fs';const r=JSON.parse(fs.readFileSync('target/capacity-analysis.json'));if(r.capacityAcceptance!=='PASS')process.exit(1)"
+      - name: Preserve aggregate evidence only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: investsmart-capacity-evidence
+          path: |
+            target/http-capacity-result.json
+            target/http-capacity-progress.json
+            target/http-capacity-metrics.jsonl
+            target/http-capacity-minutes.jsonl
+            target/capacity-analysis.json
+            target/release-checks/smoke-*/container-metrics.jsonl
+          if-no-files-found: warn
+          retention-days: 14

@@ -1,0 +1,163 @@
+.watchlist-page {
+    width: 100%;
+}
+
+.watchlist-header {
+    margin-bottom: 30px;
+}
+
+.watchlist-header h1 {
+    margin-bottom: 8px;
+}
+
+.watchlist-header h1 {
+    margin: 0 0 8px;
+    font-size: 36px;
+}
+
+.watchlist-header p {
+    color: #6b7280;
+    margin: 0;
+}
+
+.watchlist-item {
+    padding: 22px;
+    margin-bottom: 16px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: var(--ui-radius, 8px);
+
+    background: white;
+
+    cursor: pointer;
+
+    transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            border-color 0.2s ease;
+}
+
+.watchlist-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
+}
+
+.watchlist-symbol {
+    margin: 0 0 5px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.watchlist-company {
+    margin-bottom: 18px;
+    color: #6b7280;
+}
+
+.watchlist-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.watchlist-item p {
+    margin: 7px 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.watchlist-remove-button {
+    margin-top: 15px;
+
+    padding: 9px 18px;
+
+    border: 1px solid #dc2626;
+    border-radius: 7px;
+
+    background: white;
+    color: #dc2626;
+
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.watchlist-remove-button:hover {
+    background: #dc2626;
+    color: white;
+}
+
+.watchlist-change-positive {
+    color: #16a34a !important;
+    font-weight: 900;
+    float: right;
+
+}
+
+.watchlist-change-negative {
+    color: #dc2626 !important;
+    font-weight: 900;
+    float: right;
+}
+
+.watchlist-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.watchlist-header-actions { display: flex; gap: 10px; }
+.watchlist-add-button, .watchlist-refresh-button { border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 14px; background: white; color: #172033; font-weight: 650; cursor: pointer; }
+.watchlist-add-button { background: #174ea6; border-color: #174ea6; color: white; }
+.watchlist-add-panel { margin: 0 0 24px; padding: 20px; border: 1px solid #e1e7ef; border-radius: var(--ui-radius, 8px); background: #fff; }
+.watchlist-add-panel h2 { margin: 0 0 6px; }
+.watchlist-add-panel > p { margin: 0 0 14px; color: #64748b; }
+.watchlist-add-panel input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font: inherit; }
+.sensex-suggestions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0; }
+.sensex-suggestions strong { width: 100%; font-size: 13px; }
+.sensex-suggestions button { border: 1px solid #dbe3ed; border-radius: 999px; padding: 6px 10px; background: #f8fafc; cursor: pointer; }
+.watchlist-search-results { display: grid; gap: 8px; }
+.watchlist-search-result { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px; border-radius: 8px; background: #f8fafc; }
+.watchlist-search-result span { display: grid; gap: 3px; }
+.watchlist-search-result small { color: #64748b; }
+.watchlist-search-result button { padding: 7px 12px; border: 0; border-radius: 7px; background: #174ea6; color: #fff; cursor: pointer; }
+.watchlist-search-result button:disabled { background: #94a3b8; cursor: default; }
+.watchlist-add-error { color: #b91c1c !important; }
+@media (max-width: 620px) { .watchlist-header { align-items: flex-start; flex-direction: column; } .watchlist-header-actions { width: 100%; } }
+
+.watchlist-change-unavailable { color: #64748b !important; }
+
+.watchlist-page { display:grid; gap:16px; }
+.watchlist-page .watchlist-header { margin:0; padding:0 0 15px; border-bottom:1px solid #e4eaf1; }
+.watchlist-page .watchlist-header h2 { margin:0 0 4px; color:#1b2b40; font-size:20px; letter-spacing:-.25px; }
+.watchlist-page .watchlist-header p { color:#718198; font-size:12px; }
+.watchlist-header-actions { align-items:center; gap:8px; }
+.watchlist-header-actions button { min-height:38px; padding:8px 12px; border:1px solid #d5deea; border-radius:7px; background:#fff; color:#364a62; font-size:12px; font-weight:600; }
+.watchlist-header-actions .watchlist-add-button { border-color:#245fce; background:#245fce; color:#fff; }
+.watchlist-header-actions .watchlist-add-button:hover { border-color:#1d4fac; background:#1d4fac; }
+.watchlist-page .watchlist-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr)); gap:14px; }
+.watchlist-page .watchlist-item { display:flex; min-width:0; flex-direction:column; gap:14px; margin:0; padding:17px; border:1px solid #e1e7ef; border-radius:10px; background:#fff; box-shadow:0 2px 8px rgba(20,39,66,.035); cursor:default; transition:border-color .15s ease,box-shadow .15s ease; }
+.watchlist-page .watchlist-item:hover { transform:none; border-color:#c5d1df; box-shadow:0 5px 15px rgba(20,39,66,.07); }
+.watchlist-item-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+.watchlist-chart-link { display:grid; min-width:0; gap:4px; color:inherit; text-decoration:none; }
+.watchlist-symbol { color:#1d3048; font-size:14px; font-weight:700; letter-spacing:.01em; }
+.watchlist-company { overflow:hidden; margin:0; color:#7a899c; font-size:11px; text-overflow:ellipsis; white-space:nowrap; }
+.watchlist-item-move { flex:0 0 auto; padding:5px 8px; border-radius:5px; font-size:10px; font-weight:650; font-variant-numeric:tabular-nums; }
+.watchlist-item-move.positive { color:#087c6b; background:#e9f6f2; }
+.watchlist-item-move.negative { color:#bf3c4b; background:#fff0f1; }
+.watchlist-item-move.unavailable { color:#64748b; background:#f1f4f8; }
+.watchlist-item-quote { display:grid; gap:3px; }
+.watchlist-item-quote span { color:#7b899b; font-size:10px; }
+.watchlist-item-quote strong { color:#1b2b40; font-size:23px; font-weight:650; letter-spacing:-.4px; font-variant-numeric:tabular-nums; }
+.watchlist-item-details { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:0; padding:11px 0; border-top:1px solid #edf1f5; border-bottom:1px solid #edf1f5; }
+.watchlist-item-details div { display:grid; min-width:0; gap:4px; }
+.watchlist-item-details dt { color:#8190a2; font-size:9px; }
+.watchlist-item-details dd { overflow:hidden; margin:0; color:#40536a; font-size:10px; font-weight:600; text-overflow:ellipsis; white-space:nowrap; font-variant-numeric:tabular-nums; }
+.watchlist-item-actions { display:flex; align-items:center; gap:8px; }
+.watchlist-item-actions .watchlist-quick-add,.watchlist-item-actions .watchlist-remove-button { min-height:32px; padding:6px 10px; border:1px solid #d3dce7; border-radius:6px; background:#fff; color:#455970; font-size:10px; font-weight:600; }
+.watchlist-item-actions .watchlist-remove-button { margin:0; border-color:#ead0d3; color:#b23b48; }
+.watchlist-item-actions .watchlist-remove-button:hover { border-color:#cb7079; background:#fff6f6; color:#a52e3d; }
+.watchlist-page .watchlist-add-panel,.watchlist-page > .chart-stock-search { margin:0; }
+.watchlist-page .watchlist-add-panel { padding:16px; border:1px solid #e1e7ef; border-radius:9px; background:#fff; }
+.watchlist-page > p { margin:0; padding:16px; border:1px solid #e1e7ef; border-radius:9px; background:#fff; color:#718198; font-size:12px; }
+.watchlist-page .market-data-status { margin:0; }
+@media(max-width:620px) {
+    .watchlist-page .watchlist-header { align-items:flex-start; }
+    .watchlist-header-actions { width:auto; flex-wrap:wrap; }
+    .watchlist-page .watchlist-list { grid-template-columns:minmax(0,1fr); }
+}

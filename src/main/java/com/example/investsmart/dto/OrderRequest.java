@@ -5,9 +5,6 @@ import jakarta.validation.constraints.Positive;
 
 public class OrderRequest {
 
-    @NotNull(message = "User ID is required")
-    private Long userId;
-
     @NotNull(message = "Stock ID is required")
     private Long stockId;
 
@@ -16,14 +13,6 @@ public class OrderRequest {
     private Integer quantity;
 
     public OrderRequest() {
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public Long getStockId() {

@@ -1,0 +1,10 @@
+.settlement-panel { margin:20px 0; padding:20px; border:1px solid var(--ui-border,#dce3ec); border-radius:10px; background:var(--ui-surface,#fff); color:var(--ui-text,#172335); }
+.settlement-panel header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; }
+.settlement-panel h2 { margin:0 0 8px; font-size:20px; }
+.settlement-panel p { line-height:1.6; overflow-wrap:anywhere; }
+.settlement-balances { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
+.settlement-balances>div { padding:14px; border:1px solid var(--ui-border,#dce3ec); border-radius:8px; }
+.settlement-balances dt { font-size:13px; }.settlement-balances dd { margin:8px 0 0; font-size:20px; font-weight:650; font-variant-numeric:tabular-nums; }
+.settlement-scroll { max-width:100%; overflow:auto; }.settlement-scroll table { width:100%; border-collapse:collapse; text-align:left; }.settlement-scroll th,.settlement-scroll td { padding:12px; border-bottom:1px solid var(--ui-border,#dce3ec); min-width:100px; }
+.settlement-panel nav { display:flex; align-items:center; gap:12px; margin-top:12px; }
+@media(max-width:400px) { .settlement-panel { padding:12px; }.settlement-balances { grid-template-columns:1fr; } }

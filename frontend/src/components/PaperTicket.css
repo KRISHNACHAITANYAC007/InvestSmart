@@ -1,0 +1,70 @@
+/* Paper ticket owns its form layout and independently scrolling content. */
+.trade-ticket.paper-ticket { width:min(680px,calc(100vw - 32px)); overflow:hidden; }
+.paper-ticket form { max-height:inherit; }
+.paper-ticket-body { flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding-bottom:4px; scroll-padding-block:16px; scrollbar-gutter:stable; }
+.paper-ticket form>header,.paper-ticket form>footer { position:static; flex:0 0 auto; }
+.trade-ticket.paper-ticket[data-paper-theme=dark] { --terminal-bg:#0e1726; --terminal-surface:#141f30; --terminal-surface-raised:#1b2a40; --terminal-border:#30415a; --terminal-text:#e5edf8; --terminal-muted:#a1b0c5; --trade-accent:#6ca0ff; color-scheme:dark; }
+.trade-ticket.paper-ticket.sell[data-paper-theme=dark] { --trade-accent:#ff8290; }
+.paper-heading-actions { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.paper-heading-actions button { min-width:44px; min-height:40px; padding:6px 10px; border:1px solid var(--terminal-border); border-radius:5px; background:var(--terminal-surface); color:var(--terminal-muted); font-size:12px; }
+.paper-heading-actions button[aria-label] { font-size:23px; line-height:1; }
+.paper-ticket fieldset { display:flex; flex-wrap:wrap; gap:10px; min-width:0; margin:0 24px 20px; padding:0; border:0; }
+.paper-ticket legend { width:100%; padding:0; margin-bottom:10px; color:var(--terminal-muted); font-size:12px; font-weight:600; }
+.paper-ticket fieldset>label { display:flex; gap:8px; min-width:0; align-items:center; padding:10px 12px; border:1px solid var(--terminal-border); border-radius:5px; background:var(--terminal-surface); font-size:13px; }
+.paper-ticket fieldset>label:has(input[type=radio]:checked) { border-color:var(--trade-accent); background:color-mix(in srgb,var(--trade-accent) 7%,var(--terminal-surface)); }
+.paper-ticket fieldset>label>strong { margin-left:auto; font-variant-numeric:tabular-nums; }
+.paper-ticket .paper-listings>label { display:grid; grid-template-columns:17px minmax(0,1fr) auto; flex:1 1 240px; gap:8px; padding:10px 12px; min-height:44px; }
+.paper-listings label>span { min-width:0; overflow-wrap:anywhere; }
+.paper-ticket .paper-listings label>strong { white-space:nowrap; font-size:13px; }
+.paper-ticket .paper-tabs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin:0 24px 16px; border-bottom:1px solid var(--terminal-border); }
+.paper-tabs legend { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+.paper-tabs button { min-width:0; min-height:48px; padding:10px 4px; border:0; border-bottom:2px solid transparent; background:transparent; color:var(--terminal-muted); font-size:13px; }
+.paper-tabs button[aria-pressed=true] { border-bottom-color:var(--trade-accent); color:var(--trade-accent); font-weight:650; }
+.paper-ticket .paper-form-grid,.paper-ticket .paper-exits { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.paper-form-grid legend,.paper-exits legend { float:left; grid-column:1/-1; margin-bottom:0; }
+.paper-ticket .paper-form-grid>label,.paper-ticket .paper-exits>label,.paper-assumptions>label { display:flex; flex-direction:column; align-items:stretch; gap:7px; padding:0; border:0; background:transparent; color:var(--terminal-muted); font-size:12px; }
+.paper-ticket input,.paper-ticket select { width:100%; min-width:0; min-height:42px; padding:9px 11px; border:1px solid var(--terminal-border); border-radius:5px; background:var(--terminal-surface); color:var(--terminal-text); font:inherit; font-size:14px; accent-color:var(--trade-accent); }
+.paper-ticket input:hover,.paper-ticket select:hover { border-color:var(--terminal-muted); }
+.paper-ticket input[type=radio],.paper-ticket input[type=checkbox] { width:17px; min-height:17px; height:17px; margin:0; padding:0; flex:0 0 auto; }
+.paper-ticket .paper-exits { padding:16px; border:1px solid var(--terminal-border); border-radius:6px; background:var(--terminal-bg); }
+.paper-ticket .paper-exits .paper-exit-enable { flex-direction:row; align-items:center; align-self:end; min-height:42px; color:var(--terminal-text); }
+.paper-exits p { grid-column:1/-1; margin:0; color:var(--terminal-muted); font-size:12px; line-height:1.6; }
+.paper-ticket .paper-ticket-body>p,.paper-ticket .paper-ticket-body>section { margin:0 24px 16px; font-size:13px; line-height:1.6; }
+.paper-ticket .paper-advanced-toggle { align-self:flex-start; margin:0 24px 16px; padding:6px 0; border:0; background:transparent; color:var(--trade-accent); font-size:13px; font-weight:600; }
+.paper-ticket .paper-assumptions { color:var(--terminal-muted); font-size:12px; }
+.paper-ticket section.paper-assumptions { padding:16px; border:1px solid var(--terminal-border); border-radius:6px; background:var(--terminal-bg); }
+.paper-assumptions>label { max-width:220px; }
+.paper-ticket .paper-preview { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin:4px 0 16px; padding:16px 24px; border-block:1px solid var(--terminal-border); background:var(--terminal-bg); }
+.paper-preview>div { min-width:0; }
+.paper-preview dt { color:var(--terminal-muted); font-size:12px; }
+.paper-preview dd { margin:4px 0 0; color:var(--terminal-text); font-size:15px; font-weight:650; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.paper-ticket [role=status] { color:var(--terminal-muted); }
+.paper-ticket[data-paper-theme=dark] .trade-ticket-error { color:#ffa8b2; }
+@media(max-width:700px) {
+ .trade-ticket.paper-ticket { width:100%; }
+ .paper-ticket .paper-listings>label { flex-basis:100%; }
+ .paper-ticket fieldset,.paper-ticket .paper-tabs { margin-inline:16px; }
+ .paper-ticket .paper-form-grid,.paper-ticket .paper-exits { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .paper-ticket .paper-ticket-body>p,.paper-ticket .paper-ticket-body>section,.paper-ticket .paper-advanced-toggle { margin-inline:16px; }
+ .paper-ticket input,.paper-ticket select { min-height:44px; font-size:16px; }
+ .paper-ticket .paper-preview { padding-inline:16px; grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .paper-heading-actions button { min-height:44px; }
+}
+@media(max-width:360px) { .paper-ticket .paper-form-grid,.paper-ticket .paper-exits { grid-template-columns:1fr; } .paper-tabs button { font-size:12px; } }
+
+.paper-preview-error { margin:0 24px 16px; }
+.paper-preview-error .trade-ticket-error { margin:0 0 10px; }
+.paper-preview-error>button { min-height:44px; padding:8px 14px; border:1px solid var(--terminal-border); border-radius:5px; background:var(--terminal-surface); color:var(--trade-accent); }
+@media(max-width:700px) { .paper-preview-error { margin-inline:16px; } }
+
+.paper-ticket .paper-products { display:flex; gap:8px; margin-top:16px; margin-bottom:8px; }
+.paper-products button { flex:1 1 100px; min-height:44px; padding:8px; border:1px solid var(--terminal-border); border-radius:5px; color:var(--terminal-muted); background:var(--terminal-surface); }
+.paper-products button[aria-pressed=true] { color:var(--trade-accent); border-color:var(--trade-accent); background:color-mix(in srgb,var(--trade-accent) 7%,var(--terminal-surface)); }
+.paper-ticket .paper-product-notice { padding:12px; background:var(--terminal-bg); border:1px solid var(--terminal-border); border-radius:5px; color:var(--terminal-muted); font-size:12px; }
+
+.paper-ticket .paper-policy-details,.paper-ticket .paper-exit-details { margin:0 24px 16px; border:1px solid var(--terminal-border); border-radius:6px; background:var(--terminal-bg); font-size:12px; color:var(--terminal-muted); }
+.paper-policy-details summary,.paper-exit-details summary { min-height:44px; padding:12px 14px; cursor:pointer; color:var(--terminal-text); font-weight:600; }
+.paper-policy-details>p { margin:0; padding:0 14px 14px; line-height:1.7; }
+.paper-ticket .paper-exit-details .paper-exits { margin:0; border:0; border-top:1px solid var(--terminal-border); border-radius:0; }
+.paper-policy-details summary:focus-visible,.paper-exit-details summary:focus-visible { outline:2px solid var(--trade-accent); outline-offset:-3px; }
+@media(max-width:700px) { .paper-ticket .paper-policy-details,.paper-ticket .paper-exit-details { margin-inline:16px; } }

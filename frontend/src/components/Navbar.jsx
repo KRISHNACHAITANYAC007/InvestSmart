@@ -1,21 +1,16 @@
-import { useAuth } from "../context/AuthContext.jsx";
+import { useAuth } from "../context/useAuth.js";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import "./Navbar.css";
+import { useState } from "react";
 
-function Navbar({ menuOpen ,setMenuOpen }) {
+function Navbar({ menuOpen, setMenuOpen }) {
 
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
     const navigate = useNavigate();
+    const [error,setError] = useState("");
 
-    function handleLogout() {
-        logout();
-        navigate("/login");
-    }
-
-    function backtodash()
-    {
-        navigate("/dashboard");
+    async function handleLogout() {
+        try { await logout(); navigate("/login"); } catch { setError("Sign out failed. Please retry."); }
     }
 
     return (
@@ -25,6 +20,9 @@ function Navbar({ menuOpen ,setMenuOpen }) {
 
                 <button
                     className="menu-button"
+                    aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+                    aria-expanded={menuOpen}
+                    aria-controls="main-navigation"
                     onClick={() => setMenuOpen(prev => !prev)}
                 >
                     ☰
@@ -33,18 +31,19 @@ function Navbar({ menuOpen ,setMenuOpen }) {
                 <Link
                     to="/dashboard"
                     className="navbar-title"
+                    aria-label="InvestSmart"
                 >
-                    InvestSmart
+                    <span>Invest</span><span className="navbar-title-accent">Smart</span>
                 </Link>
 
             </div>
 
-            <button
+            <div className="navbar-account-actions"><Link to="/account">Account</Link>{user?.role === "ADMIN" && <Link to="/admin">Admin</Link>}{error && <span role="alert">{error}</span>}<button
                 className="navbar-logout"
                 onClick={handleLogout}
             >
-                Logout
-            </button>
+                Sign out
+            </button></div>
 
         </nav>
     );

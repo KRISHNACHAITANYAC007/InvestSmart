@@ -32,7 +32,7 @@
     background: white;
 
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border-radius: var(--ui-radius, 8px);
 }
 
 .portfolio-summary-label {
@@ -51,6 +51,13 @@
     color: #111827;
 }
 
+.portfolio-summary-detail {
+    display: block;
+    margin-top: 8px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
 .portfolio-total-card {
     border-color: #93c5fd;
     background: #f8fbff;
@@ -58,6 +65,59 @@
 
 .portfolio-total-card h2 {
     color: #2563eb;
+}
+
+.portfolio-pnl-positive {
+    color: #15803d !important;
+}
+
+.portfolio-pnl-negative {
+    color: #b91c1c !important;
+}
+
+.portfolio-data-notice {
+    margin: -16px 0 28px;
+    padding: 14px 18px;
+    border: 1px solid #fbbf24;
+    border-radius: var(--ui-radius, 8px);
+    background: #fffbeb;
+    color: #92400e;
+    line-height: 1.5;
+}
+
+.portfolio-insights {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 36px;
+    padding: 22px;
+    border: 1px solid #dbeafe;
+    border-radius: var(--ui-radius, 8px);
+    background: #f8fbff;
+}
+
+.portfolio-insights h2 {
+    margin: 0 0 6px;
+    color: #111827;
+    font-size: 20px;
+}
+
+.portfolio-insights p {
+    margin: 0;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+.portfolio-insights ul {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding-left: 22px;
+    color: #374151;
+    line-height: 1.5;
+}
+
+.portfolio-insights-empty {
+    padding-top: 8px;
 }
 
 .portfolio-holdings-section {
@@ -84,7 +144,7 @@
     background: white;
 
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border-radius: var(--ui-radius, 8px);
 
     transition:
             transform 0.2s ease,
@@ -120,6 +180,16 @@
     font-size: 14px;
 }
 
+.portfolio-sector {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #f3f4f6;
+    color: #4b5563;
+    font-size: 12px;
+}
+
 .portfolio-holding-value {
     font-size: 21px;
     font-weight: 700;
@@ -131,7 +201,7 @@
 
 .portfolio-holding-details {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 
     gap: 20px;
 
@@ -167,7 +237,7 @@
     background: white;
 
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border-radius: var(--ui-radius, 8px);
 
     color: #6b7280;
 }
@@ -182,13 +252,17 @@
     }
 
     .portfolio-holding-details {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
 }
 
 
 @media (max-width: 600px) {
+
+    .portfolio-holding-details {
+        grid-template-columns: 1fr;
+    }
 
     .portfolio-holding-header {
         flex-direction: column;

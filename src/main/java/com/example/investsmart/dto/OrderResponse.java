@@ -3,6 +3,12 @@ package com.example.investsmart.dto;
 import java.math.BigDecimal;
 
 public class OrderResponse {
+    private String source;
+    public String getSource() { return source == null ? "MARKET" : source; }
+    public void setSource(String value) { source = value; }
+    private String instrumentKey;
+    public String getInstrumentKey() { return instrumentKey; }
+    public void setInstrumentKey(String value) { instrumentKey = value; }
 
     private Long id;
     private String orderType;

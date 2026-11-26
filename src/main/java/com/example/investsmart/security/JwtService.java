@@ -12,12 +12,13 @@ import java.util.Date;
 
 @Service
 public class JwtService {
+    public String sessionToken(String email,String role,String sessionId,java.time.Instant expires) {
+        return Jwts.builder().subject(email).id(sessionId).claim("role",role).issuedAt(new Date()).expiration(Date.from(expires)).signWith(getSigningKey()).compact();
+    }
+    public String sessionId(String token) { return extractAllClaims(token).getId(); }
 
     @Value("${jwt.secret}")
     private String secret;
-
-    @Value("${jwt.expiration}")
-    private long expirationTime;
 
     private SecretKey getSigningKey() {
 
@@ -26,50 +27,10 @@ public class JwtService {
         );
     }
 
-    public String generateToken(
-            String email,
-            String role) {
-
-        Date now = new Date();
-
-        Date expiration =
-                new Date(now.getTime() + expirationTime);
-
-        return Jwts.builder()
-                .subject(email)
-                .claim("role", role)
-                .issuedAt(now)
-                .expiration(expiration)
-                .signWith(getSigningKey())
-                .compact();
-    }
-
     public String extractEmail(String token) {
 
         return extractAllClaims(token)
                 .getSubject();
-    }
-
-    public String extractRole(String token) {
-
-        return extractAllClaims(token)
-                .get("role", String.class);
-    }
-
-    public boolean isTokenValid(
-            String token,
-            String email) {
-
-        Claims claims = extractAllClaims(token);
-
-        String tokenEmail =
-                claims.getSubject();
-
-        Date expiration =
-                claims.getExpiration();
-
-        return tokenEmail.equals(email)
-                && expiration.after(new Date());
     }
 
     private Claims extractAllClaims(

@@ -1,0 +1,33 @@
+/* Shared trading surfaces: controls, dialog shell and feedback. */
+.chart-trade-controls { display:flex; align-items:center; gap:8px; margin-top:10px; }
+.chart-buy-button,.chart-sell-button { min-width:80px; min-height:38px; padding:8px 20px; border:1px solid transparent; border-radius:5px; background:#2864da; color:#fff; font-family:inherit; font-size:13px; line-height:1.4; font-weight:600; cursor:pointer; transition:background .15s; }
+.chart-sell-button { background:#cc3949; }
+.chart-buy-button:hover { background:#1e51b8; }
+.chart-sell-button:hover { background:#ae2c3b; }
+.trade-ticket { --trade-accent:#2864da; --trade-action-bg:#2864da; --terminal-bg:#f7f9fc; --terminal-surface:#fff; --terminal-surface-raised:#edf2f8; --terminal-border:#dce3ed; --terminal-text:#1d293b; --terminal-muted:#64748b; box-sizing:border-box; width:min(680px,calc(100vw - 32px)); max-width:100%; max-height:calc(var(--visual-viewport-height,100dvh) - 40px); margin:auto; padding:0; overflow:auto; overscroll-behavior:contain; scroll-padding-block:80px; border:1px solid var(--terminal-border); border-radius:10px; background:var(--terminal-surface); color:var(--terminal-text); box-shadow:0 24px 80px #0004; font-family:Inter,ui-sans-serif,system-ui,sans-serif; font-size:14px; line-height:1.5; }
+.trade-ticket.sell { --trade-accent:#cc3949; --trade-action-bg:#c53345; }
+.trade-ticket::backdrop { background:#07101b80; }
+.trade-ticket *, .trade-ticket *::before,.trade-ticket *::after { box-sizing:border-box; }
+.trade-ticket form { display:flex; flex-direction:column; margin:0; min-width:0; }
+.trade-ticket header { position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 24px; border-top:3px solid var(--trade-accent); border-bottom:1px solid var(--terminal-border); background:var(--terminal-surface); }
+.trade-ticket header>div:first-child { min-width:0; }
+.trade-ticket header small { color:var(--trade-accent); font-size:11px; font-weight:700; letter-spacing:.08em; }
+.trade-ticket h2 { margin:5px 0 0; color:inherit; font-size:18px; line-height:1.4; font-weight:650; overflow-wrap:anywhere; }
+.trade-ticket button { font:inherit; cursor:pointer; }
+.trade-ticket button:disabled { opacity:.48; cursor:not-allowed; }
+.trade-ticket footer { position:sticky; bottom:0; z-index:2; display:flex; align-items:center; gap:10px; padding:16px 24px max(16px,env(safe-area-inset-bottom)); border-top:1px solid var(--terminal-border); background:var(--terminal-surface); }
+.trade-ticket footer a { margin-right:auto; color:var(--trade-accent); text-decoration:none; font-size:13px; }
+.trade-ticket footer button { min-height:42px; padding:9px 20px; border:1px solid var(--terminal-border); border-radius:5px; background:var(--terminal-surface); color:var(--terminal-text); font-weight:600; }
+.trade-ticket footer .trade-ticket-submit { background:var(--trade-action-bg); border-color:var(--trade-action-bg); color:#fff; min-width:126px; }
+.trade-ticket-error { margin:12px 24px; padding:12px 14px; border:1px solid color-mix(in srgb,#cc3949 30%,var(--terminal-border)); border-radius:6px; background:color-mix(in srgb,#cc3949 6%,var(--terminal-surface)); color:#c33649; font-size:13px; line-height:1.5; overflow-wrap:anywhere; }
+.trade-ticket :is(button,input,select,a):focus-visible,.chart-trade-controls>button:focus-visible { outline:2px solid var(--trade-accent,#2864da); outline-offset:3px; }
+@media(max-width:700px) {
+ .trade-ticket { position:fixed; inset:auto 0 var(--keyboard-bottom,0px); width:100%; max-height:calc(var(--visual-viewport-height,100dvh) - 12px); margin:0; border-radius:12px 12px 0 0; padding-inline:env(safe-area-inset-left,0px) env(safe-area-inset-right,0px); }
+ .trade-ticket header { padding:14px 16px; }
+ .trade-ticket footer { flex-wrap:wrap; padding-inline:16px; gap:8px; }
+ .trade-ticket footer button { min-height:44px; flex:1; }
+ .trade-ticket footer a { flex-basis:100%; }
+ .trade-ticket-error { margin-inline:16px; }
+ .chart-buy-button,.chart-sell-button { min-height:44px; }
+}
+@media(prefers-reduced-motion:reduce) { .chart-trade-controls button { transition:none; } }

@@ -1,0 +1,10 @@
+body:has(.agent-conversation) { min-width: 0; }
+.agent-conversation { max-width: 960px; margin: 0 auto; padding: 1rem; overflow-wrap: anywhere; }
+.agent-conversation label { display: flex; align-items: flex-start; gap: .6rem; }
+.agent-questions { display: flex; flex-wrap: wrap; gap: .7rem; margin: 1rem 0; }
+.agent-reply { padding: 1rem; margin: 1rem 0 2rem; border: 1px solid var(--border-color, #666); border-radius: 10px; }
+.agent-reply li { margin: .5rem 0; }
+.agent-reply dt { font-weight: 600; }
+.agent-reply dd { margin: .3rem 0 1rem; }
+.agent-conversation button:focus-visible, .agent-conversation input:focus-visible, .agent-conversation summary:focus-visible { outline: 3px solid #568bef; outline-offset: 3px; }
+@media (max-width: 540px) { .agent-questions { flex-direction: column; } .agent-questions button { width: 100%; } }

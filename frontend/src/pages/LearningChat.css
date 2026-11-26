@@ -1,0 +1,26 @@
+.learning-chat { width:100%; max-width:980px; margin:0 auto; }
+.learning-chat-header { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:22px; }
+.learning-chat-header h1 { margin:0; }
+.learning-chat-eyebrow { margin:0 0 4px; color:#245fce; font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+.learning-chat-disclaimer { margin:0; max-width:430px; color:#586a80; font-size:13px; }
+.learning-chat-panel { padding:clamp(18px,3vw,30px); border:1px solid #dce4ef; border-radius:8px; background:#fff; }
+.learning-chat-suggestions { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 24px; }
+.learning-chat-suggestions .ui-button { min-height:36px; font-size:13px; }
+.learning-chat-form { display:grid; gap:12px; }
+.learning-chat-form>label:first-child { font-weight:650; }
+.learning-chat-form textarea { width:100%; min-height:100px; resize:vertical; padding:12px; border:1px solid #cbd5e1; }
+.learning-chat-check { display:flex; align-items:flex-start; gap:9px; color:#586a80; font-size:13px; }
+.learning-chat-check input { flex:0 0 auto; margin-top:4px; }
+.learning-chat-form>.ui-button { justify-self:start; }
+.learning-chat-answer { margin-top:24px; padding-top:18px; border-top:1px solid #e2e8f0; overflow-wrap:anywhere; }
+.learning-chat-answer h2,.learning-chat-answer h3 { margin:0 0 10px; }
+.learning-chat-answer>p { white-space:pre-wrap; }
+.learning-chat-answer li { margin:8px 0; }
+.learning-chat-note { color:#64748b; font-size:13px; }
+.learning-chat-error { padding:10px 12px; color:#a83241; background:#fff1f2; border-radius:6px; }
+@media(max-width:640px) {
+    .learning-chat-header { display:block; }
+    .learning-chat-header .learning-chat-disclaimer { margin-top:12px; }
+    .learning-chat-suggestions { display:grid; }
+    .learning-chat-suggestions .ui-button { justify-content:flex-start; text-align:left; }
+}

@@ -309,3 +309,8 @@ Final owned grouped cash verification2026-11-27:145selected tests pass, zero fai
 - [x] B-G05 complete within selected-journal summary contract after source/evidence audit. Financing/fees/policy stay source-specific; full expenses/account P&L/historical balances unavailable. No new tests run for this review; latest recorded journal suite145passing, production-reader hashes checked.
 - [ ] B-G06 synthetic actual-query plan/workload measurements next; specification in CORE05_REPORTING_SEMANTICS.md. Static fill user/time and finance user/time scan risks require measurement, not automatic indexes. CORE-05-B2/public reports remain unfinished.
 
+
+### 2026-11-27 B-G06 instrumentation and GitHub checkpoint
+
+- [~] Actual report SQL capture implemented in test scope;2tests pass. MySQL plans/workload still pending; no production query/schema change. Reviewed source uploaded to progress branch; private scratch/settings retained locally. Deployment/history credential remediation remain separate.
+

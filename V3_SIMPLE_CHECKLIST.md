@@ -1,6 +1,6 @@
 # V3 work checklist - simple words
 
-Current checkpoint (27 November 2026): completed the review of supported report summaries and their unavailable states. Selected journal cash summaries are checked; complete expenses, profit/loss and historical balances remain unavailable. Next is measuring database query costs with synthetic data. No new application tests ran for this documentation review; the latest recorded suite passed 145 tests. No live AI model is connected.
+Current checkpoint (27 November 2026): reviewed project source is uploaded to the GitHub progress branch. Query-cost work has started with test-only capture of actual report SQL and parameters; two tests pass. Database plans, scan counts and workload timings have not been measured yet. Complete reports remain unfinished; no live AI model is connected.
 
 Updated: 27 November 2026.
 

@@ -108,3 +108,7 @@ Latest focused V2 verification (2026-11-13): settlement/API 83/83, full Maven 32
 ## Maintenance rule
 
 Every future task must update this file when it discovers a required user action or completes a deployment step. Delete completed entries from the open-items table, retain outcomes in the handoff and leave unmet acceptance checks open. Never replace missing evidence with a checkbox. See PROJECT_HANDOFF.md for current implementation and historical verification.
+
+## 2026-11-27 authorized source upload boundary
+
+User explicitly requested GitHub upload. Reviewed source was uploaded to a progress branch with credential-bearing HTTP scratch removed from tracking (local file preserved) and local agent/runtime/build files excluded. This completes source backup only. Existing SEC-03 credential/history remediation, release/staging/provider/device requirements and deployment pause remain open; no production launch, capacity-runner dispatch, credential rotation or history rewrite was authorized or performed.

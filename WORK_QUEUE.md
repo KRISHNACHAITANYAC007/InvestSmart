@@ -1,5 +1,11 @@
 # Approved work queue and resume checkpoint
 
+## 2026-11-27 GitHub upload verified and B-G06 capture checked
+
+- [x] Explicit user upload request completed for reviewed project source on work/v3-progress-20261127, first commit d667858d7830ac6d023ff05677bd55dc099146b8. git ls-remote branch SHA equals local HEAD after push; main unchanged.521changed paths/535total staged files reviewed. Credential-bearing test.http removed from tracking only/local file preserved; local .codex/runtime/build files excluded. Exact staged scanner reviewed three documentation/test placeholders, one small PNG; no unreviewed pattern finding. No unknown-secret guarantee, history rewrite/rotation, deployment or owner promotion. Existing public history/SEC-03 owner remediation not cleared.
+- [x] Continued B-G06 with test-only ReportingQueryCapture JDBC wrapper and two tests. cmd.exe /d /c ".\mvnw.cmd -q -Dtest=ReportingQueryCaptureTests test > target\core05bg06-query-capture.log 2>&1" exit0:2tests/0failures/0errors/0skipped. Actual owned repository SQL/parameter/results, immutable snapshots, prepared-statement reuse/nulls and write exclusion checked. node --test scripts/check-secret-exposure.test.mjs PASS3/3. No production query/schema behavior change.
+- [~] NEXT B-G06 use captured actual SELECTs in isolated synthetic MySQL to record parameterized EXPLAIN/rows-examined/time/reader invariants under deterministic size and owner skew. No database plans/workload measurements or performance acceptance yet. B-G06/CORE-05-B2 partial; public reporting and full expenses/P&L/historical balances unfinished. Continuation files prepared for second commit/push; final remote verification pending. No AI/learner-status change; owner dependencies exclusively DEPLOYMENT_CHECKLIST.md.
+
 ## 2026-11-27 GitHub upload preparation
 
 - [~] User explicitly authorized uploading pending project work and continuing V3. Public GitHub origin verified; remote main matches local original HEAD. Current/reachable scan74/67indicators;71current indicators in tracked credential-bearing HTTP scratch. Removed scratch from index only (local file preserved), ignored scratch/.codex local settings; private runtime/build files remain ignored. All remaining project work staged (521changed paths). No history rewrite/credential rotation/deployment. NEXT exact staged-blob review, source commit on progress branch and push; pending.
@@ -1577,4 +1583,9 @@ Native Codex Goal: implement the approved T+1 and Kite-referenced paper-broker r
 
 
 - [x] Final financing production hash check PASS; six changed documentation files whitespace/local Markdown links PASS. Checklist/overview/inventory synchronized. No tests rerun or scan-performance acceptance claimed. Evidence target/core05bg05-acceptance-review-verification.json. NEXT B-G06 actual-query measurement implementation as above.
+
+
+## 2026-11-27 B-G06 actual-query capture written
+
+- [~] Added synthetic-test-only JDBC wrapper recording successfully executed prepared SELECT SQL/bind values, normalizing timestamps/dates and preserving null/reused parameters. No credential capture or production schema/query change. Two tests compare actual owned period-repository results and query/parameter capture, immutability, null/reuse and write exclusion. NEXT focused Maven test; pending. MySQL plans/workload NOT measured yet.
 

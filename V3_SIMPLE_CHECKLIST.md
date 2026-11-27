@@ -1,6 +1,6 @@
 # V3 work checklist - simple words
 
-Current checkpoint (27 November 2026): faster policy matching passed 47 recovery/related tests and two separate cost runs. All 1,000 full evidence results match the original code. Matching took 7-11 milliseconds versus roughly 2-3 seconds on the same synthetic inputs. Report limits still pass; broader mixed workloads and complete reports remain unfinished. No live AI model is connected. Owner dependencies remain in DEPLOYMENT_CHECKLIST.md.
+Current checkpoint (27 November 2026): reporting limits, mixed short/366-day ranges and simultaneous reads for two test users passed. Faster matching returns the same evidence for 1,000 different instructions. The first three reporting check groups passed their listed checks; database scan remediation and larger-scale acceptance remain unfinished. No live AI model is connected. Owner dependencies remain in DEPLOYMENT_CHECKLIST.md.
 
 Updated: 27 November 2026.
 
@@ -83,10 +83,10 @@ Current database-cost work has **4 check groups**, not a fixed number of individ
 
 | Group | Work | Status |
 | --- | --- | --- |
-| 1 | Larger owned histories and 1,000/1,001-row limits | In progress; Credit/selected-instruction limits and matching CPU checked; product histories remain |
+| 1 | Larger owned histories and 1,000/1,001-row limits | Owned credit, instruction, financing and fill limits passed; matching improved and rechecked |
 | 2 | Combined-charge and same-day-trade batches/context limits | 100/101 batching and global overflow checks passed |
-| 3 | Empty and wide date ranges | Measured for four basic readers; mixed/batch ranges remain |
-| 4 | Review growth, fix demonstrated problems if needed, and recheck | Not accepted yet |
+| 3 | Empty and wide date ranges | Basic empty and mixed short/366-day ranges passed |
+| 4 | Review growth, fix demonstrated problems if needed, and recheck | Matching improved/rechecked; database scans and larger scale remain |
 
 This is the current reporting priority, not a technical requirement to finish all V3 features before live AI. Live-AI setup follows its separate process in [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md); no setup is needed now.
 

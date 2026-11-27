@@ -1,6 +1,6 @@
 # InvestSmart — simple project overview
 
-Current checkpoint (27 November 2026): faster policy matching passed 47 recovery/related tests and two separate cost runs. All 1,000 full evidence results match the original code. Matching took 7-11 milliseconds versus roughly 2-3 seconds on the same synthetic inputs. Report limits still pass; broader mixed workloads and complete reports remain unfinished. No live AI model is connected. Owner dependencies remain in DEPLOYMENT_CHECKLIST.md.
+Current checkpoint (27 November 2026): reporting limits, mixed short/366-day ranges and simultaneous reads for two test users passed. Faster matching returns the same evidence for 1,000 different instructions. The first three reporting check groups passed their listed checks; database scan remediation and larger-scale acceptance remain unfinished. No live AI model is connected. Owner dependencies remain in DEPLOYMENT_CHECKLIST.md.
 
 Updated: 2026-11-27. Start here for the big picture. Technical details and verification live in [PROJECT_HANDOFF.md](PROJECT_HANDOFF.md); study guidance lives in [AI_LEARNING_ROADMAP.md](AI_LEARNING_ROADMAP.md).
 

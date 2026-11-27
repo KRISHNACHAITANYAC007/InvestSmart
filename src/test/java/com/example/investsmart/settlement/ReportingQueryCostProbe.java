@@ -93,6 +93,9 @@ final class ReportingQueryCostProbe {
             }
             var productScenarios=products(source,capture,observations,f,at.plusSeconds(3600));
             var batchScenarios=batches(source,capture,observations,f,at.plusSeconds(7200));
+            var mixedScenario=mixed(source,capture,observations,f,at.plusSeconds(7200));
+            var distinctScenario=distinctInstructions(source,capture,observations,f,at.plusSeconds(1800));
+            var parallelScenarios=List.of(parallelReads(f,at,to),parallelReads(f,at.plusSeconds(7200),at.plusSeconds(7202)));
             var overflowScenarios=overflows(source,capture,observations,f,at.plusSeconds(7200));
             var indexComparison=compareIndexes(source,capture,observations,f,at,to);
             var report=new LinkedHashMap<String,Object>();report.put("engine",f.db.queryForObject("SELECT VERSION()",String.class));report.put("scope","Fresh synthetic source graphs, foreign/owned/selection bounds, CPU, ranges and100/101batch transitions; no SLA.");report.put("productScenarios",productScenarios);report.put("batchScenarios",batchScenarios);report.put("pureMatchingSamples",pureSamples);report.put("pureMatchingShape","1000 unique event keys with repeated normalized original instruction,1000 candidates; policy evidence only, not1000economic transactions. Thread CPU excludes other threads/GC and is null if unsupported.");report.put("ownedCandidateScenarios",candidateScenarios);report.put("rowsExamined","Not available as exact statement counter; Handler_read deltas and EXPLAIN ANALYZE actual iterator rows are separate observations, not equivalent.");
@@ -100,9 +103,86 @@ final class ReportingQueryCostProbe {
             report.put("preparedMatchingSamples",preparedSamples);report.put("preparedScope","Includes request-local candidate preparation; identical single-row proof and error precedence, no global/persistent/user-shared cache.");
             report.put("matchingComparison",Map.of("instructions",expectedProofs.size(),"fullProofsEqual",true,"scope","Complete evidence DTO equality against original single-row oracle, outside timed samples."));
             report.put("fixtureSeeding","Test-only explicit seed transactions commit before each measured read; no measured request is inside a fixture write transaction.");
-            report.put("overflowScenarios",overflowScenarios);report.put("indexComparison",indexComparison);report.put("finalTableRows",counts);report.put("indexes",indexes);report.put("observations",observations);report.put("remaining","Broader scale/concurrency/repeatability, threshold acceptance, migration impact review and matching CPU remediation remain open.");
+            report.put("mixedScenario",mixedScenario);
+            report.put("distinctInstructionScenario",distinctScenario);
+            report.put("parallelReadScenarios",parallelScenarios);
+            report.put("overflowScenarios",overflowScenarios);report.put("indexComparison",indexComparison);report.put("finalTableRows",counts);report.put("indexes",indexes);report.put("observations",observations);report.put("remaining","Broader scale/concurrency, threshold acceptance and approved source-index remediation remain open; synthetic repeatability does not establish a production SLA.");
             Files.createDirectories(Path.of("target"));Files.writeString(Path.of("target/core05bg06-prepared-match-cost.json"),new tools.jackson.databind.ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(report));
         }
+    }
+    private static Map<String,Object> parallelReads(JournalReportFixture f,Instant from,Instant to)throws Exception{
+        var journal=f.context.getBean(JournalPeriodService.class);var finance=f.context.getBean(FinancePeriodService.class);
+        var execution=f.context.getBean(ExecutionFeePeriodService.class);var pending=f.context.getBean(PendingPolicyPeriodService.class);
+        var requests=new ArrayList<Supplier<Object>>();for(var user:List.of(f.owner,f.other)){
+            requests.add(()->journal.read(user.getEmail(),from,to));requests.add(()->finance.read(user.getEmail(),from,to));
+            requests.add(()->execution.read(user.getEmail(),from,to));requests.add(()->pending.read(user.getEmail(),from,to));
+        }
+        var balances=f.db.queryForList("SELECT * FROM settlement_accounts ORDER BY user_id");var users=f.db.queryForList("SELECT * FROM users ORDER BY id");var holdings=f.db.queryForList("SELECT * FROM holdings ORDER BY id");
+        var expected=requests.stream().map(Supplier::get).toList();var pool=java.util.concurrent.Executors.newFixedThreadPool(4);
+        try{
+            for(int repeat=0;repeat<3;repeat++){
+                var tasks=requests.stream().map(request->(java.util.concurrent.Callable<Object>)request::get).toList();
+                var futures=pool.invokeAll(tasks,30,java.util.concurrent.TimeUnit.SECONDS);
+                for(int i=0;i<futures.size();i++){assertFalse(futures.get(i).isCancelled(),"Parallel read exceeded synthetic check bound");assertEquals(expected.get(i),futures.get(i).get());}
+            }
+        }finally{pool.shutdownNow();assertTrue(pool.awaitTermination(10,java.util.concurrent.TimeUnit.SECONDS));}
+        assertEquals(balances,f.db.queryForList("SELECT * FROM settlement_accounts ORDER BY user_id"));assertEquals(users,f.db.queryForList("SELECT * FROM users ORDER BY id"));assertEquals(holdings,f.db.queryForList("SELECT * FROM holdings ORDER BY id"));
+        return Map.of("from",from.toString(),"to",to.toString(),"identities",2,"workers",4,"rounds",3,"completedReads",24,"fullDtosEqualToSequential",true,"scope","Small simultaneous-read correctness check, not throughput/latency or production concurrent-capacity acceptance. No writes; no cross-request cache.");
+    }
+    private static Map<String,Object> distinctInstructions(DataSource source,ReportingQueryCapture capture,List<Map<String,Object>> output,JournalReportFixture f,Instant at)throws Exception{
+        var candidates=f.pendingPolicyRepository.candidates(1);assertEquals(1000,candidates.size());
+        f.write.executeWithoutResult(ignored->{var writer=new SettlementFunds(f.db,null,null,Clock.fixed(at,ZoneOffset.UTC));
+            for(var candidate:candidates)writer.journal(1,"distinct-"+candidate.id(),"PENDING_CREDIT",candidate.originalAmount(),null,null,candidate.source(),candidate.exchange(),candidate.segment(),candidate.tradeDate().toString(),candidate.policy());
+        });
+        var end=at.plusSeconds(1);var instructions=f.pendingPolicyRepository.instructions(1,at,end);assertEquals(1000,instructions.size());assertEquals(1000,instructions.stream().map(i->i.fingerprint()).distinct().count());
+        var rules=f.context.getBean(PendingCreditPolicyReconciler.class);var prepared=rules.prepare(candidates,false);
+        var expected=instructions.stream().map(i->rules.reconcile(i.row(),i.fingerprint(),candidates,false)).toList();
+        assertEquals(expected,instructions.stream().map(i->prepared.reconcile(i.row(),i.fingerprint())).toList());assertEquals(1000,expected.stream().map(e->e.obligationId()).distinct().count());assertTrue(expected.stream().allMatch(e->e.obligationId()!=null));
+        var service=f.context.getBean(PendingPolicyPeriodService.class);capture.clear();var selected=service.read(f.owner.getEmail(),at,end);assertFalse(selected.selectedTruncated());assertFalse(selected.candidatesTruncated());assertEquals(expected,selected.entries().stream().map(e->e.policy()).toList());assertEquals(3,capture.snapshot().size());
+        var cpu=java.lang.management.ManagementFactory.getThreadMXBean();var controlSamples=new ArrayList<Map<String,Object>>();var preparedSamples=new ArrayList<Map<String,Object>>();
+        for(boolean indexed:List.of(false,true))for(int repeat=0;repeat<3;repeat++){
+            long cpuStart=cpu.isCurrentThreadCpuTimeSupported()&&cpu.isThreadCpuTimeEnabled()?cpu.getCurrentThreadCpuTime():-1;long start=System.nanoTime();var lookup=indexed?rules.prepare(candidates,false):null;
+            for(int i=0;i<instructions.size();i++){var instruction=instructions.get(i);assertEquals(expected.get(i),indexed?lookup.reconcile(instruction.row(),instruction.fingerprint()):rules.reconcile(instruction.row(),instruction.fingerprint(),candidates,false));}
+            double wallMs=(System.nanoTime()-start)/1_000_000.0;long cpuEnd=cpuStart>=0?cpu.getCurrentThreadCpuTime():-1;var sample=new LinkedHashMap<String,Object>();sample.put("wallMs",wallMs);sample.put("currentThreadCpuMs",cpuStart>=0&&cpuEnd>=cpuStart?(cpuEnd-cpuStart)/1_000_000.0:null);(indexed?preparedSamples:controlSamples).add(sample);
+        }
+        measure(source,capture,output,"pending-distinct-1000",2000,()->service.read(f.owner.getEmail(),at,end));
+        var candidate=candidates.getFirst();new SettlementFunds(f.db,null,null,Clock.fixed(at,ZoneOffset.UTC)).journal(1,"distinct-sentinel","PENDING_CREDIT",candidate.originalAmount(),null,null,candidate.source(),candidate.exchange(),candidate.segment(),candidate.tradeDate().toString(),candidate.policy());
+        capture.clear();var limited=service.read(f.owner.getEmail(),at,end);assertTrue(limited.selectedTruncated());assertEquals(1000,limited.entries().size());assertTrue(limited.entries().stream().allMatch(e->e.policy().obligationId()==null&&e.policy().policy()==null));assertEquals(2,capture.snapshot().size());
+        measure(source,capture,output,"pending-distinct-1001",2000,()->service.read(f.owner.getEmail(),at,end));
+        return Map.of("instructions",1000,"distinctFingerprints",1000,"matchedObligationIdentities",1000,"fullProofsEqual",true,"controlSamples",controlSamples,"preparedSamples",preparedSamples,"sentinelQueries",2,"scope","Actual writer encoding on distinct synthetic instructions; same owned candidate snapshot, no availability/account-history proof. Preparation included in optimized samples; CPU granularity preserved.");
+    }
+    private static Map<String,Object> mixed(DataSource source,ReportingQueryCapture capture,List<Map<String,Object>> output,JournalReportFixture f,Instant at)throws Exception{
+        var addedAt=at.plusSeconds(1);var end=at.plusSeconds(2);
+        f.write.executeWithoutResult(ignored->{
+            f.entry(1,"mixed-credit","SETTLED_CREDIT","10",addedAt);
+            new SettlementFunds(f.db,null,null,Clock.fixed(addedAt,ZoneOffset.UTC)).journal(1,"mixed-policy","PENDING_CREDIT",new java.math.BigDecimal("30.00"),null,null,"cost-source","NSE","EQUITY","2026-11-23","REUSABLE");
+            var rows=new ArrayList<Object[]>();for(int i=0;i<100;i++)rows.add(new Object[]{"mixed-finance-"+i,Timestamp.from(addedAt)});
+            f.db.batchUpdate("INSERT INTO paper_finance_events VALUES(?,'cost-position',1,'INTEREST',0,1,?)",rows);
+        });
+        // These are independent synthetic source graphs, never an economically complete account.
+        var balances=f.db.queryForList("SELECT * FROM settlement_accounts ORDER BY user_id");
+        var users=f.db.queryForList("SELECT * FROM users ORDER BY id");var holdings=f.db.queryForList("SELECT * FROM holdings ORDER BY id");
+        var journal=f.context.getBean(JournalPeriodService.class);var finance=f.context.getBean(FinancePeriodService.class);
+        var execution=f.context.getBean(ExecutionFeePeriodService.class);var policies=f.context.getBean(PendingPolicyPeriodService.class);
+        capture.clear();var charges=journal.read(f.owner.getEmail(),at,end);assertEquals(305,charges.entries().size());assertFalse(charges.truncated());assertFalse(charges.fundingEvidenceTruncated());assertFalse(charges.completeFinancialHistory());
+        assertEquals(101,charges.chargeGrouping().sourceEvidence().size());assertTrue(charges.chargeGrouping().groups().stream().allMatch(g->g.outsideSelectionChildKeys().isEmpty()));
+        // 101 complete charges at -70 each plus one direct +10; pending contributes zero.
+        assertEquals(new java.math.BigDecimal("-7060.00"),charges.selectedGroupedChanges().buckets().get(0).change());assertEquals(new java.math.BigDecimal("0.00"),charges.selectedGroupedChanges().buckets().get(1).change());
+        assertTrue(charges.selectedDirectChanges().buckets().stream().allMatch(b->b.change()==null));assertFalse(charges.selectedGroupedChanges().fullAccountSummaryAvailable());assertEquals(10,capture.snapshot().size());
+        capture.clear();var financed=finance.read(f.owner.getEmail(),at,end);assertEquals(100,financed.entries().size());assertFalse(financed.truncated());assertEquals(2,capture.snapshot().size());
+        capture.clear();var fees=execution.read(f.owner.getEmail(),at,end);assertEquals(101,fees.selectedFills().size());assertFalse(fees.selectedTruncated());assertFalse(fees.contextTruncated());assertTrue(fees.tickets().stream().allMatch(t->new java.math.BigDecimal("1.00").equals(t.selectedFee())));assertEquals(6,capture.snapshot().size());
+        capture.clear();var pending=policies.read(f.owner.getEmail(),at,end);assertEquals(1,pending.entries().size());assertEquals("cost-obligation",pending.entries().getFirst().policy().obligationId());assertEquals(3,capture.snapshot().size());
+        measure(source,capture,output,"mixed-journal",2000,()->journal.read(f.owner.getEmail(),at,end));measure(source,capture,output,"mixed-finance",2000,()->finance.read(f.owner.getEmail(),at,end));
+        measure(source,capture,output,"mixed-execution",2000,()->execution.read(f.owner.getEmail(),at,end));measure(source,capture,output,"mixed-pending",2000,()->policies.read(f.owner.getEmail(),at,end));
+        var wideEnd=at.plus(Duration.ofDays(366));
+        capture.clear();var wideJournal=journal.read(f.owner.getEmail(),at,wideEnd);assertEquals(charges.entries(),wideJournal.entries());assertEquals(charges.chargeGrouping(),wideJournal.chargeGrouping());assertEquals(charges.selectedGroupedChanges().buckets(),wideJournal.selectedGroupedChanges().buckets());assertFalse(wideJournal.truncated());assertFalse(wideJournal.fundingEvidenceTruncated());assertEquals(10,capture.snapshot().size());
+        capture.clear();var wideFinance=finance.read(f.owner.getEmail(),at,wideEnd);assertEquals(financed.entries(),wideFinance.entries());assertFalse(wideFinance.truncated());assertEquals(2,capture.snapshot().size());
+        capture.clear();var wideFees=execution.read(f.owner.getEmail(),at,wideEnd);assertEquals(fees.selectedFills(),wideFees.selectedFills());assertEquals(fees.tickets(),wideFees.tickets());assertFalse(wideFees.selectedTruncated());assertFalse(wideFees.contextTruncated());assertEquals(6,capture.snapshot().size());
+        capture.clear();var widePending=policies.read(f.owner.getEmail(),at,wideEnd);assertEquals(pending.entries(),widePending.entries());assertFalse(widePending.selectedTruncated());assertFalse(widePending.candidatesTruncated());assertEquals(3,capture.snapshot().size());
+        measure(source,capture,output,"mixed-366day-journal",2000,()->journal.read(f.owner.getEmail(),at,wideEnd));measure(source,capture,output,"mixed-366day-finance",2000,()->finance.read(f.owner.getEmail(),at,wideEnd));
+        measure(source,capture,output,"mixed-366day-execution",2000,()->execution.read(f.owner.getEmail(),at,wideEnd));measure(source,capture,output,"mixed-366day-pending",2000,()->policies.read(f.owner.getEmail(),at,wideEnd));
+        assertEquals(balances,f.db.queryForList("SELECT * FROM settlement_accounts ORDER BY user_id"));assertEquals(users,f.db.queryForList("SELECT * FROM users ORDER BY id"));assertEquals(holdings,f.db.queryForList("SELECT * FROM holdings ORDER BY id"));
+        return Map.of("journalRows",305,"completeCharges",101,"financeRows",100,"fills",101,"pendingInstructions",1,"queries",Map.of("journal",10,"finance",2,"execution",6,"pending",3),"selectedGroupedSettledChange","-7060.00","selectedGroupedReservedChange","0.00","wideRangeDays",366,"scope","Mixed two-second and 366-day windows have equal selected evidence/proofs and query counts, not full account expenses/P&L/history; balances/users/holdings unchanged by all repeated reads.");
     }
     private static List<Map<String,Object>> overflows(DataSource source,ReportingQueryCapture capture,List<Map<String,Object>> output,JournalReportFixture f,Instant at)throws Exception{
         var results=new ArrayList<Map<String,Object>>();

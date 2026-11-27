@@ -1,8 +1,52 @@
 # CORE-05 reporting semantics and implementation impact
 
-## Current CORE-05-B acceptance review - 2026-11-25
+## Current reporting-cost acceptance checkpoint - 2026-11-27
 
-This source-inspection review is the current acceptance map. Older pending paragraphs below are historical checkpoints. CORE-05-A and B1 are locally implemented/tested within their documented scopes; **B2 and B overall remain partial; C (public reports) remains unimplemented**. The latest executed selected suite is123tests/0failures/0errors/0skipped, including enabled MySQL, recorded in [the handoff](PROJECT_HANDOFF.md) and target/core05b2-period-charge-adapter-verification.json. No tests are rerun by this documentation review. Source links below establish inspected behavior, not new execution evidence.
+CORE-05-B2 and B-G06 remain partial. The table below separates the checks already executed from unresolved access-path and scale work. Later dated checkpoints below preserve source-specific evidence; no synthetic run establishes public-report, whole-account expense/P&L, production-capacity or deployment acceptance.
+
+| Check | Status and evidence | Remaining boundary |
+| --- | --- | --- |
+| Owned snapshot and recovery with prepared matching | [x] Separate enabled recovery/affected run: 47 tests passed, including concurrent changes, restart and dump/restore | Synthetic database only; production code unchanged by later fixture additions |
+| Selection/candidate limits and bounded batches | [x] 1,000/1,001 owned credit, instruction, finance and fill boundaries; 100/101 charge/MIS batches; child/source/fill-context overflow guards passed | Output bounds do not bound database scans |
+| Mixed complete source graphs and maximum range | [x] 305 journal rows, 101 charge groups, 100 finance events, 101 MIS fills and one original policy; two-second/366-day evidence equal; query counts 10/2/6/3 | Selected grouped changes only; all reads preserve accounts/users/holdings |
+| Request-local policy matching | [x] Exact full-proof oracle equivalence and repeated synthetic improvement with preparation included; [x] 1,000 distinct writer fingerprints match 1,000 correct identities | Clock granularity and hardware/run variance retained; no universal timing promise |
+| Existing user/time access paths | [~] Unindexed synthetic finance/fill scans demonstrated 3,002/4,103 rows for one owned result; disposable indexes produced one-row ranges with equal DTOs | Repository schema unchanged; review boundary in [deployment checklist](DEPLOYMENT_CHECKLIST.md). Scan remediation is not accepted |
+| Managed/fresh/runtime index parity | [ ] No repository index migration implemented | Test-only indexes are dropped before the final catalog; no retained-database execution |
+| Small simultaneous-read isolation | [x] 48 full-DTO comparisons across two synthetic identities and four worker threads; accounts/users/holdings unchanged | Correctness only; no concurrent writers or capacity/latency threshold |
+| Larger scale and production concurrent capacity | [ ] Not accepted by these measurements | Multiple isolated synthetic repeats do not certify a production SLA or uninterrupted capacity |
+
+### Reproducing the isolated cost checks
+
+Run from the repository root with Docker running and `mysql:8.4` already available locally. The fixture uses `--pull=never`, creates a uniquely named/labeled synthetic database container with random ephemeral credentials and cleans up only its own container/anonymous volume. It does not accept an operator database URL. No application server or live model is needed.
+
+```powershell
+$priorJournal = $env:V3_JOURNAL_MYSQL
+$priorCost = $env:V3_REPORT_COST
+$started = Get-Date
+try {
+    $env:V3_JOURNAL_MYSQL = 'true'
+    $env:V3_REPORT_COST = 'true'
+    .\mvnw.cmd -q '-Dtest=ReportingQueryCostMySqlTests,PendingCreditPreparedTests' test
+    if ($LASTEXITCODE -ne 0) { throw 'Cost tests failed' }
+    $report = Get-Item target/core05bg06-prepared-match-cost.json
+    if ($report.LastWriteTime -lt $started) { throw 'Stale cost report' }
+    node scripts/check-report-cost-evidence.mjs $report.FullName --prepared
+    if ($LASTEXITCODE -ne 0) { throw 'Evidence structure rejected' }
+} finally {
+    $env:V3_JOURNAL_MYSQL = $priorJournal
+    $env:V3_REPORT_COST = $priorCost
+}
+```
+
+Also inspect fresh Surefire reports: the cost class must execute one test with zero failures/errors/skips; an old JSON file or an environment-disabled test is not a new result. Preserve prior generated reports under distinct local names and record SHA256 plus the exact command in the handoff. Generated artifacts under `target` are ignored; the committed test and validator regenerate them.
+
+Run recovery separately using `V3_JOURNAL_MYSQL=true`, `V3_REPORT_COST=false` and `-Dtest=SettlementJournalMySqlTests,ReportingQueryCaptureTests,FinancePeriodServiceTests,ExecutionFeePeriodServiceTests,PendingPolicyPeriodServiceTests,PendingCreditPolicyReconcilerTests,PendingCreditPreparedTests,PeriodChargeAdapterTests`. Keep the same environment restoration and fresh-result checks. This avoids conflating recovery workload cardinalities with the dedicated cost fixture.
+
+Each observation retains estimated JSON and executed iterator plans, returned-row counts, three query replays, three whole-reader timings and session handler deltas. Exact per-statement rows examined are unavailable. Handler deltas, iterator rows, elapsed time and current-thread CPU remain separate measures; CPU samples exclude GC/other threads and can be zero at coarse timer resolution. The validator checks structure/bounds only, does not authenticate evidence, and always returns `performanceAcceptance:false`.
+
+## Historical CORE-05-B acceptance review - 2026-11-25
+
+This dated source-inspection review records the 25 November snapshot; use the current checkpoint above and latest handoff for subsequent work. At this snapshot CORE-05-A and B1 were locally implemented/tested within their documented scopes; **B2 and B overall remained partial; C (public reports) remained unimplemented**. The then-latest selected suite was 123 tests/0 failures/errors/skips, including enabled MySQL, recorded in [the handoff](PROJECT_HANDOFF.md) and target/core05b2-period-charge-adapter-verification.json. Source links below establish inspected behavior, not new execution evidence.
 
 ### Requirement-to-evidence map
 
@@ -575,3 +619,11 @@ B-G06matching remediation implementation2026-11-27: PendingCreditPolicyReconcile
 B-G06 prepared matching verification 2026-11-27: separate recovery/affected run 47 passed; dedicated synthetic cost test 1 passed, 110 observations. Same-input pure control 1805-3036 ms versus prepared including preparation 6.92-11.03 ms; current-thread CPU clock granularity 15.625 ms means a 0 sample does not mean zero work. Full reader repeats 46.5-79.5 ms; guards and exact repeated reader DTOs unchanged. No production SLA. Run1 preserved in target/core05bg06-prepared-match-cost-run1.json and verification manifest. Next full large-input proof DTO equivalence, test fixture seed overhead reduction and independent rerun; schema implementation remains separately gated.
 
 B-G06 repeatability verified 2026-11-27: enabled dedicated + prepared suite 6 tests passed, cost suite 80.999 s with 240 s bound unchanged. All 1000 full proof DTOs equal original oracle. Compared two fresh isolated runs: 110 observations, 32 reader shapes, 330 query samples, statement/type/returned-row shapes, cardinalities/guards and final index definitions equal. Run2 control 1648-2007 ms versus prepared including preparation 6.67-9.41 ms; reader 55.9-67.3 ms. CPU granularity preserved. Artifacts target/core05bg06-prepared-match-cost-run2.json and target/core05bg06-prepared-repeat-comparison.json include paired hashes. No SLA/concurrent-capacity acceptance; next mixed valid-source workloads.
+
+B-G06 mixed valid-source window verified 2026-11-27: dedicated cost + grouped summarizer + period adapter suites 16 passed. Cost suite 64.789 s, 131 observations/393 query samples/36 reader shapes. Mixed 305 journal rows, 101 complete charge groups, 100 finance events, 101 MIS fills, one original pending instruction with 1000 candidates: query counts10/2/6/3, selected grouped settled -7060.00/reserved0.00, no full-account total/direct composite availability. Accounts/users/holdings unchanged across repeated reads. Earlier110query shapes/guards unchanged; expected +2journal/+100finance rows only; test indexes dropped. Full1000-policy DTO oracle equality retained. Report target/core05bg06-mixed-cost.json; SHA/comparison target/core05bg06-mixed-verification.json. No SLA/concurrency/retained-data acceptance.
+
+B-G06 mixed maximum range verified 2026-11-27: enabled cost suite 1 passed in81.102s;152observations/456samples/40readers. Mixed two-second and exactly366-day ranges have equal selected evidence/proofs and counts10/2/6/3; accounts/users/holdings unchanged. Prior131statement/output-bound shapes and fixture cardinalities/guards preserved, disposable indexes absent. Report target/core05bg06-mixed-wide-cost.json and SHA/comparison target/core05bg06-wide-verification.json. No SLA/retained data acceptance.
+
+B-G06 distinct distribution verified 2026-11-27: enabled cost/prepared suites6passed;cost109.438s. 1000different writer fingerprints each match a different owned candidate, full original/prepared/service DTOs equal;1001guard2queries/raw retained/no proof. Same-input control845-997ms versus prepared6.74-11.79ms including preparation; coarse CPU0 samples do not mean no work.157observations/471samples/42readers preserve prior152shapes/guards; only1001new journal fixture rows. Report target/core05bg06-distinct-cost.json, SHA/comparison target/core05bg06-distinct-verification.json. No SLA/index/financial/AI change.
+
+B-G06 parallel isolation/current acceptance review 2026-11-27: enabled cost/capture suites3passed; cost68.863s.48simultaneous read results across two synthetic identities and4workers match per-identity sequential full DTOs in original/mixed periods. Accounts/users/holdings unchanged; worker shutdown and test-container cleanup pass. All157priorquery/output-bound shapes and cardinalities/guards unchanged;471query samples/42readers. Source/report SHA recorded target/core05bg06-parallel-verification.json; report target/core05bg06-parallel-cost.json. Main sources unchanged from bbe930f, preserving earlier47recovery evidence. B-G06 remains partial: measured user-time scan remediation and broader scale/production capacity are unaccepted. No API/schema/AI/deployment change.

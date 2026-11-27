@@ -1,5 +1,9 @@
 # Approved work queue and resume checkpoint
 
+## 2026-11-27 GitHub continuation checkpoint
+
+- [x] Saved verified implementation/cost groundwork in bbe930f3c1934fc4928a9b101ca0ed0097ec7045 and mixed/wide/distinct/parallel evidence plus current acceptance/reproduction guidance in 05ddb789dd8d6b26f92557ecf8806e3dcf843025. Both pushed to origin/work/v3-progress-20261127; independent git ls-remote matched each source commit. Latest7exact staged blobs reviewed with0secret indicators; staged whitespace passed. Added Markdown link/live-AI-boundary QA passed. No application tests rerun for this final documentation-only upload checkpoint.
+- [~] Resume B-G06 source-access remediation at the existing review boundary in DEPLOYMENT_CHECKLIST.md; no schema implementation or retained DDL authorized by generic continuation. Current evidence:47recovery/affected tests, repeated cost/equivalence matrices, mixed short/366-day ranges and48parallel read comparisons, all within their recorded snapshots.157query observations/42reader shapes are synthetic; no production scan/scale/capacity or complete-report acceptance. No current automated test failure, test containers cleaned, live AI disabled. This checkpoint is part of the same upload unit; final documentation commit follows without another implementation unit.
 ## 2026-11-27 parallel read isolation verified / acceptance review
 
 - [x] .\mvnw.cmd -q -Dtest=ReportingQueryCostMySqlTests,ReportingQueryCaptureTests test with both opt-in flags true exited 0: 3 tests/0 failures/errors/skips; cost68.863s under240s bound. Two synthetic identities/four readers/three rounds on4workers:24full-DTO-equivalent reads per scenario (original foreign-heavy period and mixed valid-source period),48total. Accounts/users/holdings unchanged; worker shutdown assertions pass. This is correctness/isolation evidence, not throughput/latency or production capacity.

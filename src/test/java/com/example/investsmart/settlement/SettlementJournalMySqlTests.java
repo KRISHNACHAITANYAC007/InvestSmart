@@ -18,6 +18,7 @@ import static org.mockito.Mockito.*;
 
 /** Opt-in local synthetic database only; never accepts operator database URLs or credentials. */
 @EnabledIfEnvironmentVariable(named="V3_JOURNAL_MYSQL", matches="true")
+@org.junit.jupiter.api.parallel.ResourceLock("investsmart-journal-synthetic-lifecycle")
 class SettlementJournalMySqlTests {
     static final String DATABASE="investsmart_journal_synthetic";
     static final String NAME="investsmart-journal-test-"+UUID.randomUUID();
@@ -602,7 +603,7 @@ class SettlementJournalMySqlTests {
                 "fill-"+id,id,units,new java.math.BigDecimal(fee),at);
     }
 
-    private static DriverManagerDataSource readySource() throws Exception {
+    static DriverManagerDataSource readySource() throws Exception {
         String binding=docker(Map.of(),null,"port",NAME,"3306/tcp").trim();
         if(!binding.matches("127\\.0\\.0\\.1:[0-9]{1,5}"))throw new IllegalStateException("Synthetic container must bind loopback only");
         String port=binding.substring(binding.lastIndexOf(':')+1);

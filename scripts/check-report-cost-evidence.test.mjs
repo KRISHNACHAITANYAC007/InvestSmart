@@ -1,0 +1,14 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {validateReport} from './check-report-cost-evidence.mjs';
+import {mkdtempSync,writeFileSync,unlinkSync,rmdirSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {spawnSync} from 'node:child_process';
+function report(){return {engine:'synthetic-test',observations:[{reader:'fixture',sql:'SELECT ?',parameterTypes:['Long'],estimatedPlan:'{}',actualIteratorPlan:['synthetic iterator fixture'],readerRepeatedMs:[1,2,3],queryRepeats:Array.from({length:3},()=>({returnedRows:1,elapsedMs:1,handlerReadDelta:{Handler_read_key:1}}))}],pureMatchingSamples:Array.from({length:3},()=>({wallMs:1,currentThreadCpuMs:null}))};}
+test('valid report structure never certifies performance or converts unsupported CPU to zero',()=>{const r=report();const result=validateReport(r);assert.equal(result.evidenceStructureValid,true);assert.equal(result.performanceAcceptance,false);assert.equal(result.querySamples,3);assert.equal(r.pureMatchingSamples[0].currentThreadCpuMs,null);});
+test('missing plans/repeats and non-select captured statements fail closed',()=>{for(const alter of [r=>r.observations[0].actualIteratorPlan=[],r=>r.observations[0].estimatedPlan='not-json',r=>r.observations[0].queryRepeats.pop(),r=>r.observations[0].sql='DELETE FROM fixture']){const r=report();alter(r);assert.throws(()=>validateReport(r));}});
+test('invalid output bounds, timers and handler counters are rejected',()=>{for(const alter of [r=>r.observations[0].queryRepeats[0].returnedRows=1002,r=>r.observations[0].queryRepeats[0].returnedRows=-1,r=>r.observations[0].queryRepeats[0].elapsedMs=NaN,r=>r.observations[0].queryRepeats[0].handlerReadDelta.Handler_read_key=-1,r=>r.observations[0].readerRepeatedMs[0]=Infinity]){const r=report();alter(r);assert.throws(()=>validateReport(r));}});
+test('prepared comparison must be present when explicitly required',()=>{const r=report();assert.throws(()=>validateReport(r,{requirePrepared:true}));r.preparedMatchingSamples=[{wallMs:1,currentThreadCpuMs:0},{wallMs:2,currentThreadCpuMs:null},{wallMs:3,currentThreadCpuMs:1}];assert.equal(validateReport(r,{requirePrepared:true}).performanceAcceptance,false);});
+test('invalid JSON CLI does not reproduce report contents',()=>{const dir=mkdtempSync(join(tmpdir(),'investsmart-report-evidence-'));const path=join(dir,'invalid.json');try{const fixture='sensitive-report-fixture-only';writeFileSync(path,fixture);const result=spawnSync(process.execPath,[fileURLToPath(new URL('./check-report-cost-evidence.mjs',import.meta.url)),path],{encoding:'utf8',windowsHide:true});assert.equal(result.status,1);assert.equal((result.stdout+result.stderr).includes(fixture),false);}finally{unlinkSync(path);rmdirSync(dir);}});

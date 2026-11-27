@@ -17,7 +17,8 @@ public class PendingPolicyPeriodService {
         if(email==null||email.isBlank())throw missing();var user=users.findByEmailIgnoreCase(email).orElseThrow(PendingPolicyPeriodService::missing);user.requireActive();
         var coverage=journal.coverage(user.getId());var rows=records.instructions(user.getId(),from,to);boolean selectedLimited=rows.size()>1000;
         var candidates=selectedLimited||rows.isEmpty()?List.<PendingCreditPolicyReconciler.Candidate>of():records.candidates(user.getId());boolean candidatesLimited=candidates.size()>1000;
-        var entries=rows.stream().limit(1000).map(row->new PendingPolicyPeriodEvidence.Entry(row.row(),rules.reconcile(row.row(),row.fingerprint(),candidates,selectedLimited||candidatesLimited))).toList();
+        var prepared=rules.prepare(candidates,selectedLimited||candidatesLimited);
+        var entries=rows.stream().limit(1000).map(row->new PendingPolicyPeriodEvidence.Entry(row.row(),prepared.reconcile(row.row(),row.fingerprint()))).toList();
         var limitations=new ArrayList<String>(List.of("Original owned pending-credit instruction policy only; no availability, refund destination, totals or complete history.","Fingerprint is corroboration, not authentication; no complete historical candidate coverage certified."));
         if(selectedLimited)limitations.add("SELECTED_INSTRUCTION_LIMIT");if(candidatesLimited)limitations.add("CANDIDATE_LIMIT");
         if(!coverage.initialized())limitations.add("ACCOUNT_NOT_INITIALIZED");else if(from.isBefore(coverage.initializedAt()))limitations.add("RANGE_STARTS_BEFORE_INITIALIZATION");

@@ -1,6 +1,6 @@
 # V3 work checklist - simple words
 
-Current checkpoint (27 November 2026): reviewed project source is uploaded to the GitHub progress branch. Query-cost work has started with test-only capture of actual report SQL and parameters; two tests pass. Database plans, scan counts and workload timings have not been measured yet. Complete reports remain unfinished; no live AI model is connected.
+Current checkpoint (27 November 2026): faster policy matching passed 47 recovery/related tests and two separate cost runs. All 1,000 full evidence results match the original code. Matching took 7-11 milliseconds versus roughly 2-3 seconds on the same synthetic inputs. Report limits still pass; broader mixed workloads and complete reports remain unfinished. No live AI model is connected. Owner dependencies remain in DEPLOYMENT_CHECKLIST.md.
 
 Updated: 27 November 2026.
 
@@ -79,6 +79,16 @@ A checked item does not mean the whole feature is ready for public use. These ar
 **What works today:** a developer can turn on the local preview. It explains existing equity numbers through three fixed questions. It does not yet offer general AI conversation, cover the entire account or place orders. Technical name for this partly finished stage: AI-2.
 
 ## Working on now
+Current database-cost work has **4 check groups**, not a fixed number of individual tests:
+
+| Group | Work | Status |
+| --- | --- | --- |
+| 1 | Larger owned histories and 1,000/1,001-row limits | In progress; Credit/selected-instruction limits and matching CPU checked; product histories remain |
+| 2 | Combined-charge and same-day-trade batches/context limits | 100/101 batching and global overflow checks passed |
+| 3 | Empty and wide date ranges | Measured for four basic readers; mixed/batch ranges remain |
+| 4 | Review growth, fix demonstrated problems if needed, and recheck | Not accepted yet |
+
+This is the current reporting priority, not a technical requirement to finish all V3 features before live AI. Live-AI setup follows its separate process in [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md); no setup is needed now.
 
 - [~] **Main development task: complete the money-report checks.** The saved-money, interest, same-day trade and duplicate-record readers are built and tested. The date-range reader now includes funding-source checks; its new integration passes local and MySQL checks. Unknown refund destinations stay unknown. Date-range charge grouping now also passes local and MySQL checks. Complete account reports, report pages and downloads remain unfinished. Technical reference: CORE-05-B2.
 - [~] **Portfolio helper: partly complete.** Its local screen and equity explanations are built. Checks inside the full application, broader keyboard/accessibility checks and real-device checks remain. Work on wider AI abilities comes later.

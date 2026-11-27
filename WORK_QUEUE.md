@@ -1,5 +1,120 @@
 # Approved work queue and resume checkpoint
 
+## 2026-11-27 prepared matching repeatability verified
+
+- [x] .\mvnw.cmd -q -Dtest=ReportingQueryCostMySqlTests,PendingCreditPreparedTests test with both opt-in flags true exited 0: 6 tests, 0 failures/errors/skips. Fresh cost suite 80.999 s versus previous 239.641 s after test-only seed transactions; 240 s bound unchanged. No measured request has an ambient fixture transaction; all seed transactions committed first. Container cleanup empty. Log target/core05bg06-prepared-repeat.log; fresh suite counts target/core05bg06-prepared-repeat-tests.json.
+- [x] Full 1000-policy DTO equality original/prepared outside timing. node target/compare-report-cost-runs.mjs passed: 110 observations/330 query samples/32 reader shapes; statement text/types/returned-row bounds, fixture cardinalities, guard scenarios and final index definitions equal across run1/run2. Structural acceptance only, performanceAcceptance=false. Run2 control wall 1648-2007 ms / CPU 1516-1797 ms, prepared wall 6.67-9.41 ms / CPU 0 or 15.625 ms (clock granularity). Reader repeats 55.9-67.3 ms. Run2 preserved target/core05bg06-prepared-match-cost-run2.json; comparison manifests include both SHA256 values.
+- [~] Overview/checklist/inventory/semantics synchronized. Next: preserve reviewed work on existing GitHub progress branch, then extend mixed valid-source workload before global corrupt/overflow scenarios. B-G06 broader workload/performance acceptance remains partial; canonical schema dependency unchanged. Recovery snapshot is the earlier fresh 47-test run, not rerun unnecessarily for test-only fixture setup changes. No live AI or deployment.
+## 2026-11-27 repeatability and fixture overhead unit written
+
+- [~] ReportingQueryCostProbe now compares all 1000 complete original/prepared policy evidence DTOs outside timing and records matchingComparison. Synthetic foreign/candidate/instruction/product/charge/MIS/overflow seeding uses existing fixture write transactions; each commits before service reads/measurements. measure asserts no ambient write transaction. No production transaction/query/schema change; the original 240-second bound remains.
+- [ ] Verification pending. Next compile/focused tests and independent enabled cost run; compare all shape/count/guard/index catalogs with preserved run1 before accepting repeatability. Existing 47 recovery + separate cost1 evidence covers the preceding source snapshot only.
+## 2026-11-27 prepared matching actual cost verified
+
+- [x] Dedicated .\mvnw.cmd -q -Dtest=ReportingQueryCostMySqlTests test with both V3_JOURNAL_MYSQL/V3_REPORT_COST=true exited 0: 1 test, 0 failures/errors/skips. Fresh report MySQL 8.4.13: 110 observations, 330 query replays, 32 reader shapes; node scripts/check-report-cost-evidence.mjs target/core05bg06-prepared-match-cost.json --prepared passed structural checks, performanceAcceptance=false. Recovery/affected run separately passed 47 tests; do not describe this as one combined run. Cleanup verified no labeled test container remains.
+- [x] Same-input pure control wall 1805-3036 ms / thread CPU 1688-2578 ms; prepared including preparation wall 6.92-11.03 ms / CPU samples 0 or 15.625 ms. CPU clock granularity means 0 is not zero work. Optimized owned reader repeats 46.5-79.5 ms. Guards, bounded reads, repeated full reader DTO equality and disposable index equality still pass. Full report copied to target/core05bg06-prepared-match-cost-run1.json; SHA/commands/results in target/core05bg06-prepared-cost-verification.json; log target/core05bg06-prepared-cost.log.
+- [~] Test suite time 239.641 s is close to its 240 s method bound. Next strengthen large-input full policy DTO equivalence outside timed samples and reduce synthetic fixture seeding overhead with explicit test-only transactions committed before measurements; retain bound and rerun for independent repeatability. Larger mixed workloads/performance acceptance remain open; schema owner dependency exclusively DEPLOYMENT_CHECKLIST.md. No retained database, API, financial state, live AI or learning-status change.
+## 2026-11-27 prepared matching recovery verified
+
+- [x] Separate enabled recovery/affected command (SettlementJournalMySqlTests,ReportingQueryCaptureTests,FinancePeriodServiceTests,ExecutionFeePeriodServiceTests,PendingPolicyPeriodServiceTests,PendingCreditPolicyReconcilerTests,PendingCreditPreparedTests,PeriodChargeAdapterTests) exit 0, all fresh Surefire reports: 47 tests, 0 failures/errors/skips. V3_JOURNAL_MYSQL=true / V3_REPORT_COST=false. Log target/core05bg06-prepared-recovery.log; exact command/suite counts target/core05bg06-prepared-recovery-verification.json. Synthetic container cleanup verified empty. Ownership, changing-record snapshot, restart and dump/restore assertions pass with prepared matching enabled.
+- [x] node --test scripts/check-report-cost-evidence.test.mjs: 5 passed. Scoped git diff --check passed (line-ending notices only). Overview/simple checklist synchronized to the 47-test recovery milestone; cost comparison still pending.
+- [~] Next dedicated cost fixture (V3_REPORT_COST=true), require prepared measurement structure and compare CPU/wall samples. B-G06 remains partial; no retained database/schema change, live AI or release acceptance.
+## 2026-11-27 separate recovery verification running
+
+- [~] Started recovery and affected suites independently of the cost fixture: .\mvnw.cmd -q -Dtest=SettlementJournalMySqlTests,ReportingQueryCaptureTests,FinancePeriodServiceTests,ExecutionFeePeriodServiceTests,PendingPolicyPeriodServiceTests,PendingCreditPolicyReconcilerTests,PendingCreditPreparedTests,PeriodChargeAdapterTests test with V3_JOURNAL_MYSQL=true / V3_REPORT_COST=false; log target/core05bg06-prepared-recovery.log. Results pending.
+- Process inspection correction: Get-Process returned no Java rows, but Win32_Process positively identifies the live Maven and forked Java processes. Use CIM process evidence and fresh reports; the earlier interrupted run remains unaccepted, but absence from Get-Process alone does not prove Java stopped. Next: inspect completion, then run dedicated cost fixture separately.
+## 2026-11-27 full matching run interrupted/unaccepted
+
+- [ ] Combined recovery+cost run produced no fresh MySQL/measurement report, no Java process visible, while exec handle kept yielding and exact labeled synthetic container remained. Interrupted stale command; parsed docker inspect JSON verified journal-synthetic label before removing only that exact4d3a6c6dcontainer/anonymous volumes. No retained DB affected. No full48test PASS claimed.
+- [x] Focused Java20/20and final Node validator5/5passed; validator accepted existing110observation structure only, performanceAcceptance false. NEXT separate recovery/pending tests from cost measurement, bounded run output and fresh report timestamps. Schema approval remains canonical/pending; no migration applied.
+
+## 2026-11-27 prepared matching equivalence tests written
+
+- [~] Five cases compare original single-row oracle with prepared path across header/fingerprint/missing/invalid/ambiguous/limited matrix, immutable request copies,1000/1001bounds, invalid unrelated candidates and Unicode/money normalization. Probe now records control vs prepared pure wall/CPU including preparation, with optimized reader same DTO checks. Removed legacy cost hook from recovery class because dedicated cost lifecycle now owns measurements; both classes can run independently under shared resource lock without duplicate benchmark.
+- [ ] Tests not run. NEXT focused local then enabled recovery + dedicated cost + pending suites. No source-index migration implementation before approval.
+
+## 2026-11-27 B-G06 request-local matching optimization written
+
+- [~] Added immutable request-local Prepared lookup: validate/deduplicate <=1000candidates and hash once, then invoke unchanged single-row header/selected collision-bucket proof rules for exact statuses/error precedence. Invalid unrelated candidate still invalidates every applicable row; ambiguity retained. PendingPolicyPeriodService prepares once inside same owned snapshot; no static/persistent cache, extra SQL, new amount or authorization change. Single-row API retained as comparison oracle.
+- [ ] Tests/optimized benchmark not run. NEXT exhaustive equivalence/copy-isolation/header/limits tests then local and actual MySQL old/new/recovery suite. Schema-index repository proposal awaits canonical approval; independent readonly optimization continues.
+
+## 2026-11-27 B-G06 global guards/test-index comparison verified
+
+- [x] Enabled dedicated matrix/affected command (ReportingQueryCostMySqlTests,ReportingQueryCaptureTests,FinancePeriodServiceTests,ExecutionFeePeriodServiceTests,PendingPolicyPeriodServiceTests,PeriodChargeAdapterTests) exit0:35tests/0failures/0errors/0skipped, log target/core05bg06-guards-index-cost.log. Report target/core05bg06-guards-index-cost.json has110observations. No retained database changed; test container cleanup empty.
+- [x]501charge parents exceed child budget with8queries/no proofs;101parents/1010sources exceed source budget with7queries/no proofs; adversarial1000extra outside MIS fills retain101selected fills/no verified fee with3queries. All raw/proof guards pass. Disposable indexes change executed finance scan3002->1row range and fill scan4103->1with exact DTO equality; indexes absent from final catalog. No production DDL or SLA acceptance.
+- [x] Prepared concrete ignored review artifacts target/proposed-report-period-indexes.sql/.md covering two index definitions, managed/fresh/runtime parity implementation, disk/write/build-lock impact and non-execution boundary. Open user approval is exclusively DEPLOYMENT_CHECKLIST.md under existing pre-change schema-impact requirement. No migration implementation or retained DDL yet.
+- [~] NEXT independent readonly pending-policy matching CPU remediation: request-scoped prepared candidate lookup, same per-row statuses/validation/limits and original instruction proof, no persistent cross-user cache or schema change. Benchmark before/after and run identity/snapshot/equivalence regressions. B-G06partial; source-index repository implementation waits for canonical approval. No AI/learner-status change.
+
+## 2026-11-27 B-G06 global guards/index comparison written
+
+- [~] Added501charge-parent child overflow,101parent/1010source funding overflow, and deliberately corrupt1000extra outside MIS fills; raw/proof/query-count guards asserted. Disposable-fixture index A/B for finance(user,time,key) and fills(user,time,id), exact DTO equality, plans/timings before/after, indexes dropped before final catalog. No production DDL/migration or acceptance. New guards-index-cost report preserves earlier observations.
+- [ ] Not verified. NEXT enabled dedicated matrix/affected suites; final guard counts/DDL compatibility pending. Synthetic source graphs/adversarial context are not historical account certification.
+
+## 2026-11-27 B-G06 dedicated product/batch matrix verified
+
+- [x] New dedicated opt-in fresh cost MySQL fixture uses shared locked synthetic lifecycle, independent of recovery history; no retained DB access. cmd.exe /d /c ".\mvnw.cmd -q -Dtest=ReportingQueryCostMySqlTests,ReportingQueryCaptureTests,FinancePeriodServiceTests,ExecutionFeePeriodServiceTests,PendingPolicyPeriodServiceTests,PeriodChargeAdapterTests test > target\core05bg06-matrix-cost.log 2>&1" with process-local journal/cost flags restored exit0:35tests/0failures/0errors/0skipped. Test-owned container cleanup empty. Report target/core05bg06-matrix-cost.json has82observations; prior reports preserved.
+- [x] Owned finance/fill1000/1001rows preserve raw1000and truncation. Execution1000full proof fee1000.00/fixed3reads;1001selection guard withholds proof/skips context/fixed2reads. Charge100/101parents preserve source proofs and partial-window null sums with5/7reads. MIS100/101tickets each with owned position/open event preserve1.00fee per ticket with4/6reads. Repeated DTO equality and actual-query plans/read/timing records included.
+- [~] NEXT global charge child-source/fill-context1001overflow characterization, then disposable-fixture index A/B comparison for demonstrated user/date full scans; no production DDL or migration approved. Fresh source graphs benchmark contract shapes, not historical economic accounts. Larger mixed-cardinality/repeatability/threshold review remains required. B-G06/CORE-05-B2partial; no AI/learner change.
+
+## 2026-11-27 B-G06 product and batch matrix written
+
+- [~] Added1000/1001owned finance/fill selections (raw1000/truncation/proof and3->2execution reads),100/101charge-parent and MIS-ticket batching (expected5->7/4->6queries). Charge source graphs preserve parent-only partial-window null grouped sums; MIS tickets each have independent owned position/open event. Fixture source graphs are not reconstructed economic account history. Actual query measurements reuse capture; new matrix-cost report preserves earlier files.
+- [ ] Not verified. NEXT dedicated fresh opt-in MySQL fixture + affected suites. Global source/context overflow costs and broad mixed skew/threshold review still open. No production/schema/index/AI change.
+
+## 2026-11-27 B-G06 dedicated cost fixture written
+
+- [~] Added opt-in dedicated fresh cost MySQL test, reusing original synthetic lifecycle/readiness and applying shared JUnit resource lock to prevent concurrent lifecycle collisions. Separate cost fixture starts with only fresh schema/owned initialization, not recovery-suite history; cardinalities remain reported per run. Existing recovery suite still independently callable; helper visibility only changed in tests.
+- [ ] Not run yet. NEXT extend product/batch matrix and run dedicated + affected suites. Corrected simple table group2 status to still unmeasured (four basic reader ranges do not certify charge/MIS batching). No production behavior or performance acceptance change.
+
+## 2026-11-27 B-G06 selected-history/CPU/ranges verified
+
+- [x] cmd.exe /d /c ".\mvnw.cmd -q -Dtest=SettlementJournalMySqlTests,ReportingQueryCaptureTests,PendingPolicyPeriodServiceTests,PendingCreditPolicyReconcilerTests test > target\core05bg06-history-cost.log 2>&1" with process-local V3_JOURNAL_MYSQL/V3_REPORT_COST=true restored in finally exit0:16tests/0failures/0errors/0skipped. Synthetic cleanup empty; original snapshot/restart/restore assertions retained. Report target/core05bg06-history-cost.json has51query observations and3pure matching samples.
+- [x]1000selected normalized-instruction shapes x1000candidates retain valid original policy with3reporting reads;1001selected sentinel retains1000raw rows/no policy and skips candidates/fixed2reads. Repeated event instruction shapes stress provenance matching, not1000economic transactions. Pure wall941.83/951.07/991.53ms and current-thread CPU859.38/921.88/937.50ms; reader repeated elapsed970.73-1050.50ms. Thread CPU excludes GC/other threads.1001guard reader23.14-25.58ms. Not production SLA/threshold acceptance.
+- [x] Empty and366day windows for journal/finance/execution/policy actual queries/DTO invariants checked; wide pending/journal truncation explicit, no false zero/history claim. No new index/schema/production query/AI change. Prior reports preserved.
+- [~] NEXT remaining owned finance/fill history boundaries and charge/MIS batch/context matrix; then growth/threshold review and concrete remediation if supported. B-G06/CORE-05-B2partial. Selected-history matching CPU is now an observed cost, not yet optimized or accepted. No owner dependency/learner-status change; canonical dependencies only DEPLOYMENT_CHECKLIST.md.
+
+## 2026-11-27 B-G06 history/CPU/range extension written
+
+- [~] Extended synthetic probe:1000selected pending instructions x1000candidates,3pure matching wall/current-thread CPU samples (null if unsupported),1001selected sentinel retaining1000raw rows and skipping candidates/fixed2queries, plus empty/366day four-reader plans/timings/invariants. Repeated normalized instructions with unique event keys deliberately stress policy proof, not economic transactions. Separate history-cost report preserves prior measurements. No production/schema/AI change.
+- [ ] Verification pending; NEXT enabled MySQL + focused pending/capture suites. Charge/MIS and large owned finance/fill matrix remain open. Current inherited240s test limit retained, no acceptance on timeout/interruption.
+
+## 2026-11-27 B-G06 owned candidate scaling verified
+
+- [x] Synthetic actual-query probe now measures exact100/1000/1001owned settled zero-remaining/outside-period cash-credit candidates with one selected instruction. Valid original policy/id retained through1000;1001candidate sentinel withholds both while keeping raw selected row. Fixed3reporting queries asserted. Separate target/core05bg06-owned-candidate-cost.json preserves original foreign-skew report.
+- [x] Process-local V3_JOURNAL_MYSQL=true/V3_REPORT_COST=true restored in finally. cmd.exe /d /c ".\mvnw.cmd -q -Dtest=SettlementJournalMySqlTests,ReportingQueryCaptureTests,PendingPolicyPeriodServiceTests,PendingCreditPolicyReconcilerTests test > target\core05bg06-owned-candidate-cost.log 2>&1" exit0:16tests/0failures/0errors/0skipped. Existing isolated snapshot/restart/restore assertions retained; labeled synthetic container listing empty after cleanup. No retained DB/services touched.
+- [x] Report29query observations: original four-reader foreign-skew cases plus9query observations from3owned-candidate scenarios. Three reader repeats per candidate scenario, observed100case25.17-36.17ms,1000case30.26-85.91ms,1001case32.57-35.87ms. Fixture-specific elapsed times, NOT pure CPU or SLA. Candidate SELECT returns100/1000/1001rows; current candidate cardinality not current cash availability. Exact statement rows-examined still unavailable; handler/iterator metrics separate. No threshold/performance acceptance/index proposal.
+- [~] B-G06/CORE-05-B2partial. NEXT selected-instruction1000/1001bounds, many-instruction x many-candidate matching CPU with observed wall/CPU distinction, then charge/MIS batch/context and empty/wide-range matrix. Four current reporting check groups documented in simple checklist; no fixed count of all tests and no new requirement that every V3 feature finish before AI integration. Live AI remains separately gated in DEPLOYMENT_CHECKLIST.md; no account/key needed now. No AI/learner-status or production query/schema/API change.
+- [x] Checklist/overview/semantics/inventory synchronized; final QA/evidence below.
+
+## 2026-11-27 B-G06 owned candidate scaling written
+
+- [~] Extended synthetic actual-query probe with exact100/1000/1001owned cash-credit candidates, all settled/zero-remaining/outside-period; one selected instruction. Assert matched original policy/id through1000,1001sentinel withholds proof but retains raw instruction, fixed3queries. Capture plans/read counters and reader/query timings for each. Separate output target/core05bg06-owned-candidate-cost.json preserves first report. Worst-case many-instruction CPU/selected-row bounds and other measurement groups remain pending.
+- [ ] Verification pending: enabled MySQL + capture + pending-reader/rule regressions next. No production query/schema/AI change. Four remaining reporting check groups explained as current work breakdown, not a fixed count or mandatory all-V3 gate before live AI; existing AI approval dependencies unchanged in DEPLOYMENT_CHECKLIST.md.
+
+## 2026-11-27 communication preference recorded
+
+- [x] Recorded requested live-AI setup heads-up in canonical DEPLOYMENT_CHECKLIST.md; no setup/activation requested, scheduled or authorized. Explaining reporting checks does not change AI capability or learner status.
+- [x] Documentation-only wording verified by scoped read/whitespace check; no application tests needed/run. Current reporting status and measurements unchanged.
+- [~] NEXT resume B-G06 remaining owned-size/limits/charge-MIS/wide-range measurements from prior checkpoint. Owner dependencies remain exclusively DEPLOYMENT_CHECKLIST.md.
+
+## 2026-11-27 B-G06 first actual-query observations verified
+
+- [x] Added test-only ReportingQueryCostProbe gated by V3_REPORT_COST inside existing loopback/test-owned MySQL lifecycle. Four owned readers captured actual SQL,100/2000foreign rows per journal/finance/fill table,20query observations/three repeats each, repeated reader DTO equality and ownership/count/policy checks. EXPLAIN JSON/ANALYZE, Handler_read deltas, timings, engine/index/cardinality metadata retained. No production query/schema/index/API change.
+- [x] Initial capture regression exit0:2tests/0failures/0errors/0skipped (target/core05bg06-cost-compile.log). Earlier enabled run was interrupted before report and not accepted; orphaned exact test-owned container removed after prior positive label-filter inventory, as documented. Successful rerun process-local V3_JOURNAL_MYSQL=true and V3_REPORT_COST=true, both restored in finally: cmd.exe /d /c ".\mvnw.cmd -q -Dtest=SettlementJournalMySqlTests,ReportingQueryCaptureTests test > target\core05bg06-query-cost-mysql-rerun.log 2>&1" exit0:3tests/0failures/0errors/0skipped. Existing snapshot/restart/restore assertions retained. Successful test-owned container cleanup confirmed by empty labeled docker listing. No retained user DB/services touched.
+- [x] Measurement report target/core05bg06-query-cost.json, MySQL8.4.13. Final table rows: journal2011, finance events2003, fills2008, obligations4. Executed plans show finance full event scan2003rows and fills full scan2008rows for one owned selected record each at2000foreign rows. Handler_read_rnd_next grows finance107->2007, fills109->2009 across100->2000foreign fixtures; these counters are NOT exact statement rows-examined. Journal narrow period traversed2indexed rows at both sizes, fill ticket context1indexed row, pending candidates3owned rows. Timings recorded but no SLA/production/overall performance PASS claimed.
+- [~] B-G06/CORE-05-B2partial. NEXT extend actual-query measurements to large owned histories/pending candidate1000/1001and pure matching CPU, charge/MIS batching/context sentinels, empty/narrow/366day windows. Compare growth and thresholds with invariant assertions before any concrete index-impact proposal; no automatic schema change from this first observation. Exact statement rows-examined remains unavailable; plans/handler/timing measurements stay separately named. Public reports/full expenses/P&L/historical balances unfinished; owner dependencies only DEPLOYMENT_CHECKLIST.md.
+- [x] User AI status answered from existing project/learning guide: AI-1 offline foundation and optional AI-2 local equity helper/read-only tools started; no live model/general model conversation/model-selected tools. This turn continues reporting work, changes no AI feature or learner status. Checklist/overview/inventory/semantics synchronized; final QA/evidence below.
+
+## 2026-11-27 B-G06 interrupted run checkpoint
+
+- [~] User status answered: AI-1 offline foundation and optional AI-2 equity local preview/read-only tools have started; no live model/general conversation/model-selected tools enabled. No AI feature/learning state change.
+- [ ] Prior enabled cost run interrupted: exec session unavailable, no Java process, no cost JSON or fresh MySQL Surefire report; no acceptance claimed. Unique test-owned container09c728d9 remained; verified journal-synthetic label and removed only that container/anonymous volumes. NEXT rerun enabled isolated suite; flags process-local/restored. Earlier local capture2tests remain valid only for their scope.
+
+## 2026-11-27 B-G06 synthetic actual-query probe written
+
+- [~] Opt-in V3_REPORT_COST phase in existing isolated MySQL harness uses captured actual four-reader SELECTs/normalized binds,100/2000foreign rows per journal/finance/fill table, identical repeated DTO checks, ownership/count assertions. Records EXPLAIN JSON/ANALYZE iterator plan, three query/reader timings, Handler_read deltas and schema/index/cardinality evidence. Exact statement rows-examined remains explicitly unavailable, not mislabeled as handler counts. No SLA/index/production acceptance.
+- [ ] Tests not run. NEXT compile/capture regression then enabled isolated measurement. Narrow-window characterization only; charge/MIS/limits/large owned history/wide ranges still pending. No retained DB/query/schema/API/AI change.
+
 ## 2026-11-27 GitHub upload verified and B-G06 capture checked
 
 - [x] Explicit user upload request completed for reviewed project source on work/v3-progress-20261127, first commit d667858d7830ac6d023ff05677bd55dc099146b8. git ls-remote branch SHA equals local HEAD after push; main unchanged.521changed paths/535total staged files reviewed. Credential-bearing test.http removed from tracking only/local file preserved; local .codex/runtime/build files excluded. Exact staged scanner reviewed three documentation/test placeholders, one small PNG; no unreviewed pattern finding. No unknown-secret guarantee, history rewrite/rotation, deployment or owner promotion. Existing public history/SEC-03 owner remediation not cleared.
@@ -1590,3 +1705,42 @@ Native Codex Goal: implement the approved T+1 and Kite-referenced paper-broker r
 - [~] Added synthetic-test-only JDBC wrapper recording successfully executed prepared SELECT SQL/bind values, normalizing timestamps/dates and preserving null/reused parameters. No credential capture or production schema/query change. Two tests compare actual owned period-repository results and query/parameter capture, immutability, null/reuse and write exclusion. NEXT focused Maven test; pending. MySQL plans/workload NOT measured yet.
 
 - [x] Continuation commit bef9ffee6141c7f30aa45336062f5feb8613add0 pushed and independently matched to remote progress branch. Exact changed-blob review9files/0secret indicators, staged whitespace PASS. Two B-G06tests pass; source backup and continuation upload complete. NEXT isolated actual-query measurement as above; no performance acceptance. This final checkpoint belongs to the same upload unit.
+
+- [~] Static fixture refinement: foreign fill rows use distinct deterministic ticket IDs to preserve unique(ticket,leg). Initial compile/capture test running; final enabled suite will compile latest source before measurement. NEXT local result.
+
+
+- [x] Initial cmd.exe /d /c ".\mvnw.cmd -q -Dtest=ReportingQueryCaptureTests test > target\core05bg06-cost-compile.log 2>&1" exit0:2tests/0failures/0errors/0skipped. Probe fixture refinement follows initial compilation; NEXT final enabled command compiles current source and measures isolated MySQL. Both V3_JOURNAL_MYSQL and V3_REPORT_COST process-local flags restored in finally. Results pending.
+
+
+- [~] Probe scope/measurement counter distinctions and checklist/overview/inventory synchronized while enabled suite runs. NEXT inspect report, compare growth and remaining gaps; no benchmark PASS/SLA asserted from implementation alone.
+
+
+- [~] Cleanup diagnostic: an additional docker label-format guard had Windows quoting failure; the preceding docker ps --filter label=investsmart.scope=journal-synthetic inventory had already positively identified the exact09c728d9container. Only that exact test-owned container was removed. Future inspection should parse docker inspect JSON rather than embed quoted Go-template keys. Enabled rerun now active; no result yet.
+
+- [x] Final8file scoped whitespace and overview/checklist local links PASS;20observations/3executed tests verified. Evidence target/core05bg06-query-cost-verification.json. No remaining test failure; scan-cost acceptance remains pending for the stated matrix. NEXT B-G06 remaining measurement cases.
+
+- [~] Simple four-group reporting breakdown and owned-candidate measurement scope synchronized in checklist/overview/semantics/inventory. Not a promised fixed test count or newly imposed live-AI prerequisite. NEXT enabled result/cleanup and remaining group1 cases.
+
+- [x] Final7file whitespace/local checklist-overview links PASS;29observations/3fixed-query scenarios/16executed tests verified. Evidence target/core05bg06-owned-candidate-verification.json. No remaining test failure; performance acceptance open. NEXT remaining group1 cases as above.
+
+- [~] History/CPU/range scope and checklist/overview/inventory synchronized while enabled test runs. NEXT inspect result, checkpoint evidence, then continue remaining matrix within session limits. No elapsed-time/CPU conflation or economic-transaction claim.
+
+
+- [~] Dedicated fixture/proof-versus-history scope and simple checklist/overview/inventory synchronized while matrix runs. NEXT inspect test/report results before global overflow/acceptance review.
+
+
+- [~] Global-guard/adversarial-data and disposable-index boundaries documented; checklist/overview/inventory synchronized while test runs. NEXT final result, dropped-index/cleanup evidence, then assess concrete remediation impact without applying production DDL.
+
+
+- [x] Focused prepared matching command exit0:20tests/0failures/0errors/0skipped, log target/core05bg06-prepared-local.log; counts target/core05bg06-prepared-local-verification.json. Five new equivalence/request-isolation/limits/invalid-source/encoding cases pass. NEXT full recovery + dedicated measurement + affected suites; schema-index approval remains pending and generic continue instruction does not authorize retained DDL.
+
+
+- [~] Matching change/snapshot-isolation boundary and structural acceptance rubric documented; checklist/overview/inventory synchronized while full run proceeds. NEXT verified before/after results and source hashes; no timing-only SLA or implicit schema approval.
+
+
+## 2026-11-27 B-G06 evidence validator written
+
+- [~] Independent Node built-in validator checks local report structure, actual/estimated plans,3repeats, nonnegative finite timings/handler counters and1001output bound; prepared CPU comparison required on request, unsupported CPU null preserved. Never authenticates source or grants performance/SLA acceptance. Four rejection/positive tests written. NEXT Node tests while MySQL continues; no new dependency/schema/AI change.
+
+
+- [x] Initial Node evidence tests4/4and real110observation report structure PASS, performanceAcceptance false. Hardened CLI invalid-JSON error to avoid raw parser snippets and added non-disclosure CLI fixture test; NEXT final5test run. New files only use Node built-ins; MySQL still running.

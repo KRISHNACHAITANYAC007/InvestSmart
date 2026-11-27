@@ -314,3 +314,47 @@ Final owned grouped cash verification2026-11-27:145selected tests pass, zero fai
 
 - [~] Actual report SQL capture implemented in test scope;2tests pass. MySQL plans/workload still pending; no production query/schema change. Reviewed source uploaded to progress branch; private scratch/settings retained locally. Deployment/history credential remediation remain separate.
 
+
+### 2026-11-27 B-G06 first actual-query measurement
+
+- [~] Isolated synthetic opt-in probe written/running for four narrow owned readers against100/2000added foreign histories, actual SQL plans/read counters/timings and DTO invariants. Capture regression2tests pass. No production index/schema/query change; performance acceptance pending.
+
+### 2026-11-27 B-G06 measured narrow-reader scan growth
+
+- [x] First synthetic actual-query observations captured;3selected tests pass including recovery. Finance2003event/fill2008row executed scans for1owned row at2000foreign histories; narrow journal/index context stays small in these fixtures. No performance acceptance/index change. Remaining owned-size/limits/charge/MIS/wide-range matrix next. AI foundation/local helper started, live model disabled; no AI implementation in this unit.
+
+### 2026-11-27 B-G06 owned-candidate bounds
+
+- [~]100/1000/1001owned-candidate actual-query scenarios written/running with raw-retention/proof-withholding/fixed-query assertions. This begins remaining check group1; groups2-4 unaccepted. No production/schema/AI change.
+
+B-G06owned-candidate verification2026-11-27:16selected tests pass, zero failures/errors/skips, successful isolated cleanup/recovery.29actual-query observations include100/1000/1001owned settled/outside-period candidates with one selected instruction, fixed3queries, valid original policy through1000/null proof at1001/raw row retained. Reader elapsed samples25.17-85.91ms overall in these fixtures, not pure CPU/SLA; no performance acceptance or index change. NEXT selected-instruction bounds/many-instruction CPU and other measurement groups. Exact command/counts in latest handoff; B-G06partial.
+
+### 2026-11-27 B-G06 many-instruction/range checks
+
+- [~]1000x1000provenance matching CPU/wall samples,1001selected guard and empty/366day four-reader measurements written/running. No new production behavior; remaining batch/large-owned-product cases open.
+
+
+B-G06history/CPU/range observations verified2026-11-27:16selected tests pass,51query observations/3pure samples.1000instructions x1000candidates ~942-992ms elapsed/~859-938ms current-thread CPU;1001selected guard fixed2reads/no proof. Four-reader empty/366day windows checked with truncation invariants. Repeated normalized instructions are synthetic provenance workload only. No SLA/index/production change. NEXT owned finance/fill boundaries and charge/MIS matrix, then growth/remediation review.
+
+
+### 2026-11-27 B-G06 dedicated product/batch matrix
+
+- [~] Fresh isolated measurement fixture plus owned finance/fill1000/1001and charge/MIS100/101batch assertions written/running. Earlier recovery evidence remains separate; new benchmark has no production/SLA acceptance.
+
+
+B-G06fresh product/batch matrix verified2026-11-27:35selected tests pass,82actual-query observations. Owned finance/fill1000/1001guards pass; charge100/101source graphs use5/7queries and MIS100/101use4/6queries. No per-record service loop or economic-history certification. NEXT global overflow and disposable-fixture index A/B before any production schema impact review. No performance acceptance/index migration yet.
+
+
+### 2026-11-27 B-G06 global guards and disposable index comparison
+
+- [~] Child/source/fill-context overflow and synthetic index A/B scenarios written/running; no production schema change. Measurement/threshold/impact review remain open.
+
+
+### 2026-11-27 B-G06 matching remediation
+
+- [~] Request-local prepared checksum lookup replaces repeated whole-candidate matching in owned policy reader.20focused tests pass; full recovery/measurement run pending. No production database/schema changes; schema proposal approval separate.
+
+
+B-G06 prepared matching verification 2026-11-27: separate recovery/affected run 47 passed; dedicated synthetic cost test 1 passed, 110 observations. Same-input pure control 1805-3036 ms versus prepared including preparation 6.92-11.03 ms; current-thread CPU clock granularity 15.625 ms means a 0 sample does not mean zero work. Full reader repeats 46.5-79.5 ms; guards and exact repeated reader DTOs unchanged. No production SLA. Run1 preserved in target/core05bg06-prepared-match-cost-run1.json and verification manifest. Next full large-input proof DTO equivalence, test fixture seed overhead reduction and independent rerun; schema implementation remains separately gated.
+
+B-G06 repeatability verified 2026-11-27: enabled dedicated + prepared suite 6 tests passed, cost suite 80.999 s with 240 s bound unchanged. All 1000 full proof DTOs equal original oracle. Compared two fresh isolated runs: 110 observations, 32 reader shapes, 330 query samples, statement/type/returned-row shapes, cardinalities/guards and final index definitions equal. Run2 control 1648-2007 ms versus prepared including preparation 6.67-9.41 ms; reader 55.9-67.3 ms. CPU granularity preserved. Artifacts target/core05bg06-prepared-match-cost-run2.json and target/core05bg06-prepared-repeat-comparison.json include paired hashes. No SLA/concurrent-capacity acceptance; next mixed valid-source workloads.

@@ -20,10 +20,15 @@ WHAT_TO_DO_MANUALLY.txt is the user-requested, dated, standalone expansion of th
 
 ## Advanced AI owner decisions ? future, no activation
 
+User notification preference (2026-11-27): during active project work, explicitly tell the user when live-AI setup is ready for their involvement. Before requesting account creation, billing or private API-key configuration, explain the exact next step, purpose, expected cost and data-sharing impact in simple words. Do not request these early or infer activation approval. No background reminder/monitoring is scheduled.
+
 - Before any live-provider activation, approve the provider/model budget, permitted data sharing/retention and applicable public-use terms with non-sensitive dated evidence; assess architecture/security/operating-cost impact. No service purchase, key generation or Azure activation authorized.
 - Consequential watchlist/alert/paper actions need separately reviewed server confirmation/revalidation/audit design; no autonomous execution or security bypass. Persistent sensitive memory/new storage/infrastructure needs separate impact approval.
 
 ## Open items needed from you
+### 2026-11-27 reporting-index repository change review
+
+- [ ] Approve repository implementation only of ix_finance_event_user_time on paper_finance_events(user_id,occurred_at,event_key) and ix_paper_fill_user_time on paper_fills(user_id,created_at,id), with managed migration, matching fresh/runtime baselines and isolated parity/regression tests. Review artifacts: target/proposed-report-period-indexes.sql and target/proposed-report-period-indexes.md. Synthetic executed scans improved3002/4103rows to1each with equal DTOs; disk/write-maintenance/build-lock tradeoffs remain. This approval would not authorize retained-database execution, deployment or production readiness. Required by the existing pre-change schema-impact rule above.
 
 Remove each item from this section only after its completion is evidenced. Record the dated result in PROJECT_HANDOFF.md. Add new dependencies here as soon as they are discovered; do not scatter separate pending-request lists across documents.
 

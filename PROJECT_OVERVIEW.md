@@ -1,6 +1,6 @@
 # InvestSmart — simple project overview
 
-Current checkpoint (27 November 2026): reviewed project source is uploaded to the GitHub progress branch. Query-cost work has started with test-only capture of actual report SQL and parameters; two tests pass. Database plans, scan counts and workload timings have not been measured yet. Complete reports remain unfinished; no live AI model is connected.
+Current checkpoint (27 November 2026): faster policy matching passed 47 recovery/related tests and two separate cost runs. All 1,000 full evidence results match the original code. Matching took 7-11 milliseconds versus roughly 2-3 seconds on the same synthetic inputs. Report limits still pass; broader mixed workloads and complete reports remain unfinished. No live AI model is connected. Owner dependencies remain in DEPLOYMENT_CHECKLIST.md.
 
 Updated: 2026-11-27. Start here for the big picture. Technical details and verification live in [PROJECT_HANDOFF.md](PROJECT_HANDOFF.md); study guidance lives in [AI_LEARNING_ROADMAP.md](AI_LEARNING_ROADMAP.md).
 

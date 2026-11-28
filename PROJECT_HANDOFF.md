@@ -1,5 +1,33 @@
 # InvestSmart Project Handoff
 
+## 2026-11-28 C1 report API verified
+
+- [x] Implemented approved GET /reports/journal-period with principal-only ownership/active account, strict singleton from/to keys and whole-second UTC range, existing REPORT_JOURNAL10identity/30source/900s limiter before one reader call, explicit immutable/redacted external DTO and early scoped no-store filter. Financial read snapshot/calculations remain existing JournalPeriodService; normal authentication activity/security request-event writes are expected. No financial writer or schema change.
+- [x] cmd.exe /d /c ".\mvnw.cmd -q -Dtest=ReportApiTests,JournalPeriodReportMapperTests,SecurityIntegrationTests,JournalPeriodServiceTests,PeriodChargeAdapterTests,GroupedJournalChangeSummarizerTests,SelectedJournalChangeSummarizerTests,FreshSchemaTests test > target\c1-regression-tests.log 2>&1" returned explicit Maven exit0:90tests/0failures/errors/skips, fresh suite counts target/c1-regression-verification.json. Includes9HTTP/6mapper/37existing security cases. Earlier focused15passed; initial11/12failure was corrected test expectation for existing suspended-session401, not an auth policy change.
+- [x] Existing session401/locked423/inactive denial, malformed/duplicate/injected identity/range400, identity/source429before-financial-read/Retry-After, success/error no-store, decimal-string precision, unknown-action/reason redaction, verified-zero versus unavailable, composite alternative/truncation and sanitized500 pass. Actual HTTP GET preserves holdings/legacy orders/paper tickets/fills/open reservations/accounts/journal; one expected security request event recorded. No account initialized merely by a read.
+- [x] git diff --exit-code 02eaa24 -- src/main/java/com/example/investsmart/settlement src/main/resources/db deploy/mysql-init passed: reader SQL/financial internals/schema unchanged. Existing scoped MySQL snapshot/restart/restore evidence remains historical for unchanged internals; no new MySQL execution or rendered/device acceptance claimed. C1 repository/API-test scope complete; CORE-05-C overall partial.
+- [~] Next C2 report-page implementation-impact assessment using this bounded DTO, with exports a later unit; no screen/export implementation inferred from C1 approval. Overview/simple checklist/inventory/semantics and canonical approval evidence synchronized. Final docs/whitespace/staged-secret review and progress-branch upload next. No retained DB, deployment, public launch, live AI or learner-status change.
+
+## 2026-11-28 C1 focused API/mapper verification passed
+
+- [x] cmd.exe /d /c ".\mvnw.cmd -q -Dtest=JournalPeriodReportMapperTests,ReportApiTests test > target\c1-boundary-tests.log 2>&1" returned explicit Maven exit0. Fresh6mapper+9HTTP tests:15passed/0failures/errors/skips. Suite counts target/c1-boundary-verification.json. Financial tables (holdings, legacy orders, paper tickets/fills, open reservations, accounts and journal) equal before/after HTTP GET; only expected security request event added. Existing session401/423, identity/source429before-reader, unknown data/null-zero/precision/redaction, sanitized500and no-store tests pass.
+- [~] Next existing security/report-reader/mapping regressions; no schema/financial reader SQL changed. C1 overall partial until regression review; no rendered UI/device acceptance, retained DDL, deployment or live AI. Overview/checklist/inventory/semantics will be synchronized to final regression milestone.
+
+## 2026-11-28 C1 first verification and additional boundary tests
+
+- [~] Initial focused Maven command exited1:11/12 assertions passed; only failure expected403for suspended session, existing authentication filter correctly returns401. Corrected test to existing401 contract (no production auth relaxation). Added locked423/no-store and cross-identity source429before-reader tests, populated holdings/legacy orders/paper fills/open reservation/account/journal before/after equality, and unknown summary-reason redaction/unavailability. Mapper now refuses amount eligibility when a summary reason is outside its allowlist.
+- [ ] New selection6mapper+9HTTP tests not yet verified; next rerun focused classes then affected existing security/reader tests. No schema or financial writer changes. No UI/export/deployment/live AI.
+
+## 2026-11-28 C1 endpoint/DTO/filter and tests written
+
+- [~] Added ReportController, explicit immutable JournalPeriodReport, sanitized mapper and report-only no-store filter before authentication. Principal/active-account ownership, exact from/to singleton query allowlist, UTC whole-second/bounds checks, existing REPORT_JOURNAL limiter before one reader call. Mapper excludes internal IDs/fingerprints/source proofs, uses exact decimal strings, null/zero and separate direct/grouped scopes; complete account scopes always unavailable. No SQL/schema/financial writer changes; limiter retains normal security-event writes.
+- [~] Added5mapper integration cases and7full-filter HTTP cases for auth, selectors/duplicates/ranges, ownership/redaction/cash preservation, uninitialized state, quota ordering/Retry-After, inactivity and sanitized500. Tests not run yet. Next focused Maven compile/test, fix failures, extend locked/session/source quota and API financial preservation evidence as needed. Approval recorded/canonical request removed; no UI/export/deployment/live AI.
+
+## 2026-11-28 C1 API implementation explicitly approved
+
+- [x] User replied "Approve C1 report API and tests." Approval covers the reviewed principal-owned GET /reports/journal-period, external DTO/mapper, existing security-event request limiter and API/reader tests. This records approval completion before removal from canonical open requests. Screens/exports, deployment, retained DDL and live AI remain outside scope.
+- [~] Starting constructor-injected endpoint/mapper/no-store boundary and focused tests; implementation and verification pending. No financial writer or schema change planned.
+
 ## 2026-11-28 CORE-05-C1 impact assessment prepared
 
 - [x] Scoped Markdown/status QA and git diff --check passed; no application tests needed/run for this documentation-only assessment. Read current controller/authentication, JournalPeriodService and external-summary candidates. Concrete route, strict range/query allowlist, DTO field/redaction/null-zero/precision contract, no-store/error behavior, existing per-identity/source900s limiter with normal security-event writes, financial snapshot boundary and acceptance tests documented in CORE05_REPORTING_SEMANTICS.md under CORE-05-C1. Source-inspection/design evidence only; no implementation or new tests run.

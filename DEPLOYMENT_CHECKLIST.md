@@ -29,11 +29,9 @@ User notification preference (2026-11-27): during active project work, explicitl
 
 - [x] Owner explicitly approved the two reporting indexes and tests; approval evidence is recorded in PROJECT_HANDOFF.md. Scope: new managed migration, matching fresh/runtime baselines and isolated tests only. Index disk/write-maintenance/build-lock tradeoffs were reviewed. Implementation and isolated verification completed (28-Nov review): 13 local tests, 50 MySQL/recovery-related tests and two cost matrices. Evidence is in PROJECT_HANDOFF.md; retained-database execution and deployment remain unauthorized.
 
+- [x] C1 report API/DTO/tests explicitly approved (28-Nov); approval evidence in PROJECT_HANDOFF.md. Repository API/DTO implementation and90focused/regression tests complete (28-Nov); evidence in PROJECT_HANDOFF.md. Existing security-event limiter writes acknowledged; no financial writes, schema, UI/exports, deployment or live AI authorized.
+
 ## Open items needed from you
-### CORE-05-C1 report API implementation review - 2026-11-28
-
-- [ ] Approve repository implementation/tests of authenticated GET /reports/journal-period and its explicit external DTO/mapper, per CORE05_REPORTING_SEMANTICS.md CORE-05-C1 proposal. Newly exposes owned saved financial evidence to the browser; hides internal IDs/fingerprints, preserves unknown/null versus zero, fixed1000-row/366-day bounds and existing principal/active-account checks. Reuses existing security-event limiter (10identity/30source per900s), which writes normal security events before financial reads; no new schema or financial writes. Approval covers API/DTO/security/reader tests only, not deployment, retained DDL, UI/CSV, full-account totals or live AI.
-
 Remove each item from this section only after its completion is evidenced. Record the dated result in PROJECT_HANDOFF.md. Add new dependencies here as soon as they are discovered; do not scatter separate pending-request lists across documents.
 
 | Needed action/input | Why / where | Completion evidence |

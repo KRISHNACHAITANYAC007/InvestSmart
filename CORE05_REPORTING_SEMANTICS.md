@@ -2,7 +2,7 @@
 
 ## Current reporting-cost acceptance checkpoint - 2026-11-28
 
-CORE-05-B2 and B-G06 remain partial. The table below separates the checks already executed from unresolved access-path and scale work. Later dated checkpoints below preserve source-specific evidence; no synthetic run establishes public-report, whole-account expense/P&L, production-capacity or deployment acceptance.
+B-G06 is complete within the documented bounded synthetic query-cost review. CORE-05-B2 broader report-delivery/full-account scope remains partial. The table below separates the checks already executed from unresolved access-path and scale work. Later dated checkpoints below preserve source-specific evidence; no synthetic run establishes public-report, whole-account expense/P&L, production-capacity or deployment acceptance.
 
 | Check | Status and evidence | Remaining boundary |
 | --- | --- | --- |
@@ -81,7 +81,7 @@ Every supported amount retains scope, eligibility and unavailable reasons. Unkno
 | B-G03 (complete within selected paper-fill evidence scope) | Source-aware period execution-fee evidence, reconciling ticket/fill and intraday overlap once | Filter executed detail by timestamp after full source checks; do not assign lifetime ticket/position aggregates to a partial period; explicit missing legacy/option/expiry/IPO coverage and immutable row identities |
 | B-G04 (complete within retained-provenance/owned policy scope) | Resolve pending-policy/refund/composite historical gaps where retained provenance actually permits it | Validate writer-supported links rather than prefixes, preserve unknown when status-at-event cannot be established; parent-only charge remains incomplete; any new capture fields require a separate impact/migration review before implementation |
 | B-G05 (complete within selected-journal summary contract; full account summaries unavailable) | Coverage-aware period/account reconciliation contract and supported summaries | Bucket-specific eligibility, no partial expense totals or fabricated opening/closing/running balances, preserve current weighted-average portfolio methodology; test all overlap, negative debt, boundaries and unavailable cases |
-| B-G06 | Query-cost review for demonstrated reporting paths | Existing result bounds are not scan bounds; measure synthetic plans/workload before any index proposal; schema changes need managed/fresh/runtime parity in their own unit |
+| B-G06 (complete within bounded synthetic cost scope) | Query-cost review for demonstrated reporting paths | Existing result bounds are not scan bounds; measure synthetic plans/workload before any index proposal; schema changes need managed/fresh/runtime parity in their own unit |
 | CORE-05-C (after B criteria) | Public owned API, screens and safe exports | Documented unavailable states, bounded request/output, ownership/CSRF where applicable, CSV formula safety, desktop/mobile rendered acceptance separately from protocol tests |
 
 These are technical implementation gaps, not a second owner-dependency list. All open owner actions remain exclusively in [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md). This review does not change schema, auth, financial writers, production gates, AI capability or learner progress, and does not approve a deployment.
@@ -638,3 +638,10 @@ node --test scripts/check-report-index-evidence.test.mjs
 ```
 
 The repository tool compares statement text/parameter types/returned-row shapes, scenario/cardinality/parallel records, approved nonunique column order and executed one-row user/time ranges at100/2000unrelated rows. It reads local reports without modifying them and emits generic errors without report contents. Four CLI regression tests pass, and the preserved actual MySQL pair passes. This is structural/comparison evidence, not source authentication or production capacity; performanceAcceptance remains false. Existing fresh-report timestamp/Surefire checks still apply.
+## B-G06 scoped acceptance decision - 2026-11-28
+
+All four listed reporting check groups passed within their recorded synthetic sizes. The specified query-cost review is complete: selection/overflow/batch guards, executed plans, repeated query/reader timings, separate handler/iterator/CPU measures, request-local matching equivalence, actual managed-index remediation, fresh/runtime parity, snapshot/restart/restore and mixed/parallel correctness evidence are present. Runtime/schema/test sources match verified commit429fb1e; this review reran the report comparator only, not historical application tests.
+
+Acceptance uses demonstrated bounds and growth/access-path behavior, not an invented universal millisecond target. Narrow source ranges remain one row at100/2000unrelated rows; complete indexed/control matrices retain157query/output shapes each. Larger production scale and uninterrupted capacity remain separate deployment gates. The original specification explicitly excludes long release-capacity tests; completing this scoped task does not close those gates.
+
+Next: CORE-05-C impact assessment for a bounded authenticated read-only journal report API and explicit external DTO. Define allowed fields, unavailable/null-zero states, range/row limits, ownership, errors, request controls and tests before implementation; screen/export work follows separately. No new API, schema, financial calculation, deployment or live-AI behavior is introduced by acceptance. Full account expenses/P&L/historical balances remain unavailable.

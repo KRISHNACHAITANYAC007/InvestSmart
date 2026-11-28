@@ -1,6 +1,6 @@
 # V3 work checklist - simple words
 
-Current checkpoint (28 November 2026): the approved reporting indexes are implemented and tested. The 13 local tests, 50 MySQL/recovery-related tests and two complete cost-matrix cases passed their recorded checks. Indexed and pre-index report outputs match; narrow selections use one-row index ranges as unrelated history grows. The comparison checker is now saved with the project and passes four tests. Larger-scale acceptance and complete reports remain unfinished. No retained database was changed and no live AI model is connected.
+Current checkpoint (28 November 2026): all four listed reporting check groups passed within their tested scope. The bounded query-cost review is complete, including faster matching, approved indexes, schema parity and recovery checks. Next is the design and impact review for a read-only report API. Report screens, exports, complete account totals and production-capacity acceptance remain unfinished. No retained database was changed and no live AI model is connected.
 
 Updated: 27 November 2026.
 
@@ -86,7 +86,7 @@ Current database-cost work has **4 check groups**, not a fixed number of individ
 | 1 | Larger owned histories and 1,000/1,001-row limits | Owned credit, instruction, financing and fill limits passed; matching improved and rechecked |
 | 2 | Combined-charge and same-day-trade batches/context limits | 100/101 batching and global overflow checks passed |
 | 3 | Empty and wide date ranges | Basic empty and mixed short/366-day ranges passed |
-| 4 | Review growth, fix demonstrated problems if needed, and recheck | Indexes implemented; local/MySQL/two cost matrices checked; larger-scale acceptance remains |
+| 4 | Review growth, fix demonstrated problems if needed, and recheck | Passed within tested scope; production capacity stays a separate release check |
 
 This is the current reporting priority, not a technical requirement to finish all V3 features before live AI. Live-AI setup follows its separate process in [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md); no setup is needed now.
 

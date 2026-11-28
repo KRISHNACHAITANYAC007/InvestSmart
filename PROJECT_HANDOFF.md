@@ -1,5 +1,10 @@
 # InvestSmart Project Handoff
 
+## 2026-11-28 local source checkpoint / GitHub network limitation
+
+- [x] Committed approved migration, baselines, tests and synchronized documentation as429fb1e. Exact16staged blobs scanned with0secret indicators; staged whitespace passed. Local Markdown/status and normalized old-migration/baseline checks passed. No app test rerun for this upload checkpoint.
+- [~] git push origin work/v3-progress-20261127 failed: could not resolve host github.com. Source commit is local; no successful upload claimed. Retry pending once network resolution is available. Domain tests remain verified as above; this is a transport limitation, not schema/test failure. Next bounded reporting acceptance review; no retained DDL/deployment/live AI authorized.
+
 ## 2026-11-28 approved reporting index work verified
 
 - [x] Approval scope implemented: new20261127_reporting_period_indexes.sql and identical fresh/runtime baselines;17older normalized migration checksums unchanged. Local13tests and enabled MySQL/recovery50tests passed with recorded exit0 (27-Nov). Populated financial rows/four report DTOs, replay/checksum/APPLIED state, partial-failure refusal, schema parity and restart/restore assertions pass.

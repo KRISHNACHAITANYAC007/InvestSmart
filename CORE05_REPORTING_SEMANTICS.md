@@ -645,3 +645,36 @@ All four listed reporting check groups passed within their recorded synthetic si
 Acceptance uses demonstrated bounds and growth/access-path behavior, not an invented universal millisecond target. Narrow source ranges remain one row at100/2000unrelated rows; complete indexed/control matrices retain157query/output shapes each. Larger production scale and uninterrupted capacity remain separate deployment gates. The original specification explicitly excludes long release-capacity tests; completing this scoped task does not close those gates.
 
 Next: CORE-05-C impact assessment for a bounded authenticated read-only journal report API and explicit external DTO. Define allowed fields, unavailable/null-zero states, range/row limits, ownership, errors, request controls and tests before implementation; screen/export work follows separately. No new API, schema, financial calculation, deployment or live-AI behavior is introduced by acceptance. Full account expenses/P&L/historical balances remain unavailable.
+## CORE-05-C1 concrete API impact proposal - 2026-11-28
+
+Status: design/source inspection only. No controller, external DTO or route is implemented by this proposal. This is the next bounded unit after the accepted B-G06 review; screens, CSV/downloads and other report endpoints are separate later units.
+
+### Request and ownership
+
+Proposed new authenticated GET /reports/journal-period?from=2026-11-25T05:00:00Z&to=2026-11-25T05:00:01Z (application route, behind the existing API proxy). Exactly one from and one to parameter; reject duplicates/unknown fields including userId/email/page. Require whole-second UTC Z timestamps, increasing half-open interval, at most366days, within existing1970/2038service limits. No default wide range or cross-request cursor.
+
+Use the existing authenticated filter chain (SecurityConfig.anyRequest().authenticated()) without changing permit rules. Derive identity from the authenticated principal only; resolve the active account before request limiting. Constructor-injected boundary invokes JournalPeriodService.read once; its existing REQUIRES_NEW/read-only/REPEATABLE_READ snapshot owns all financial reads and calculations. No aggregate assembled from independently fetched financing/fill/policy reports.
+
+### Explicit external response allowlist
+
+| Field | Proposed meaning |
+| --- | --- |
+| fromInclusive, toExclusive | Validated requested UTC range |
+| coverage | initialized, initializedAt, startsBeforeInitialization only; completeFinancialHistory=false |
+| limits | selectedRowLimit=1000, rowsTruncated, fundingEvidenceTruncated; never complete pagination |
+| rows | Request-local ordinal, occurredAt, allowlisted action (UNKNOWN fallback), magnitude as exact two-decimal string or null, interpretation status and allowlisted reason codes |
+| directChanges | Separately named settled/reserved status, decimal-string change or null, allowlisted reasons |
+| groupedChanges | Separately named settled/reserved status, decimal-string change or null, allowlisted reasons; alternative representation, never add to directChanges |
+| unavailableScopes | Complete account expenses, account P&L and historical balances always unavailable with explicit reasons |
+
+External mapping must not serialize JournalPeriodEvidence directly. Omit journal fingerprints, event/reference/allocation/obligation/source keys, owner IDs/emails, raw SQL, unfiltered internal limitations and nested source proofs. An invalid row remains represented through its ordinal/status/reasons; unsafe or invalid amounts become null with a reason, never zero. Unknown actions map to UNKNOWN without echoing arbitrary text. Exact valid monetary values are strings to preserve Java precision in the browser. Empty initialized supported selections can return a verified "0.00"; missing, truncated or unsupported proof keeps null. No opening/closing/current balances or account-total claim.
+
+### Operational impact and acceptance
+
+Use existing SecurityEvents.limit with a distinct REPORT_JOURNAL action, proposed10requests per identity/30per source over the existing900-second window, before financial reads. It writes the ordinary security-event record; this is financial-read-only, not globally write-free. No new schema, logging storage or security policy bypass; do not log ranges, response contents or financial amounts in new events. Existing security retention remains unchanged. Add Cache-Control:no-store and Pragma:no-cache on success and report-boundary errors without relaxing existing headers/CORS. Request-limit counting retains existing concurrency semantics; no new strict global quota/capacity claim.
+
+Expected failures: existing unauthenticated/locked/inactive-account behavior;400for malformed, duplicate, unknown or invalid range fields;429with existing Retry-After behavior; unexpected failures use existing sanitized server error handling. No new account-existence lookup by client-supplied identity. GET does not add a CSRF exemption or change protection of mutating routes.
+
+Implementation acceptance: DTO mapping/immutability/decimal/null-zero/unknown-action tests; full security-filter HTTP tests for anonymous, locked/inactive, authenticated-owned, injected user selectors, malformed/duplicate/out-of-range input, limit-before-financial-read and secret-safe errors; no-store headers; request throttling/security-event behavior; actual reader integration and before/after account/holding/reservation/trade preservation. Existing reader snapshot/recovery evidence is reused only for unchanged internals; new HTTP tests cannot certify rendered UI, physical devices or production capacity.
+
+Concrete change surface: new ReportController and external JournalPeriodReport DTO/mapper with focused tests; reuse existing JournalPeriodService/UserRepository/SecurityEvents. Existing APIs, schema, financial writers and historic data remain intact. Risk: newly exposing saved financial information through an application API and adding report request security-event activity. Proposed approval scope is repository implementation/tests only; no deployment, retained DDL, screen/export, live AI or provider setup. Open approval is tracked only in DEPLOYMENT_CHECKLIST.md.

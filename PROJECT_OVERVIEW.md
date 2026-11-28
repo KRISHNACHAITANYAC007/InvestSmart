@@ -1,6 +1,6 @@
 # InvestSmart — simple project overview
 
-Current checkpoint (28 November 2026): all four listed reporting check groups passed within their tested scope. The bounded query-cost review is complete, including faster matching, approved indexes, schema parity and recovery checks. Next is the design and impact review for a read-only report API. Report screens, exports, complete account totals and production-capacity acceptance remain unfinished. No retained database was changed and no live AI model is connected.
+Current checkpoint (28 November 2026): all four listed reporting check groups passed within their tested scope. The bounded query-cost review is complete, including faster matching, approved indexes, schema parity and recovery checks. The read-only report API design and impact review is prepared; implementation has not started. Owner decisions are tracked in DEPLOYMENT_CHECKLIST.md. Report screens, exports, complete account totals and production-capacity acceptance remain unfinished. No retained database was changed and no live AI model is connected.
 
 Updated: 2026-11-27. Start here for the big picture. Technical details and verification live in [PROJECT_HANDOFF.md](PROJECT_HANDOFF.md); study guidance lives in [AI_LEARNING_ROADMAP.md](AI_LEARNING_ROADMAP.md).
 

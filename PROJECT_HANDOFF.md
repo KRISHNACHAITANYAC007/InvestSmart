@@ -1,5 +1,10 @@
 # InvestSmart Project Handoff
 
+## 2026-11-28 CORE-05-C1 impact assessment prepared
+
+- [x] Scoped Markdown/status QA and git diff --check passed; no application tests needed/run for this documentation-only assessment. Read current controller/authentication, JournalPeriodService and external-summary candidates. Concrete route, strict range/query allowlist, DTO field/redaction/null-zero/precision contract, no-store/error behavior, existing per-identity/source900s limiter with normal security-event writes, financial snapshot boundary and acceptance tests documented in CORE05_REPORTING_SEMANTICS.md under CORE-05-C1. Source-inspection/design evidence only; no implementation or new tests run.
+- [~] This is a new financial-data API exposure and request-security activity, so the canonical pre-change API-contract/security impact rule applies; index approval did not authorize this endpoint. Open approval recorded exclusively in DEPLOYMENT_CHECKLIST.md after completing reviewable proposal. Next implement C1controller/DTO/mapper/tests only after scoped approval; screens/exports remain later. Existing accepted reporting matrices are not rerun for a documentation unit. No deployment/retained DB/live AI/learner change.
+
 ## 2026-11-28 bounded reporting cost acceptance review complete
 
 - [x] B-G06 accepted within its specified isolated synthetic query-cost scope: all four listed check groups measured, original matching CPU remediated with full-proof equivalence, actual approved user/time indexes verified across populated migration and indexed-from-start matrices, managed/fresh/runtime parity and recovery checked. node scripts/check-report-index-evidence.mjs target/core05bg06-prepared-match-cost.json target/core05bg06-indexed-matrix-cost.json passed again; review output target/reporting-acceptance-review.json. git diff --exit-code 429fb1e -- src/main src/test deploy/mysql-init passed: measured runtime/schema/test sources unchanged since verified index snapshot. No application/database tests rerun for this review; historical13local/50MySQL and matrix2/capture2 evidence retained with original exit-code caveat.

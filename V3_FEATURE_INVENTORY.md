@@ -374,3 +374,5 @@ B-G06 parallel isolation/current acceptance review 2026-11-27: enabled cost/capt
 2026-11-28: repository-managed index evidence checker and4CLI regression tests pass; preserved MySQL report pair accepted. Reproduction no longer depends on ignored helper code. No runtime/schema/AI change or capacity acceptance.
 
 2026-11-28 scoped acceptance: B-G06 bounded synthetic query-cost review complete; all4listed groups have recorded evidence and approved remediation. No measured runtime/schema/test diff since429fb1e; actual report comparator passed again, no DB tests rerun. Production scale/capacity is a separate gate. Next CORE-05-C API/DTO implementation-impact assessment only; full account totals/report delivery/live AI remain unfinished.
+
+2026-11-28 CORE-05-C1: concrete journal-period API/DTO impact proposal prepared, not implemented. Principal-only ownership, fixed ranges/limits, explicit redacted decimal-string DTO, null/zero semantics, no-store, existing security-event limiter/write footprint and tests specified. Canonical approval review is in DEPLOYMENT_CHECKLIST.md. No new endpoint, financial/schema/runtime/AI changes.

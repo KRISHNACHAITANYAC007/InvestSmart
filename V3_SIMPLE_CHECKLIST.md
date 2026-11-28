@@ -1,6 +1,6 @@
 # V3 work checklist - simple words
 
-Current checkpoint (28 November 2026): all four listed reporting check groups passed within their tested scope. The bounded query-cost review is complete, including faster matching, approved indexes, schema parity and recovery checks. Next is the design and impact review for a read-only report API. Report screens, exports, complete account totals and production-capacity acceptance remain unfinished. No retained database was changed and no live AI model is connected.
+Current checkpoint (28 November 2026): all four listed reporting check groups passed within their tested scope. The bounded query-cost review is complete, including faster matching, approved indexes, schema parity and recovery checks. The read-only report API design and impact review is prepared; implementation has not started. Owner decisions are tracked in DEPLOYMENT_CHECKLIST.md. Report screens, exports, complete account totals and production-capacity acceptance remain unfinished. No retained database was changed and no live AI model is connected.
 
 Updated: 27 November 2026.
 

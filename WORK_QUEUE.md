@@ -1,5 +1,22 @@
 # Approved work queue and resume checkpoint
 
+## 2026-11-28 evidence growth guard / final verification
+
+- [x] Added explicit100/2000foreign-history pair requirement so two equal reports cannot substitute duplicated small-history samples. New adversarial CLI case passes. node --test scripts/check-report-index-evidence.test.mjs scripts/check-report-cost-evidence.test.mjs:9passed (4index comparison +5shared validator),0failures/skips. Actual preserved MySQL report pair accepted again; output target/report-index-reproducible-verification.json. No database workload rerun.
+- [x] Scoped documentation local-link/status QA and git diff --check passed. Reproduction guidance/checklist/overview reflect the new repository tool and4comparison tests. Source measurements and index approval scope unchanged; no live AI or deployment.
+- [~] Next bounded reporting acceptance review remains open; production-capacity and full-account-report limitations preserved. Saving reviewed tooling/doc checkpoint to existing GitHub progress branch; no main/release promotion.
+
+## 2026-11-28 reproducible index comparison verified
+
+- [x] node --test scripts/check-report-index-evidence.test.mjs:3passed. CLI fixtures cover a valid scoped comparison, changed outputs, absent scenarios, incorrect nonunique/order definitions, missing executed range evidence and secret-safe malformed JSON rejection. Tool never authenticates source or promotes performanceAcceptance.
+- [x] node scripts/check-report-index-evidence.mjs target/core05bg06-prepared-match-cost.json target/core05bg06-indexed-matrix-cost.json accepted both preserved actual MySQL reports; output target/report-index-reproducible-verification.json. Both157observations/471samples/42readers retain equal statement/output/guard/parallel shapes and approved one-row ranges. No database or old matrix rerun needed for this read-only tooling unit.
+- [~] Reproduction guidance and overview/simple checklist/inventory synchronized. Next remaining bounded reporting acceptance review; larger-scale/production capacity and complete reports remain unverified, with owner dependencies only in DEPLOYMENT_CHECKLIST.md. No API/schema/AI/deployment changes. Final scoped whitespace/docs QA and reviewed GitHub upload pending.
+
+## 2026-11-28 reproducible index evidence tool unit written
+
+- [~] Promoted actual managed-index report comparison from ignored target helper into scripts/check-report-index-evidence.mjs with two explicit local JSON input paths, no report file mutation and generic secret-safe error output. Verifies report structure, equal statement/output/guard/parallel shapes, approved nonunique column order and actual narrow one-row user-time ranges across foreign-history growth. Structural evidence only; performanceAcceptance remains false.
+- [ ] Tests and actual report comparison pending. Next CLI regression cases for malformed JSON/contract changes and actual preserved reports, then synchronize reproduction guidance and checkpoint/push. No production source/schema/deployment/AI change; earlier index tests remain applicable.
+
 ## 2026-11-28 source checkpoint / GitHub retry succeeded
 
 - [x] Committed approved migration, baselines, tests and synchronized documentation as429fb1e. Exact16staged blobs scanned with0secret indicators; staged whitespace passed. Local Markdown/status and normalized old-migration/baseline checks passed. No app test rerun for this upload checkpoint.

@@ -1,6 +1,6 @@
 # V3 work checklist - simple words
 
-Current checkpoint (28 November 2026): the approved reporting indexes are implemented and tested. The 13 local tests, 50 MySQL/recovery-related tests and two complete cost-matrix cases passed their recorded checks. Indexed and pre-index report outputs match; narrow selections use one-row index ranges as unrelated history grows. Larger-scale acceptance and complete reports remain unfinished. No retained database was changed and no live AI model is connected.
+Current checkpoint (28 November 2026): the approved reporting indexes are implemented and tested. The 13 local tests, 50 MySQL/recovery-related tests and two complete cost-matrix cases passed their recorded checks. Indexed and pre-index report outputs match; narrow selections use one-row index ranges as unrelated history grows. The comparison checker is now saved with the project and passes four tests. Larger-scale acceptance and complete reports remain unfinished. No retained database was changed and no live AI model is connected.
 
 Updated: 27 November 2026.
 

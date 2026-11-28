@@ -627,3 +627,14 @@ B-G06 mixed maximum range verified 2026-11-27: enabled cost suite 1 passed in81.
 B-G06 distinct distribution verified 2026-11-27: enabled cost/prepared suites6passed;cost109.438s. 1000different writer fingerprints each match a different owned candidate, full original/prepared/service DTOs equal;1001guard2queries/raw retained/no proof. Same-input control845-997ms versus prepared6.74-11.79ms including preparation; coarse CPU0 samples do not mean no work.157observations/471samples/42readers preserve prior152shapes/guards; only1001new journal fixture rows. Report target/core05bg06-distinct-cost.json, SHA/comparison target/core05bg06-distinct-verification.json. No SLA/index/financial/AI change.
 
 B-G06 parallel isolation/current acceptance review 2026-11-27: enabled cost/capture suites3passed; cost68.863s.48simultaneous read results across two synthetic identities and4workers match per-identity sequential full DTOs in original/mixed periods. Accounts/users/holdings unchanged; worker shutdown and test-container cleanup pass. All157priorquery/output-bound shapes and cardinalities/guards unchanged;471query samples/42readers. Source/report SHA recorded target/core05bg06-parallel-verification.json; report target/core05bg06-parallel-cost.json. Main sources unchanged from bbe930f, preserving earlier47recovery evidence. B-G06 remains partial: measured user-time scan remediation and broader scale/production capacity are unaccepted. No API/schema/AI/deployment change.
+
+### Reproducible managed-index evidence comparison - 2026-11-28
+
+After both fresh cost reports exist, run:
+
+```powershell
+node scripts/check-report-index-evidence.mjs target/core05bg06-prepared-match-cost.json target/core05bg06-indexed-matrix-cost.json
+node --test scripts/check-report-index-evidence.test.mjs
+```
+
+The repository tool compares statement text/parameter types/returned-row shapes, scenario/cardinality/parallel records, approved nonunique column order and executed one-row user/time ranges at100/2000unrelated rows. It reads local reports without modifying them and emits generic errors without report contents. Four CLI regression tests pass, and the preserved actual MySQL pair passes. This is structural/comparison evidence, not source authentication or production capacity; performanceAcceptance remains false. Existing fresh-report timestamp/Surefire checks still apply.

@@ -1,6 +1,6 @@
 # CORE-05 reporting semantics and implementation impact
 
-## Current reporting-cost acceptance checkpoint - 2026-11-27
+## Current reporting-cost acceptance checkpoint - 2026-11-28
 
 CORE-05-B2 and B-G06 remain partial. The table below separates the checks already executed from unresolved access-path and scale work. Later dated checkpoints below preserve source-specific evidence; no synthetic run establishes public-report, whole-account expense/P&L, production-capacity or deployment acceptance.
 
@@ -10,8 +10,8 @@ CORE-05-B2 and B-G06 remain partial. The table below separates the checks alread
 | Selection/candidate limits and bounded batches | [x] 1,000/1,001 owned credit, instruction, finance and fill boundaries; 100/101 charge/MIS batches; child/source/fill-context overflow guards passed | Output bounds do not bound database scans |
 | Mixed complete source graphs and maximum range | [x] 305 journal rows, 101 charge groups, 100 finance events, 101 MIS fills and one original policy; two-second/366-day evidence equal; query counts 10/2/6/3 | Selected grouped changes only; all reads preserve accounts/users/holdings |
 | Request-local policy matching | [x] Exact full-proof oracle equivalence and repeated synthetic improvement with preparation included; [x] 1,000 distinct writer fingerprints match 1,000 correct identities | Clock granularity and hardware/run variance retained; no universal timing promise |
-| Existing user/time access paths | [~] Unindexed synthetic finance/fill scans demonstrated 3,002/4,103 rows for one owned result; disposable indexes produced one-row ranges with equal DTOs | Repository schema unchanged; review boundary in [deployment checklist](DEPLOYMENT_CHECKLIST.md). Scan remediation is not accepted |
-| Managed/fresh/runtime index parity | [ ] No repository index migration implemented | Test-only indexes are dropped before the final catalog; no retained-database execution |
+| Existing user/time access paths | [~] Unindexed synthetic finance/fill scans demonstrated 3,002/4,103 rows for one owned result; disposable indexes produced one-row ranges with equal DTOs | [x] Actual managed indexes verified in populated A/B and entire indexed matrix; one-row narrow ranges at100/2000unrelated rows. Local13/MySQL50 tests pass; no retained DB execution. Scope recorded in [deployment checklist](DEPLOYMENT_CHECKLIST.md) |
+| Managed/fresh/runtime index parity | [x] New migration and matching baselines verified on H2/MySQL, with populated preservation/replay and restart/restore | Actual managed indexes remain in both verified synthetic final catalogs; no retained-database execution |
 | Small simultaneous-read isolation | [x] 48 full-DTO comparisons across two synthetic identities and four worker threads; accounts/users/holdings unchanged | Correctness only; no concurrent writers or capacity/latency threshold |
 | Larger scale and production concurrent capacity | [ ] Not accepted by these measurements | Multiple isolated synthetic repeats do not certify a production SLA or uninterrupted capacity |
 
@@ -38,7 +38,7 @@ try {
 }
 ```
 
-Also inspect fresh Surefire reports: the cost class must execute one test with zero failures/errors/skips; an old JSON file or an environment-disabled test is not a new result. Preserve prior generated reports under distinct local names and record SHA256 plus the exact command in the handoff. Generated artifacts under `target` are ignored; the committed test and validator regenerate them.
+Also inspect fresh Surefire reports: the cost class must execute two tests with zero failures/errors/skips; an old JSON file or an environment-disabled test is not a new result. Preserve prior generated reports under distinct local names and record SHA256 plus the exact command in the handoff. Generated artifacts under `target` are ignored; the committed test and validator regenerate them. The second case writes `target/core05bg06-indexed-matrix-cost.json`; require it to be fresh and validate it with the same `--prepared` command. Both cases retain the approved indexes in their disposable final catalogs.
 
 Run recovery separately using `V3_JOURNAL_MYSQL=true`, `V3_REPORT_COST=false` and `-Dtest=SettlementJournalMySqlTests,ReportingQueryCaptureTests,FinancePeriodServiceTests,ExecutionFeePeriodServiceTests,PendingPolicyPeriodServiceTests,PendingCreditPolicyReconcilerTests,PendingCreditPreparedTests,PeriodChargeAdapterTests`. Keep the same environment restoration and fresh-result checks. This avoids conflating recovery workload cardinalities with the dedicated cost fixture.
 

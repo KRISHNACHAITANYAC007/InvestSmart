@@ -141,7 +141,8 @@ CREATE TABLE IF NOT EXISTS paper_tickets (
 CREATE TABLE IF NOT EXISTS paper_fills (
  id VARCHAR(36) PRIMARY KEY,ticket_id VARCHAR(36) NOT NULL,user_id BIGINT NOT NULL,leg_number INT NOT NULL,
  quantity INT NOT NULL,price DECIMAL(19,2) NOT NULL,fee DECIMAL(19,2) NOT NULL,
- legacy_order_id VARCHAR(40),created_at TIMESTAMP NOT NULL,CONSTRAINT uq_paper_leg UNIQUE(ticket_id,leg_number)
+ legacy_order_id VARCHAR(40),created_at TIMESTAMP NOT NULL,CONSTRAINT uq_paper_leg UNIQUE(ticket_id,leg_number),
+ INDEX ix_paper_fill_user_time(user_id,created_at,id)
 );
 CREATE TABLE IF NOT EXISTS paper_financing (
  id VARCHAR(36) PRIMARY KEY,user_id BIGINT NOT NULL,stock_id BIGINT NOT NULL,product VARCHAR(12) NOT NULL,
@@ -154,7 +155,8 @@ CREATE TABLE IF NOT EXISTS paper_financing (
 CREATE TABLE IF NOT EXISTS paper_finance_events (
  event_key VARCHAR(140) PRIMARY KEY,position_id VARCHAR(36) NOT NULL,user_id BIGINT NOT NULL,
  event_type VARCHAR(24) NOT NULL,principal_delta DECIMAL(19,2) NOT NULL,
- amount DECIMAL(19,2) NOT NULL,occurred_at TIMESTAMP NOT NULL,INDEX ix_paper_finance_history(position_id,occurred_at)
+ amount DECIMAL(19,2) NOT NULL,occurred_at TIMESTAMP NOT NULL,INDEX ix_paper_finance_history(position_id,occurred_at),
+ INDEX ix_finance_event_user_time(user_id,occurred_at,event_key)
 );
 
 CREATE TABLE IF NOT EXISTS settlement_calendar_versions (

@@ -48,6 +48,8 @@ class SettlementJournalMySqlTests {
         DriverManagerDataSource source=readySource();
         var pool=Executors.newFixedThreadPool(12);
         try(var f=new JournalReportFixture(source,true)) {
+            ReportingIndexTestSupport.apply(source);
+            ReportingIndexTestSupport.assertApplied(source);
             var executionPeriodService=f.context.getBean(ExecutionFeePeriodService.class);
             var financePeriodService=f.context.getBean(FinancePeriodService.class);
             var periodService=f.context.getBean(JournalPeriodService.class);
@@ -356,6 +358,7 @@ class SettlementJournalMySqlTests {
             assertTrue(dump.length>1000);
             docker(Map.of(),null,"restart",NAME);
             try(var restarted=new JournalReportFixture(readySource(),false)) {
+                ReportingIndexTestSupport.assertApplied(restarted.db.getDataSource());
                 var restartedExecutionPeriod=restarted.context.getBean(ExecutionFeePeriodService.class);
                 var restartedFinancePeriod=restarted.context.getBean(FinancePeriodService.class);
                 assertEquals(expectedFinancePeriod,restartedFinancePeriod.read(restarted.owner.getEmail(),periodFrom,periodTo));
@@ -413,6 +416,7 @@ class SettlementJournalMySqlTests {
                 assertNull(directChange(removedPeriod,HISTORICAL_BALANCES));
                 docker(Map.of(),dump,"exec","--interactive",NAME,"sh","-c",
                         "MYSQL_PWD=\"$MYSQL_PASSWORD\" exec mysql --user=journal_test "+DATABASE);
+                ReportingIndexTestSupport.assertApplied(restarted.db.getDataSource());
                 assertEquals(expected,restarted.service.read(restarted.owner.getEmail(),0,50));
                 assertEquals(expectedFunding,restarted.fundingService.read(restarted.owner.getEmail(),0,50));
                 assertEquals(expectedFinance,restarted.financeService.read(restarted.owner.getEmail(),"owned",0,50));

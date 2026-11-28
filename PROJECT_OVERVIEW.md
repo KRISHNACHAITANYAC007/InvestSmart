@@ -1,6 +1,6 @@
 # InvestSmart — simple project overview
 
-Current checkpoint (27 November 2026): reporting limits, mixed short/366-day ranges and simultaneous reads for two test users passed. Faster matching returns the same evidence for 1,000 different instructions. The first three reporting check groups passed their listed checks; database scan remediation and larger-scale acceptance remain unfinished. No live AI model is connected. Owner dependencies remain in DEPLOYMENT_CHECKLIST.md.
+Current checkpoint (28 November 2026): the approved reporting indexes are implemented and tested. The 13 local tests, 50 MySQL/recovery-related tests and two complete cost-matrix cases passed their recorded checks. Indexed and pre-index report outputs match; narrow selections use one-row index ranges as unrelated history grows. Larger-scale acceptance and complete reports remain unfinished. No retained database was changed and no live AI model is connected.
 
 Updated: 2026-11-27. Start here for the big picture. Technical details and verification live in [PROJECT_HANDOFF.md](PROJECT_HANDOFF.md); study guidance lives in [AI_LEARNING_ROADMAP.md](AI_LEARNING_ROADMAP.md).
 

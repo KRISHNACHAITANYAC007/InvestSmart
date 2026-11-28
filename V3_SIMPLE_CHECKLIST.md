@@ -1,6 +1,6 @@
 # V3 work checklist - simple words
 
-Current checkpoint (27 November 2026): reporting limits, mixed short/366-day ranges and simultaneous reads for two test users passed. Faster matching returns the same evidence for 1,000 different instructions. The first three reporting check groups passed their listed checks; database scan remediation and larger-scale acceptance remain unfinished. No live AI model is connected. Owner dependencies remain in DEPLOYMENT_CHECKLIST.md.
+Current checkpoint (28 November 2026): the approved reporting indexes are implemented and tested. The 13 local tests, 50 MySQL/recovery-related tests and two complete cost-matrix cases passed their recorded checks. Indexed and pre-index report outputs match; narrow selections use one-row index ranges as unrelated history grows. Larger-scale acceptance and complete reports remain unfinished. No retained database was changed and no live AI model is connected.
 
 Updated: 27 November 2026.
 
@@ -86,7 +86,7 @@ Current database-cost work has **4 check groups**, not a fixed number of individ
 | 1 | Larger owned histories and 1,000/1,001-row limits | Owned credit, instruction, financing and fill limits passed; matching improved and rechecked |
 | 2 | Combined-charge and same-day-trade batches/context limits | 100/101 batching and global overflow checks passed |
 | 3 | Empty and wide date ranges | Basic empty and mixed short/366-day ranges passed |
-| 4 | Review growth, fix demonstrated problems if needed, and recheck | Matching improved/rechecked; database scans and larger scale remain |
+| 4 | Review growth, fix demonstrated problems if needed, and recheck | Indexes implemented; local/MySQL/two cost matrices checked; larger-scale acceptance remains |
 
 This is the current reporting priority, not a technical requirement to finish all V3 features before live AI. Live-AI setup follows its separate process in [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md); no setup is needed now.
 

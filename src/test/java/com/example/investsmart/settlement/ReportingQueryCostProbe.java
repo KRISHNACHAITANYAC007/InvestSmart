@@ -12,6 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 /** Opt-in synthetic MySQL observations, never an operator URL, index migration or SLA certificate. */
 final class ReportingQueryCostProbe {
     static void run(DataSource source)throws Exception{
+        run(source,false);
+    }
+    static void run(DataSource source,boolean indexesPresentFromStart)throws Exception{
+        if(indexesPresentFromStart){ReportingIndexTestSupport.apply(source);ReportingIndexTestSupport.assertApplied(source);}
         var capture=new ReportingQueryCapture(source);var observations=new ArrayList<Map<String,Object>>();
         var at=JournalReportFixture.AT.plusSeconds(172800);var to=at.plusSeconds(1);
         try(var f=new JournalReportFixture(capture,false)){
@@ -106,8 +110,9 @@ final class ReportingQueryCostProbe {
             report.put("mixedScenario",mixedScenario);
             report.put("distinctInstructionScenario",distinctScenario);
             report.put("parallelReadScenarios",parallelScenarios);
+            report.put("indexesPresentFromStart",indexesPresentFromStart);
             report.put("overflowScenarios",overflowScenarios);report.put("indexComparison",indexComparison);report.put("finalTableRows",counts);report.put("indexes",indexes);report.put("observations",observations);report.put("remaining","Broader scale/concurrency, threshold acceptance and approved source-index remediation remain open; synthetic repeatability does not establish a production SLA.");
-            Files.createDirectories(Path.of("target"));Files.writeString(Path.of("target/core05bg06-prepared-match-cost.json"),new tools.jackson.databind.ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(report));
+            Files.createDirectories(Path.of("target"));Files.writeString(Path.of(indexesPresentFromStart?"target/core05bg06-indexed-matrix-cost.json":"target/core05bg06-prepared-match-cost.json"),new tools.jackson.databind.ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(report));
         }
     }
     private static Map<String,Object> parallelReads(JournalReportFixture f,Instant from,Instant to)throws Exception{
@@ -212,11 +217,14 @@ final class ReportingQueryCostProbe {
     private static Map<String,Object> compareIndexes(DataSource source,ReportingQueryCapture capture,List<Map<String,Object>> output,JournalReportFixture f,Instant at,Instant to)throws Exception{
         var finance=f.context.getBean(FinancePeriodService.class);var execution=f.context.getBean(ExecutionFeePeriodService.class);var beforeFinance=finance.read(f.owner.getEmail(),at,to);var beforeExecution=execution.read(f.owner.getEmail(),at,to);
         measure(source,capture,output,"finance-index-before",2000,()->finance.read(f.owner.getEmail(),at,to));measure(source,capture,output,"fills-index-before",2000,()->execution.read(f.owner.getEmail(),at,to));
-        try{
-            f.db.execute("CREATE INDEX ix_cost_probe_finance ON paper_finance_events(user_id,occurred_at,event_key)");f.db.execute("CREATE INDEX ix_cost_probe_fills ON paper_fills(user_id,created_at,id)");f.db.execute("ANALYZE TABLE paper_finance_events,paper_fills");
-            assertEquals(beforeFinance,finance.read(f.owner.getEmail(),at,to));assertEquals(beforeExecution,execution.read(f.owner.getEmail(),at,to));measure(source,capture,output,"finance-index-after",2000,()->finance.read(f.owner.getEmail(),at,to));measure(source,capture,output,"fills-index-after",2000,()->execution.read(f.owner.getEmail(),at,to));
-        }finally{f.db.execute("DROP INDEX ix_cost_probe_finance ON paper_finance_events");f.db.execute("DROP INDEX ix_cost_probe_fills ON paper_fills");}
-        return Map.of("scope","Disposable test schema only; exact DTOs unchanged; indexes removed before final catalog. No production DDL or migration acceptance.","financeColumns",List.of("user_id","occurred_at","event_key"),"fillColumns",List.of("user_id","created_at","id"));
+        var beforeRows=ReportingIndexTestSupport.rows(f.db);
+        ReportingIndexTestSupport.apply(source);ReportingIndexTestSupport.assertApplied(source);
+        assertEquals(beforeRows,ReportingIndexTestSupport.rows(f.db));
+        ReportingIndexTestSupport.apply(source);ReportingIndexTestSupport.assertApplied(source);
+        assertEquals(beforeRows,ReportingIndexTestSupport.rows(f.db));
+        f.db.execute("ANALYZE TABLE paper_finance_events,paper_fills");
+        assertEquals(beforeFinance,finance.read(f.owner.getEmail(),at,to));assertEquals(beforeExecution,execution.read(f.owner.getEmail(),at,to));measure(source,capture,output,"finance-index-after",2000,()->finance.read(f.owner.getEmail(),at,to));measure(source,capture,output,"fills-index-after",2000,()->execution.read(f.owner.getEmail(),at,to));
+        return Map.of("scope","Approved managed migration applied/replayed only in disposable synthetic database; all financial rows and selected DTOs unchanged. Approved indexes remain in final test catalog; no retained-database execution or production acceptance.","migration",ReportingIndexTestSupport.MIGRATION,"financeColumns",List.of("user_id","occurred_at","event_key"),"fillColumns",List.of("user_id","created_at","id"));
     }
     private static List<Map<String,Object>> products(DataSource source,ReportingQueryCapture capture,List<Map<String,Object>> output,JournalReportFixture f,Instant at)throws Exception{
         var result=new ArrayList<Map<String,Object>>();

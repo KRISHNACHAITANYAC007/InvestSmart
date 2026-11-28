@@ -1,9 +1,9 @@
 # Approved work queue and resume checkpoint
 
-## 2026-11-28 local source checkpoint / GitHub network limitation
+## 2026-11-28 source checkpoint / GitHub retry succeeded
 
 - [x] Committed approved migration, baselines, tests and synchronized documentation as429fb1e. Exact16staged blobs scanned with0secret indicators; staged whitespace passed. Local Markdown/status and normalized old-migration/baseline checks passed. No app test rerun for this upload checkpoint.
-- [~] git push origin work/v3-progress-20261127 failed: could not resolve host github.com. Source commit is local; no successful upload claimed. Retry pending once network resolution is available. Domain tests remain verified as above; this is a transport limitation, not schema/test failure. Next bounded reporting acceptance review; no retained DDL/deployment/live AI authorized.
+- [x] Initial git push failed because github.com could not resolve; one retry succeeded and pushed source429fb1e plus checkpoint0d78fd4 to origin/work/v3-progress-20261127. No transport workaround or remote configuration change. This documentation correction is part of the same upload unit. Next bounded reporting acceptance review; no retained DDL/deployment/live AI authorized.
 
 ## 2026-11-28 approved reporting index work verified
 

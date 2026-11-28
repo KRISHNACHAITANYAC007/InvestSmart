@@ -1,5 +1,10 @@
 # Approved work queue and resume checkpoint
 
+## 2026-11-28 C1 saved source checkpoint
+
+- [x] Verified C1 implementation/tests and synchronized7documents committed as1a36c9e and pushed to origin/work/v3-progress-20261127. Exact13staged blobs reviewed with0secret indicators; staged whitespace and documentation QA passed.90selected tests passed as recorded above. Main untouched; no deployment or live AI.
+- [~] Resume at C2 report-page impact assessment, using the approved immutable journal API; C1scope is complete, report screen/export and full-account totals remain unfinished. No user action or approval outside DEPLOYMENT_CHECKLIST.md. This documentation checkpoint belongs to the same upload unit; no further app test rerun needed for documentation only.
+
 ## 2026-11-28 C1 report API verified
 
 - [x] Implemented approved GET /reports/journal-period with principal-only ownership/active account, strict singleton from/to keys and whole-second UTC range, existing REPORT_JOURNAL10identity/30source/900s limiter before one reader call, explicit immutable/redacted external DTO and early scoped no-store filter. Financial read snapshot/calculations remain existing JournalPeriodService; normal authentication activity/security request-event writes are expected. No financial writer or schema change.
